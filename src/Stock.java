@@ -32,4 +32,12 @@ public class Stock {
     public boolean equals(Object obj) {
         return this.name.equals(((Stock)obj).getName());
     }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 }
