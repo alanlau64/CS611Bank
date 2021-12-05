@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Customer extends User{
     private ArrayList<CheckingAccount> checkings;
     private ArrayList<SavingAccount> savings;
+    private SecuritiesAccount securitiesAccount;
 
     public Customer(){}
 
@@ -26,5 +27,19 @@ public class Customer extends User{
 
     public void closeSavingAccount(Account account){
         savings.remove((SavingAccount) account);
+    }
+
+    public boolean openSecuritiesAccount(){
+        for(SavingAccount savingAccount: savings){
+            if(savingAccount.getBalanceWithCurrency(Currency.USD) > Constant.OPEN_SECURITIES_THRESHOLD){
+                this.securitiesAccount = new SecuritiesAccount();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void closeSecuritiesAccount(){
+        securitiesAccount = null;
     }
 }

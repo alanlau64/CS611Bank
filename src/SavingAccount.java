@@ -1,5 +1,17 @@
 public class SavingAccount extends Account{
     public SavingAccount(){
         super();
+        withdrawTransaction = new WithdrawWithTransactionFee(this);
+        depositTransaction = new DepositWithoutTransactionFee(this);
+        transferTransaction = new TransferWithoutTransactionFee(this);
+    }
+
+    public void getInterest(){
+        for(Currency currency: this.getBalance().keySet()){
+            if(this.getBalance().get(currency) > Constant.SAVING_INTEREST_THRESHOLD)
+                this.getBalance().put(currency, Constant.SAVING_INTEREST_THRESHOLD +
+                        (this.getBalance().get(currency) - Constant.SAVING_INTEREST_THRESHOLD)
+                                * (1 + Constant.SAVING_INTEREST));
+        }
     }
 }

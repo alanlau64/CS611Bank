@@ -3,38 +3,32 @@ import java.util.Map;
 public class Account {
     private int accountNum;
     private Map<Currency, Double> balance;
+    protected Withdraw withdrawTransaction;
+    protected Deposit depositTransaction;
+    protected Transfer transferTransaction;
 
     public Account(){
         accountNum = ++Constant.MAX_ACCOUNT_NUMBER;
     }
 
     public Double withDraw(Currency currency, double money){
-        if(balance.containsKey(currency) && balance.get(currency) >= money) {
-            balance.put(currency, balance.get(currency) - money);
-            return balance.get(currency);
-        }
-        else return -1.0;
+        return withdrawTransaction.withDraw(currency,money);
     }
 
     public Double deposit(Currency currency, double money){
-        if(balance.containsKey(currency))
-            balance.put(currency, balance.get(currency) + money);
-        else
-            balance.put(currency, + money);
-        return balance.get(currency);
+        return depositTransaction.deposit(currency,money);
     }
 
     public Double transfer(Account in, Currency currency, double money){
-        if(this.withDraw(currency,money) >= 0){
-            in.deposit(currency, money);
-            return getBalanceWithCurrency(currency);
-        }
-        else
-            return -1.0;
+        return transferTransaction.transfer(in,currency,money);
     }
 
     public Double getBalanceWithCurrency(Currency currency){
         return balance.get(currency);
+    }
+
+    public Map<Currency, Double> getBalance() {
+        return balance;
     }
 
     public int getAccountNum() {
