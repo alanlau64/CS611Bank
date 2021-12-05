@@ -7,6 +7,8 @@ public class TransferWithTransactionFee extends Transaction implements Transfer{
         super(account);
     }
 
+    // return the current balance of given currency
+    // return null means transaction fail because of there is not enough balance
     @Override
     public Double transfer(Account in, Currency currency, double money) {
         if(account.getBalance().containsKey(currency) && account.getBalance().get(currency) >= money
@@ -18,6 +20,6 @@ public class TransferWithTransactionFee extends Transaction implements Transfer{
                 in.getBalance().put(currency, money - Constant.TRANSACTION_FEE);
             return account.getBalance().get(currency);
         }
-        else return -1.0;
+        else return null;
     }
 }

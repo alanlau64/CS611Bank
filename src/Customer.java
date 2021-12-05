@@ -36,6 +36,7 @@ public class Customer extends User{
                 return true;
             }
         }
+        // if there is no saving account having balance more than threshold, open fail
         return false;
     }
 

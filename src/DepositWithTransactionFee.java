@@ -7,6 +7,7 @@ public class DepositWithTransactionFee extends Transaction implements Deposit{
         super(account);
     }
 
+    // return the current balance of given currency
     @Override
     public Double deposit(Currency currency, double money) {
         if(account.getBalance().containsKey(currency))

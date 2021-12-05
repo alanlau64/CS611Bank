@@ -6,6 +6,7 @@ public class SavingAccount extends Account{
         transferTransaction = new TransferWithoutTransactionFee(this);
     }
 
+    // get the interest when the account having balance more than threshold
     public void getInterest(){
         for(Currency currency: this.getBalance().keySet()){
             if(this.getBalance().get(currency) > Constant.SAVING_INTEREST_THRESHOLD)

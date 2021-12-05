@@ -21,6 +21,7 @@ public class SecuritiesAccount extends Account{
             else stocks.put(stock, amount);
             return true;
         }
+        // don't have enough money
         else return false;
     }
 
@@ -31,6 +32,7 @@ public class SecuritiesAccount extends Account{
                     + amount * stock.getPrice());
             return true;
         }
+        // don't have enough amount of stock to sell
         else return false;
     }
 }

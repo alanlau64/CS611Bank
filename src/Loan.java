@@ -1,3 +1,4 @@
+// TODO: connect the loan with customer
 public class Loan {
     private Currency currency;
     private Double amount;
