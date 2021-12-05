@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 
 public class Account {
@@ -9,6 +10,7 @@ public class Account {
 
     public Account(){
         accountNum = ++Constant.MAX_ACCOUNT_NUMBER;
+        balance = new HashMap<>();
     }
 
     public Double withDraw(Currency currency, double money){
