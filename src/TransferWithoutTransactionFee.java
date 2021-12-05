@@ -1,10 +1,10 @@
-public class TransferWithoutTransactionFee implements Transfer{
+public class TransferWithoutTransactionFee extends Transaction implements Transfer{
     private Account account;
 
     public TransferWithoutTransactionFee(){}
 
     public TransferWithoutTransactionFee(Account account){
-        this.account = account;
+        super(account);
     }
 
     @Override

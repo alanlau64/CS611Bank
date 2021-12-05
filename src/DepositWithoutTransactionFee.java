@@ -1,10 +1,10 @@
-public class DepositWithoutTransactionFee implements Deposit{
+public class DepositWithoutTransactionFee extends Transaction implements Deposit{
     private Account account;
 
     public DepositWithoutTransactionFee(){}
 
     public DepositWithoutTransactionFee(Account account){
-        this.account = account;
+        super(account);
     }
 
     @Override

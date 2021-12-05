@@ -1,10 +1,10 @@
-public class WithdrawWithTransactionFee implements Withdraw{
+public class WithdrawWithTransactionFee extends Transaction implements Withdraw{
     private Account account;
 
     public WithdrawWithTransactionFee(){}
 
     public WithdrawWithTransactionFee(Account account){
-        this.account = account;
+        super(account);
     }
 
     @Override

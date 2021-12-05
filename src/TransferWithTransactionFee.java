@@ -1,10 +1,10 @@
-public class TransferWithTransactionFee implements Transfer{
+public class TransferWithTransactionFee extends Transaction implements Transfer{
     private Account account;
 
     public TransferWithTransactionFee(){}
 
     public TransferWithTransactionFee(Account account){
-        this.account = account;
+        super(account);
     }
 
     @Override
