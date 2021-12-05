@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class BankManager extends User{
-    public BankManager(){}
+public class Manager extends User{
+    public Manager(){}
 
-    public BankManager(String name, String password){
+    public Manager(String name, String password){
         super(name,password);
     }
 

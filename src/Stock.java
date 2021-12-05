@@ -1,6 +1,7 @@
 public class Stock {
     private String name;
-    private Dollar price;
+    private static Currency currency = Currency.USD;
+    private int price;
 
     public Stock(){}
 
@@ -10,15 +11,17 @@ public class Stock {
 
     public Stock(String name, int price){
         this.name = name;
-        this.price = new Dollar(price);
+        this.price = price;
     }
 
     public int increase(int amount){
-        return this.price.add(amount);
+        this.price += amount;
+        return this.price;
     }
 
     public int decrease(int amount){
-        return this.price.subtract(amount);
+        this.price -= amount;
+        return this.price;
     }
 
     public String getName() {

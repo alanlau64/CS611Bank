@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
-public class Client extends User{
+public class Customer extends User{
     private ArrayList<CheckingAccount> checkings;
     private ArrayList<SavingAccount> savings;
 
-    public Client(){}
+    public Customer(){}
 
-    public Client(String name, String password){
+    public Customer(String name, String password){
         super(name,password);
         this.checkings = new ArrayList<>();
         this.savings = new ArrayList<>();
@@ -26,21 +26,5 @@ public class Client extends User{
 
     public void closeSavingAccount(Account account){
         savings.remove((SavingAccount) account);
-    }
-
-    public boolean withDraw(Account account, Currency money){
-        return account.withDraw(money);
-    }
-
-    public boolean deposit(Account account, Currency money){
-        return account.deposit(money);
-    }
-
-    public boolean transfer(Account out, Account in, Currency money){
-        if(out.withDraw(money)){
-            return false;
-        }
-        else in.deposit(money);
-        return true;
     }
 }
