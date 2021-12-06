@@ -8,16 +8,18 @@ public class Loan {
     private boolean isVerify;
     private int loanNum;
     private Date overdueTime;
+    private String userName;
 
     public Loan(){}
 
-    public Loan(Currency currency, Double amount, String mortgage, Date overdueTime){
+    public Loan(Currency currency, Double amount, String mortgage, Date overdueTime, String userName){
         this.currency = currency;
         this.amount = amount;
         this.mortgage = mortgage;
         this.isVerify = false;
         this.loanNum = ++Constant.MAX_LOAN_NUMBER;
         this.overdueTime = overdueTime;
+        this.userName = userName;
     }
 
     // pay the loan with given account and amount of money
@@ -40,6 +42,7 @@ public class Loan {
     }
 
     // check the loan whether is overdue or not, if yes, confiscate the mortgage
+    //TODO: add log
     public boolean checkOverDue(){
         return Constant.CURRENT_TIME.before(overdueTime);
     }

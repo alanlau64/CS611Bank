@@ -1,6 +1,8 @@
 public class SavingAccount extends Account{
-    public SavingAccount(){
-        super();
+    public SavingAccount(){}
+
+    public SavingAccount(String userName){
+        super(userName);
         withdrawTransaction = new WithdrawWithTransactionFee(this);
         depositTransaction = new DepositWithoutTransactionFee(this);
         transferTransaction = new TransferWithoutTransactionFee(this);

@@ -16,26 +16,31 @@ public class Customer extends User{
         this.loans = new ArrayList<>();
     }
 
+    //TODO: add log
     public void openCheckingAccount(){
-        checkings.add(new CheckingAccount());
+        checkings.add(new CheckingAccount(this.getUsername()));
     }
 
+    //TODO: add log
     public void openSavingAccount(){
-        savings.add(new SavingAccount());
+        savings.add(new SavingAccount(this.getUsername()));
     }
 
+    //TODO: add log
     public void closeCheckingAccount(Account account){
         checkings.remove((CheckingAccount) account);
     }
 
+    //TODO: add log
     public void closeSavingAccount(Account account){
         savings.remove((SavingAccount) account);
     }
 
+    //TODO: add log
     public boolean openSecuritiesAccount(){
         for(SavingAccount savingAccount: savings){
             if(savingAccount.getBalanceWithCurrency(Currency.USD) > Constant.OPEN_SECURITIES_THRESHOLD){
-                this.securitiesAccount = new SecuritiesAccount();
+                this.securitiesAccount = new SecuritiesAccount(this.getUsername());
                 return true;
             }
         }
@@ -43,21 +48,25 @@ public class Customer extends User{
         return false;
     }
 
+    //TODO: add log
     public void closeSecuritiesAccount(){
         securitiesAccount = null;
     }
 
+    //TODO: add log
     public Loan requestLoan(Currency currency, Double amount, String mortgage, Date overdueTime){
-        Loan newLoan = new Loan(currency, amount, mortgage, overdueTime);
+        Loan newLoan = new Loan(currency, amount, mortgage, overdueTime, this.getUsername());
         loans.add(newLoan);
         return newLoan;
     }
 
     //when the loan is verified by manager, the customer could get the money
+    //TODO: add log
     public void createLoan(Account account, Loan loan){
         account.deposit(loan.getCurrency(),loan.getAmount());
     }
 
+    //TODO: add log
     public Double payBackLoan(Account account, Double amount, Loan loan){
         if(loan.getIsVerify()) {
             Double leftAmount = loan.payBack(account, amount);

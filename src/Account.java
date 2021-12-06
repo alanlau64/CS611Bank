@@ -8,25 +8,32 @@ public class Account {
     protected Withdraw withdrawTransaction;
     protected Deposit depositTransaction;
     protected Transfer transferTransaction;
+    private String userName;
 
-    public Account(){
+    public Account(){}
+
+    public Account(String userName){
         accountNum = ++Constant.MAX_ACCOUNT_NUMBER;
         balance = new HashMap<>();
+        this.userName = userName;
     }
 
     // return the current balance of given currency
     // return null means transaction fail because of there is not enough balance
+    //TODO: add log
     public Double withDraw(Currency currency, double money){
         return withdrawTransaction.withDraw(currency,money);
     }
 
     // return the current balance of given currency
+    //TODO: add log
     public Double deposit(Currency currency, double money){
         return depositTransaction.deposit(currency,money);
     }
 
     // return the current balance of given currency
     // return null means transaction fail because of there is not enough balance
+    //TODO: add log
     public Double transfer(Account in, Currency currency, double money){
         return transferTransaction.transfer(in,currency,money);
     }
