@@ -42,4 +42,9 @@ public class Account {
     public int getAccountNum() {
         return accountNum;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.accountNum == ((Account) obj).getAccountNum();
+    }
 }

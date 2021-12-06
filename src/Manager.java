@@ -34,4 +34,8 @@ public class Manager extends User{
         }
         else return false;
     }
+
+    public void verifyLoan(Loan loan, boolean isVerify){
+        loan.setVerify(true);
+    }
 }
