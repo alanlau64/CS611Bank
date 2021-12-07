@@ -80,4 +80,20 @@ public class Customer extends User{
         //if the loan is not verified by manager, return null
         else return null;
     }
+
+    public ArrayList<CheckingAccount> getCheckings() {
+        return checkings;
+    }
+
+    public ArrayList<SavingAccount> getSavings() {
+        return savings;
+    }
+
+    public ArrayList<Loan> getLoans() {
+        return loans;
+    }
+
+    public SecuritiesAccount getSecuritiesAccount() {
+        return securitiesAccount;
+    }
 }

@@ -39,4 +39,8 @@ public class SecuritiesAccount extends Account{
         // don't have enough amount of stock to sell
         else return false;
     }
+
+    public Map<Stock, Integer> getStocks() {
+        return stocks;
+    }
 }
