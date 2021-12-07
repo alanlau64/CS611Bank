@@ -1,6 +1,14 @@
 import java.util.ArrayList;
 
 public class Customer extends User{
+    public ArrayList<CheckingAccount> getCheckings() {
+        return checkings;
+    }
+
+    public ArrayList<SavingAccount> getSavings() {
+        return savings;
+    }
+
     private ArrayList<CheckingAccount> checkings;
     private ArrayList<SavingAccount> savings;
     private SecuritiesAccount securitiesAccount;
@@ -42,5 +50,25 @@ public class Customer extends User{
 
     public void closeSecuritiesAccount(){
         securitiesAccount = null;
+    }
+
+    public ArrayList<Integer> getCheckingAccountNums() {
+        ArrayList<Integer> checkingAccountNums = new ArrayList<>();
+
+        for(Account account : checkings) {
+            checkingAccountNums.add(account.getAccountNum());
+        }
+
+        return checkingAccountNums;
+    }
+
+    public ArrayList<Integer> getSavingAccountNums() {
+        ArrayList<Integer> savingAccountNums = new ArrayList<>();
+
+        for(Account account : savings) {
+            savingAccountNums.add(account.getAccountNum());
+        }
+
+        return savingAccountNums;
     }
 }
