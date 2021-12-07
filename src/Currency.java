@@ -1,28 +1,20 @@
-public class Currency {
-    private String name;
-    private int amount;
-
-    public Currency(){}
-
-    public Currency(String name){
-        this(name,0);
-    }
-
-    public Currency(String name, int amount){
-        this.name = name;
-        this.amount = amount;
-    }
-
-    public int add(int amount){
-        this.amount+=amount;
-        return this.amount;
-    }
-
-    public int subtract(int amount){
-        if(this.amount>=amount){
-            this.amount-=amount;
-            return this.amount;
+public enum Currency {
+    USD{
+        @Override
+        public String toString() {
+            return "\u0024";
         }
-        else return -1;
+    },
+    CNY{
+        @Override
+        public String toString() {
+            return "\u00A5";
+        }
+    },
+    INR{
+        @Override
+        public String toString() {
+            return "\u20B9";
+        }
     }
 }

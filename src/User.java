@@ -13,4 +13,13 @@ public class User {
     public String toString() {
         return "Username: " + username + "\nPassword: " + password;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.username.equals(((User)obj).getUsername());
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }
