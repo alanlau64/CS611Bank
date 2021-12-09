@@ -1,3 +1,3 @@
 public interface Withdraw {
-    public Double withDraw(Currency currency, double money);
+    public Double withDraw(Account myAccount, Currency currency, double money);
 }

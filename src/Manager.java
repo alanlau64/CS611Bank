@@ -7,14 +7,17 @@ public class Manager extends User{
         super(name,password);
     }
 
+    //TODO: add log
     public int increaseStockPrice(Stock stock, int amount){
         return stock.increase(amount);
     }
 
+    //TODO: add log
     public int decreaseStockPrice(Stock stock, int amount){
         return stock.decrease(amount);
     }
 
+    //TODO: add log
     public boolean createStock(ArrayList<Stock> stocks, String name, int initPrice){
         Stock newStock = new Stock(name, initPrice);
         if(stocks.contains(newStock)){
@@ -26,6 +29,7 @@ public class Manager extends User{
         }
     }
 
+    //TODO: add log
     public boolean deleteStock(ArrayList<Stock> stocks, String name){
         Stock newStock = new Stock(name);
         if(stocks.contains(newStock)){
@@ -33,5 +37,10 @@ public class Manager extends User{
             return true;
         }
         else return false;
+    }
+
+    //TODO: add log
+    public void verifyLoan(Loan loan, boolean isVerify){
+        loan.setVerify(true);
     }
 }

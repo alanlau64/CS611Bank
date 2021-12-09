@@ -4,14 +4,17 @@ import java.util.Map;
 public class SecuritiesAccount extends Account{
     private Map<Stock, Integer> stocks;
 
-    public SecuritiesAccount(){
-        super();
-        withdrawTransaction = new WithdrawWithTransactionFee(this);
-        depositTransaction = new DepositWithoutTransactionFee(this);
-        transferTransaction = new TransferWithoutTransactionFee(this);
+    public SecuritiesAccount(){}
+
+    public SecuritiesAccount(String userName){
+        super(userName);
+        withdrawTransaction = new WithdrawWithTransactionFee();
+        depositTransaction = new DepositWithoutTransactionFee();
+        transferTransaction = new TransferWithoutTransactionFee();
         stocks = new HashMap<>();
     }
 
+    //TODO: add log
     public boolean buyStock(Stock stock, int amount){
         if(this.getBalance().get(stock.getCurrency()) >= amount * stock.getPrice()){
             this.getBalance().put(stock.getCurrency(), this.getBalance().get(stock.getCurrency())
@@ -25,6 +28,7 @@ public class SecuritiesAccount extends Account{
         else return false;
     }
 
+    //TODO: add log
     public boolean sellStock(Stock stock, int amount){
         if(stocks.containsKey(stock) && stocks.get(stock) >= amount){
             stocks.put(stock, stocks.get(stock) - amount);
@@ -34,5 +38,9 @@ public class SecuritiesAccount extends Account{
         }
         // don't have enough amount of stock to sell
         else return false;
+    }
+
+    public Map<Stock, Integer> getStocks() {
+        return stocks;
     }
 }
