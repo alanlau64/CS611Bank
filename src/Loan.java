@@ -42,7 +42,6 @@ public class Loan {
     }
 
     // check the loan whether is overdue or not, if yes, confiscate the mortgage
-    //TODO: add log
     public boolean checkOverDue(){
         return Constant.CURRENT_TIME.before(overdueTime);
     }

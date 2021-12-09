@@ -84,6 +84,12 @@ public class Customer extends User{
         else return null;
     }
 
+    //TODO: log confiscate the mortgage
+    public void checkLoanOverdue(Loan loan){
+        if(loan.checkOverDue())
+            loans.remove(loan);
+    }
+
     public ArrayList<CheckingAccount> getCheckings() {
         return checkings;
     }
