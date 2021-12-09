@@ -1,5 +1,5 @@
 public class DepositWithTransactionFee extends Transaction implements Deposit{
-public DepositWithTransactionFee(){}
+    public DepositWithTransactionFee(){}
 
     public DepositWithTransactionFee(Account account){
         super(account);

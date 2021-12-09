@@ -1,5 +1,5 @@
 public class TransferWithoutTransactionFee extends Transaction implements Transfer{
-public TransferWithoutTransactionFee(){}
+    public TransferWithoutTransactionFee(){}
 
     public TransferWithoutTransactionFee(Account account){
         super(account);
