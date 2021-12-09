@@ -1,5 +1,5 @@
 public class Transaction {
-    private Account account;
+    protected Account account;
 
     public Transaction(){}
 

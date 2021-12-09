@@ -1,7 +1,5 @@
 public class TransferWithTransactionFee extends Transaction implements Transfer{
-    private Account account;
-
-    public TransferWithTransactionFee(){}
+public TransferWithTransactionFee(){}
 
     public TransferWithTransactionFee(Account account){
         super(account);

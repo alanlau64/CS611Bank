@@ -1,6 +1,4 @@
 public class DepositWithoutTransactionFee extends Transaction implements Deposit{
-    private Account account;
-
     public DepositWithoutTransactionFee(){}
 
     public DepositWithoutTransactionFee(Account account){

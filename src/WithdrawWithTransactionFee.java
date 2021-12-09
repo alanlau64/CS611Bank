@@ -1,7 +1,5 @@
 public class WithdrawWithTransactionFee extends Transaction implements Withdraw{
-    private Account account;
-
-    public WithdrawWithTransactionFee(){}
+public WithdrawWithTransactionFee(){}
 
     public WithdrawWithTransactionFee(Account account){
         super(account);
