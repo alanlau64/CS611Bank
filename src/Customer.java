@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Customer extends User{
+
+
     private ArrayList<CheckingAccount> checkings;
     private ArrayList<SavingAccount> savings;
     private ArrayList<Loan> loans;

@@ -45,7 +45,7 @@ public class CreateAccountPage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == create) {
-            User user = new Customer(usernameField.getText(), Arrays.toString(passwordField.getPassword()));
+            User user = new User(usernameField.getText(), Arrays.toString(passwordField.getPassword()));
             LoginPage frame = new LoginPage();
             frame.setTitle("Login Form");
             frame.setVisible(true);
