@@ -30,11 +30,14 @@ public class Main {
         }
          ***/
         Customer customer = new Customer("Duruvan", "pass");
+        Loan loan = new Loan(Currency.CNY, 100000.0, new Account());
 
 
-        CustomerHomePage frame = new CustomerHomePage(customer);
+        //CustomerHomePage frame = new CustomerHomePage(customer);
         //OpenAccountPage frame = new OpenAccountPage(customer);
         //ManagerHomePage frame = new ManagerHomePage(new Manager());
+        //LoanPage frame = new LoanPage(customer);
+        SingleLoanView frame = new SingleLoanView(customer, loan);
         frame.setTitle("Login Form");
         frame.setVisible(true);
         frame.setBounds(10, 10, 370, 700);
