@@ -1,3 +1,3 @@
 public interface Deposit {
-    public Double deposit(Currency currency, double money);
+    public Double deposit(Account myAccount, Currency currency, double money);
 }

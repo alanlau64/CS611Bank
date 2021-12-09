@@ -1,17 +1,13 @@
-public class DepositWithoutTransactionFee extends Transaction implements Deposit{
+public class DepositWithoutTransactionFee extends TransactionsMayChargeFee implements Deposit{
     public DepositWithoutTransactionFee(){}
-
-    public DepositWithoutTransactionFee(Account account){
-        super(account);
-    }
 
     // return the current balance of given currency
     @Override
-    public Double deposit(Currency currency, double money) {
-        if(account.getBalance().containsKey(currency))
-            account.getBalance().put(currency, account.getBalance().get(currency) + money);
+    public Double deposit(Account myAccount, Currency currency, double money) {
+        if(myAccount.getBalance().containsKey(currency))
+            myAccount.getBalance().put(currency, myAccount.getBalance().get(currency) + money);
         else
-            account.getBalance().put(currency, money);
-        return account.getBalance().get(currency);
+            myAccount.getBalance().put(currency, money);
+        return myAccount.getBalance().get(currency);
     }
 }

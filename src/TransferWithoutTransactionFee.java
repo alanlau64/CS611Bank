@@ -1,21 +1,17 @@
-public class TransferWithoutTransactionFee extends Transaction implements Transfer{
+public class TransferWithoutTransactionFee extends TransactionsMayChargeFee implements Transfer{
     public TransferWithoutTransactionFee(){}
-
-    public TransferWithoutTransactionFee(Account account){
-        super(account);
-    }
 
     // return the current balance of given currency
     // return null means transaction fail because of there is not enough balance
     @Override
-    public Double transfer(Account in, Currency currency, double money) {
-        if(account.getBalance().containsKey(currency) && account.getBalance().get(currency) >= money) {
-            account.getBalance().put(currency, account.getBalance().get(currency) - money);
+    public Double transfer(Account myAccount, Account in, Currency currency, double money) {
+        if(myAccount.getBalance().containsKey(currency) && myAccount.getBalance().get(currency) >= money) {
+            myAccount.getBalance().put(currency, myAccount.getBalance().get(currency) - money);
             if(in.getBalance().containsKey(currency))
-                in.getBalance().put(currency, account.getBalance().get(currency) + money);
+                in.getBalance().put(currency, myAccount.getBalance().get(currency) + money);
             else
                 in.getBalance().put(currency, money);
-            return account.getBalance().get(currency);
+            return myAccount.getBalance().get(currency);
         }
         else return null;
     }

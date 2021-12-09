@@ -3,9 +3,9 @@ public class SavingAccount extends Account{
 
     public SavingAccount(String userName){
         super(userName);
-        withdrawTransaction = new WithdrawWithTransactionFee(this);
-        depositTransaction = new DepositWithoutTransactionFee(this);
-        transferTransaction = new TransferWithoutTransactionFee(this);
+        withdrawTransaction = new WithdrawWithTransactionFee();
+        depositTransaction = new DepositWithoutTransactionFee();
+        transferTransaction = new TransferWithoutTransactionFee();
     }
 
     // get the interest when the account having balance more than threshold

@@ -3,8 +3,8 @@ public class CheckingAccount extends Account{
 
     public CheckingAccount(String userName){
         super(userName);
-        withdrawTransaction = new WithdrawWithTransactionFee(this);
-        depositTransaction = new DepositWithTransactionFee(this);
-        transferTransaction = new TransferWithTransactionFee(this);
+        withdrawTransaction = new WithdrawWithTransactionFee();
+        depositTransaction = new DepositWithTransactionFee();
+        transferTransaction = new TransferWithTransactionFee();
     }
 }
