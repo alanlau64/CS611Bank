@@ -113,11 +113,11 @@ public class Customer extends User{
     public ArrayList<Integer> getSavingAccountNums() {
         ArrayList<Integer> savingAccountNums = new ArrayList<>();
 
-        for(Account account : savings) {
+        for (Account account : savings) {
             savingAccountNums.add(account.getAccountNum());
         }
 
         return savingAccountNums;
-    }
 
+    }
 }

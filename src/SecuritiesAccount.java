@@ -8,9 +8,9 @@ public class SecuritiesAccount extends Account{
 
     public SecuritiesAccount(String userName){
         super(userName);
-        withdrawTransaction = new WithdrawWithTransactionFee(this);
-        depositTransaction = new DepositWithoutTransactionFee(this);
-        transferTransaction = new TransferWithoutTransactionFee(this);
+        withdrawTransaction = new WithdrawWithTransactionFee();
+        depositTransaction = new DepositWithoutTransactionFee();
+        transferTransaction = new TransferWithoutTransactionFee();
         stocks = new HashMap<>();
     }
 
