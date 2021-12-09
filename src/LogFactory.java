@@ -1,10 +1,17 @@
+import java.util.Locale;
+
 public class LogFactory {
     public Log getLog (String logType) {
-        if (logType == null)
-            return null;
-        else if (logType.equalsIgnoreCase("user"))
-            return new UserLog();
-
-        return null;
+        switch (logType.toLowerCase()) {
+            case "customer" -> {
+                return new CustomerLog();
+            }
+            case "manager" -> {
+                return new ManagerLog();
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 }
