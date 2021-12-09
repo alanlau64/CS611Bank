@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 public class Customer extends User{
@@ -98,4 +99,25 @@ public class Customer extends User{
     public SecuritiesAccount getSecuritiesAccount() {
         return securitiesAccount;
     }
+
+    public ArrayList<Integer> getCheckingAccountNums() {
+        ArrayList<Integer> checkingAccountNums = new ArrayList<>();
+
+        for(Account account : checkings) {
+            checkingAccountNums.add(account.getAccountNum());
+        }
+
+        return checkingAccountNums;
+    }
+
+    public ArrayList<Integer> getSavingAccountNums() {
+        ArrayList<Integer> savingAccountNums = new ArrayList<>();
+
+        for(Account account : savings) {
+            savingAccountNums.add(account.getAccountNum());
+        }
+
+        return savingAccountNums;
+    }
+
 }

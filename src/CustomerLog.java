@@ -16,11 +16,11 @@ public class CustomerLog implements Log {
     }
 
     @Override
-    public void createLog (ArrayList managers) {
+    public void createLog (ArrayList customers) {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         Type type = new TypeToken<ArrayList<Manager>>(){}.getType();
-        this.content = gson.toJson(managers, type);
+        this.content = gson.toJson(customers, type);
         try {
             this.logFile.createNewFile();
             FileWriter writer = new FileWriter(logFile);

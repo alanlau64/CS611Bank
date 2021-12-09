@@ -1,19 +1,16 @@
 public enum Currency {
     USD{
-        @Override
-        public String toString() {
+        public String display() {
             return "\u0024";
         }
     },
     CNY{
-        @Override
-        public String toString() {
+        public String display() {
             return "\u00A5";
         }
     },
     INR{
-        @Override
-        public String toString() {
+        public String display() {
             return "\u20B9";
         }
     }
