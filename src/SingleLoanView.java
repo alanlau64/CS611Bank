@@ -24,13 +24,17 @@ public class SingleLoanView extends JFrame implements ActionListener {
     private JComboBox<Integer> savingsAccounts;
 
     private Customer customer;
+    private CustomerController customerController;
     private Loan loan;
+    private LoanController loanController;
 
     public SingleLoanView(Customer customer, Loan loan) {
         container = getContentPane();
 
         this.customer = customer;
+        this.customerController = new CustomerController(customer);
         this.loan = loan;
+        this.loanController = new LoanController(loan);
 
         header = new JLabel("Loan Information");
         currency = new JLabel("Currency: " + loan.getCurrency());
@@ -49,8 +53,8 @@ public class SingleLoanView extends JFrame implements ActionListener {
         pay = new JButton("Pay Loan");
         pay1 = new JButton("Pay Loan");
 
-        checkingAccounts = new JComboBox<Integer>(customer.getCheckingAccountNums().toArray(Integer[]::new));
-        savingsAccounts = new JComboBox<Integer>(customer.getSavingAccountNums().toArray(Integer[]::new));
+        checkingAccounts = new JComboBox<Integer>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
+        savingsAccounts = new JComboBox<Integer>(customerController.getSavingAccountNums().toArray(Integer[]::new));
     }
 
     public void showPage() {
@@ -112,7 +116,7 @@ public class SingleLoanView extends JFrame implements ActionListener {
                 this.setVisible(true);
             }
 
-            Double val = customer.payBackLoan(account, Double.parseDouble(payAmount.getText()), loan);
+            Double val = customerController.payBackLoan(account, Double.parseDouble(payAmount.getText()), loan);
 
             if(val == null) {
                 JOptionPane.showMessageDialog(this, "Loan may not be verified or not enough balace. Please check your balance or contact the manager to verify the loan.");

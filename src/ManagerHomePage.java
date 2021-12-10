@@ -18,6 +18,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
     private JButton logout;
     private JButton viewStockPage;
     private JButton viewLoans;
+    private JButton nextDay;
 
     public ManagerHomePage(Manager manager) {
         this.manager = manager;
@@ -29,6 +30,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         numAccounts = new JLabel("Total number of accounts: ");
         totalLoansToVerify = new JLabel("Loans to verify: ");
 
+        nextDay = new JButton("Next day");
         dailyReport = new JButton("Create daily report");
         viewStockPage = new JButton("View stocks");
         logout = new JButton("Logout");
@@ -46,7 +48,9 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         viewStockPage.setBounds(50, 350, 150, 30);
         viewLoans.setBounds(50, 400, 150, 30);
         logout.setBounds(50, 500, 150, 30);
+        nextDay.setBounds(210, 0, 150, 30);
 
+        container.add(nextDay);
         container.add(bankStatistics);
         container.add(numCustomers);
         container.add(numAccounts);
@@ -56,6 +60,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         container.add(logout);
         container.add(viewLoans);
 
+        nextDay.addActionListener(this);
         dailyReport.addActionListener(this);
         viewStockPage.addActionListener(this);
         logout.addActionListener(this);
@@ -94,6 +99,8 @@ public class ManagerHomePage extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
+        } else if (e.getSource() == nextDay) {
+            BankSystem.nextDay();
         }
     }
 }

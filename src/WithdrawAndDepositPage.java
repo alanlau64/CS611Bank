@@ -11,6 +11,7 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
 
     private Customer customer;
     private Account account;
+    private AccountController accountController;
 
     private JRadioButton withdraw;
     private JRadioButton deposit;
@@ -28,6 +29,7 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
 
     public WithdrawAndDepositPage(Account account, Customer customer) {
         this.account = account;
+        this.accountController = new AccountController(account);
         this.customer = customer;
 
         container = getContentPane();
@@ -101,7 +103,7 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
             }
 
             if(withdraw.isSelected()) {
-                Double amount = account.withDraw(currency, Double.parseDouble(enterAmount.getText()));
+                Double amount = accountController.withDraw(currency, Double.parseDouble(enterAmount.getText()));
 
                 if(amount == null) {
                     JOptionPane.showMessageDialog(this,"Withdrawal failed. Check account balance or selected currency.");
@@ -109,7 +111,7 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Withdrawal successful. Current account balace: " + amount);
                 }
             } else if (deposit.isSelected()) {
-                Double amount =  account.deposit(currency, Double.parseDouble(enterAmount.getText()));
+                Double amount =  accountController.deposit(currency, Double.parseDouble(enterAmount.getText()));
 
                 if(amount == null) {
                     JOptionPane.showMessageDialog(this,"Deposit failed");
