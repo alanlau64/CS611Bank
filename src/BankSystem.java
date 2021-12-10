@@ -10,6 +10,7 @@ public class BankSystem {
     private static LogFactory logFactory = new LogFactory();
     private static ArrayList<Stock> stocks = new ArrayList<>();
 
+
     public BankSystem(){}
 
     public void init(){
@@ -46,10 +47,10 @@ public class BankSystem {
         for(Customer customer: customers){
             for(Loan loan : customer.getLoans())
                 //check whether the loan is overdue or not
-                customer.checkLoanOverdue(loan);
+                new CustomerController(customer).checkLoanOverdue(loan);
             for(SavingAccount savingAccount: customer.getSavings())
                 //get the interest for saving account
-                savingAccount.getInterest();
+                new SavingAccountController(savingAccount).getInterest();
         }
     }
 
