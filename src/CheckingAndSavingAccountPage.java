@@ -18,6 +18,7 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
 
     private JButton depositAndWithdraw;
     private JButton back;
+    private JButton transfer;
 
     public CheckingAndSavingAccountPage(Account account, Customer customer) {
         container = getContentPane();
@@ -33,6 +34,7 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
 
         depositAndWithdraw = new JButton("Deposit/Withdraw Money");
         back = new JButton("Back");
+        transfer = new JButton("Transfer Money");
     }
 
     public void showPage() {
@@ -43,7 +45,8 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
         cnyAmount.setBounds(50, 150, 150, 30);
         inrAmount.setBounds(50, 200, 150, 30);
         depositAndWithdraw.setBounds(50, 250, 150, 30);
-        back.setBounds(50, 300, 150, 30);
+        transfer.setBounds(50, 300, 150, 30);
+        back.setBounds(50, 350, 150, 30);
 
         container.add(accountNum);
         container.add(usdAmount);
@@ -51,9 +54,11 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
         container.add(inrAmount);
         container.add(depositAndWithdraw);
         container.add(back);
+        container.add(transfer);
 
         depositAndWithdraw.addActionListener(this);
         back.addActionListener(this);
+        transfer.addActionListener(this);
     }
 
     @Override
@@ -71,6 +76,16 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
         } else if(e.getSource() == back) {
             CustomerHomePage frame = new CustomerHomePage(customer);
             frame.setTitle("Customer home page");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        } else if (e.getSource() == transfer) {
+            TrasnferView frame = new TrasnferView(account, customer);
+            frame.setTitle("Transfer money");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

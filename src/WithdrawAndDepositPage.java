@@ -121,7 +121,7 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
             }
         } else if (e.getSource() == back) {
             CheckingAndSavingAccountPage frame = new CheckingAndSavingAccountPage(account, customer);
-            frame.setTitle("Customer home page");
+            frame.setTitle("Account details");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

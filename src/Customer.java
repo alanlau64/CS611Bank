@@ -10,6 +10,7 @@ public class Customer extends User{
     private ArrayList<Loan> loans;
     private SecuritiesAccount securitiesAccount;
 
+
     public Customer(){}
 
     public Customer(String name, String password){
