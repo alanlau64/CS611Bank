@@ -97,4 +97,12 @@ public class BankSystem {
     public static void removeStock (Stock e) {
         stocks.remove(e);
     }
+    public static ArrayList<Stock> getAvailableStocks() {
+        Stock stock = new Stock("MSF", 300);
+        stocks.add(stock);
+        return stocks;
+    }
+    public static ArrayList<Loan> getLoansWaitToVerify() {
+        return loansWaitToVerify;
+    }
 }

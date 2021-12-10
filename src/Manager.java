@@ -2,13 +2,12 @@ import java.util.ArrayList;
 
 public class Manager extends User{
     private StockController stockController;
-    public Manager(){
-        stockController = new StockController();
-    }
+    public Manager(){ }
 
     public Manager(String name, String password){
         super(name,password);
         BankSystem.addManager(this);
+        stockController = new StockController();
     }
 
     //TODO: add log

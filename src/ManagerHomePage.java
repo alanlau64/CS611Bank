@@ -12,11 +12,12 @@ public class ManagerHomePage extends JFrame implements ActionListener {
     private JLabel bankStatistics;
     private JLabel numCustomers;
     private JLabel numAccounts;
-    private JLabel totalMoneyInBank;
+    private JLabel totalLoansToVerify;
 
     private JButton dailyReport;
     private JButton logout;
     private JButton viewStockPage;
+    private JButton viewLoans;
 
     public ManagerHomePage(Manager manager) {
         this.manager = manager;
@@ -26,35 +27,39 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         bankStatistics = new JLabel("Bank Statistics");
         numCustomers = new JLabel("Total number of customers: ");
         numAccounts = new JLabel("Total number of accounts: ");
-        totalMoneyInBank = new JLabel("Total money in bank: ");
+        totalLoansToVerify = new JLabel("Loans to verify: ");
 
         dailyReport = new JButton("Create daily report");
         viewStockPage = new JButton("View stocks");
         logout = new JButton("Logout");
+        viewLoans = new JButton("View loans");
     }
 
     public void showPage() {
         container.setLayout(null);
 
-        bankStatistics.setBounds(50, 100, 100, 100);
-        numCustomers.setBounds(50, 210, 200, 30);
-        numAccounts.setBounds(50, 260, 200, 30);
-        totalMoneyInBank.setBounds(50, 310, 150, 30);
-        dailyReport.setBounds(50, 360, 150, 30);
-        viewStockPage.setBounds(50, 410, 150, 30);
-        logout.setBounds(50, 460, 150, 30);
+        bankStatistics.setBounds(50, 100, 100, 30);
+        numCustomers.setBounds(50, 150, 200, 30);
+        numAccounts.setBounds(50, 200, 200, 30);
+        totalLoansToVerify.setBounds(50, 250, 150, 30);
+        dailyReport.setBounds(50, 300, 150, 30);
+        viewStockPage.setBounds(50, 350, 150, 30);
+        viewLoans.setBounds(50, 400, 150, 30);
+        logout.setBounds(50, 500, 150, 30);
 
         container.add(bankStatistics);
         container.add(numCustomers);
         container.add(numAccounts);
-        container.add(totalMoneyInBank);
+        container.add(totalLoansToVerify);
         container.add(dailyReport);
         container.add(viewStockPage);
         container.add(logout);
+        container.add(viewLoans);
 
         dailyReport.addActionListener(this);
         viewStockPage.addActionListener(this);
         logout.addActionListener(this);
+        viewLoans.addActionListener(this);
     }
 
     @Override
@@ -62,6 +67,26 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         if(e.getSource() == logout) {
             LoginPage frame = new LoginPage();
             frame.setTitle("Login Page");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        } else if (e.getSource() == viewStockPage) {
+            ManagerStockView frame = new ManagerStockView(manager);
+            frame.setTitle("Manager Stock View");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        } else if (e.getSource() == viewLoans) {
+            VerifyLoanView frame = new VerifyLoanView(manager);
+            frame.setTitle("Loans");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
