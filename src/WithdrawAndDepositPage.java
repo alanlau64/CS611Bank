@@ -1,7 +1,9 @@
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 public class WithdrawAndDepositPage extends JFrame implements ActionListener {
 
@@ -19,7 +21,7 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
     private JRadioButton inr;
     private ButtonGroup group2;
 
-    private JTextField enterAmount;
+    private JFormattedTextField enterAmount;
 
     private JButton select;
     private JButton back;
@@ -44,7 +46,14 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
         group2.add(cny);
         group2.add(inr);
 
-        enterAmount = new JTextField("Enter Amount: ");
+        NumberFormat format = NumberFormat.getIntegerInstance();
+        format.setGroupingUsed(false);
+
+        NumberFormatter numberFormatter = new NumberFormatter(format);
+        numberFormatter.setValueClass(Double.class);
+        numberFormatter.setAllowsInvalid(false);
+
+        enterAmount = new JFormattedTextField(numberFormatter);
 
         select = new JButton("Select");
         back = new JButton("Return");
@@ -92,15 +101,15 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
             }
 
             if(withdraw.isSelected()) {
-                Double amount = account.withDraw(currency, Integer.parseInt(enterAmount.getText()));
+                Double amount = account.withDraw(currency, Double.parseDouble(enterAmount.getText()));
 
                 if(amount == null) {
-                    JOptionPane.showMessageDialog(this,"Withdrawal failed. Check account balance.");
+                    JOptionPane.showMessageDialog(this,"Withdrawal failed. Check account balance or selected currency.");
                 } else {
                     JOptionPane.showMessageDialog(this, "Withdrawal successful. Current account balace: " + amount);
                 }
             } else if (deposit.isSelected()) {
-                Double amount =  account.deposit(currency, Integer.parseInt(enterAmount.getText()));
+                Double amount =  account.deposit(currency, Double.parseDouble(enterAmount.getText()));
 
                 if(amount == null) {
                     JOptionPane.showMessageDialog(this,"Deposit failed");

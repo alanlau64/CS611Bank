@@ -126,4 +126,14 @@ public class Customer extends User{
         return savingAccountNums;
 
     }
+
+    public ArrayList<Integer> getLoansNums() {
+        ArrayList<Integer> loanNums = new ArrayList<>();
+
+        for(Loan loan: loans) {
+            loanNums.add(loan.getLoanNum());
+        }
+
+        return loanNums;
+     }
 }

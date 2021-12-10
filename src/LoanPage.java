@@ -24,7 +24,7 @@ public class LoanPage extends JFrame implements ActionListener {
         selectLoan = new JButton("View loan");
         back = new JButton("Back");
 
-        loans = new JComboBox<Integer>();
+        loans = new JComboBox<Integer>(customer.getLoansNums().toArray(Integer[]::new));
     }
 
     public void showPage() {
@@ -52,8 +52,8 @@ public class LoanPage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == openLoan) {
-            OpenAccountPage frame = new OpenAccountPage(customer);
-            frame.setTitle("Open new account");
+            OpenLoanView frame = new OpenLoanView(customer);
+            frame.setTitle("Take a loan");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,8 +61,26 @@ public class LoanPage extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
-        } else {
+        } else if (e.getSource() == selectLoan){
+            SingleLoanView frame = new SingleLoanView(customer, customer.getLoans().get(loans.getSelectedIndex()));
+            frame.setTitle("View Loan");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
 
+            dispose();
+            frame.showPage();
+        } else if (e.getSource() ==  back) {
+            CustomerHomePage frame = new CustomerHomePage(customer);
+            frame.setTitle("Customer home page");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
         }
     }
 }

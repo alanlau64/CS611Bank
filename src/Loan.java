@@ -25,7 +25,7 @@ public class Loan {
     // pay the loan with given account and amount of money
     public Double payBack(Account account, Double amount){
         Double actualPayBack = Math.min(amount, this.amount);
-        if(actualPayBack > account.getBalance().get(currency))
+         if(actualPayBack > account.getBalance().get(currency))
             return null;
         else {
             account.getBalance().put(currency, account.getBalance().get(currency) - actualPayBack);

@@ -17,7 +17,11 @@ public class SingleLoanView extends JFrame implements ActionListener {
 
     private JTextField payAmount;
     private JButton pay;
+    private JButton pay1;
     private JButton back;
+
+    private JComboBox<Integer> checkingAccounts;
+    private JComboBox<Integer> savingsAccounts;
 
     private Customer customer;
     private Loan loan;
@@ -43,6 +47,10 @@ public class SingleLoanView extends JFrame implements ActionListener {
         payAmount = new JFormattedTextField(numberFormatter);
 
         pay = new JButton("Pay Loan");
+        pay1 = new JButton("Pay Loan");
+
+        checkingAccounts = new JComboBox<Integer>(customer.getCheckingAccountNums().toArray(Integer[]::new));
+        savingsAccounts = new JComboBox<Integer>(customer.getSavingAccountNums().toArray(Integer[]::new));
     }
 
     public void showPage() {
@@ -54,8 +62,12 @@ public class SingleLoanView extends JFrame implements ActionListener {
         interest.setBounds(50, 250, 150, 50);
 
         payAmount.setBounds(50, 350, 150, 30);
-        pay.setBounds(50, 400, 150, 30);
-        back.setBounds(50, 500, 100, 30);
+        checkingAccounts.setBounds(50, 400, 150, 30);
+        pay.setBounds(50, 450, 150, 30);
+
+        savingsAccounts.setBounds(50, 500, 150, 30);
+        pay1.setBounds(50, 550, 150, 30);
+        back.setBounds(50, 600, 100, 30);
 
         container.add(header);
         container.add(currency);
@@ -64,31 +76,19 @@ public class SingleLoanView extends JFrame implements ActionListener {
         container.add(payAmount);
         container.add(pay);
         container.add(back);
+        container.add(savingsAccounts);
+        container.add(checkingAccounts);
+        container.add(pay1);
 
         back.addActionListener(this);
         pay.addActionListener(this);
+        pay1.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == pay) {
 
-            if(payAmount.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Please enter a valid amount.");
-                this.setVisible(false);
-                this.setVisible(true);
-            }
-
-            double val = loan.payBack((double) Integer.parseInt(payAmount.getText()));
-
-            if(val == -1.0) {
-                JOptionPane.showMessageDialog(this, "Not enough money in account to pay this amount. Please deposit money or pay a lower amount.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Payment successful. Amount left in loan: " + val);
-                this.setVisible(false);
-                this.setVisible(true);
-            }
-        } else if (e.getSource() == back) {
+        if (e.getSource() == back) {
             LoanPage frame = new LoanPage(customer);
             frame.setTitle("Loans");
             frame.setVisible(true);
@@ -97,6 +97,30 @@ public class SingleLoanView extends JFrame implements ActionListener {
             frame.setResizable(false);
 
             frame.showPage();
+        } else {
+            Account account;
+
+            if (e.getSource() == pay) {
+                account = customer.getCheckings().get(checkingAccounts.getSelectedIndex());
+            } else {
+                account = customer.getSavings().get(savingsAccounts.getSelectedIndex());
+            }
+
+            if(payAmount.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid amount.");
+                this.setVisible(false);
+                this.setVisible(true);
+            }
+
+            Double val = customer.payBackLoan(account, Double.parseDouble(payAmount.getText()), loan);
+
+            if(val == null) {
+                JOptionPane.showMessageDialog(this, "Not enough money in account to pay this amount. Please deposit money or pay a lower amount.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Payment successful. Amount left in loan: " + val);
+                this.setVisible(false);
+                this.setVisible(true);
+            }
         }
     }
 }
