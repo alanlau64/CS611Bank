@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 
 public class CustomerHomePage extends JFrame implements ActionListener {
     private Container container;
@@ -11,6 +12,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
 
     private JButton selectChecking;
     private JButton selectSaving;
+    private JButton loans;
     private JButton openAccount;
 
     private JComboBox<Integer> checkingAccounts;
@@ -26,6 +28,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         openAccount = new JButton("Open an account");
         selectSaving = new JButton("Select account");
         selectChecking = new JButton("Select account");
+        loans = new JButton("View loans");
         checkingAccounts = new JComboBox<Integer>(customer.getCheckingAccountNums().toArray(Integer[]::new));
         savingsAccounts = new JComboBox<Integer>(customer.getSavingAccountNums().toArray(Integer[]::new));
     }
@@ -41,7 +44,8 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         savingsAccounts.setBounds(50, 430, 140, 20);
         selectSaving.setBounds(50, 500, 150, 30);
 
-        openAccount.setBounds(50, 570, 150, 30);
+        loans.setBounds(50, 550, 150, 30);
+        openAccount.setBounds(50, 600, 150, 30);
 
         container.add(checking);
         container.add(checkingAccounts);
@@ -50,10 +54,12 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         container.add(savingsAccounts);
         container.add(selectSaving);
         container.add(openAccount);
+        container.add(loans);
 
         selectChecking.addActionListener(this);
         selectSaving.addActionListener(this);
         openAccount.addActionListener(this);
+        loans.addActionListener(this);
     }
 
     @Override
@@ -61,6 +67,16 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         if(e.getSource() == openAccount) {
             OpenAccountPage frame = new OpenAccountPage(customer);
             frame.setTitle("Open new account");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        } else if (e.getSource() == loans) {
+            LoanPage frame = new LoanPage(customer);
+            frame.setTitle("Loans");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

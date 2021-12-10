@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 
 public class Manager extends User{
-    public Manager(){}
+    private StockController stockController;
+    public Manager(){
+        stockController = new StockController();
+    }
 
     public Manager(String name, String password){
         super(name,password);
@@ -9,12 +12,14 @@ public class Manager extends User{
 
     //TODO: add log
     public int increaseStockPrice(Stock stock, int amount){
-        return stock.increase(amount);
+        stockController.setStock(stock);
+        return stockController.increase(amount);
     }
 
     //TODO: add log
     public int decreaseStockPrice(Stock stock, int amount){
-        return stock.decrease(amount);
+        stockController.setStock(stock);
+        return stockController.decrease(amount);
     }
 
     //TODO: add log

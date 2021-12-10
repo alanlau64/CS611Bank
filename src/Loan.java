@@ -22,31 +22,6 @@ public class Loan {
         this.userName = userName;
     }
 
-    // pay the loan with given account and amount of money
-    public Double payBack(Account account, Double amount){
-        Double actualPayBack = Math.min(amount, this.amount);
-        if(actualPayBack > account.getBalance().get(currency))
-            return null;
-        else {
-            account.getBalance().put(currency, account.getBalance().get(currency) - actualPayBack);
-            this.amount -= actualPayBack;
-            return this.amount;
-        }
-    }
-
-    // when the loan is verified, add the interest to the amount
-    public Double ChargeInterest(){
-        int duringDay = (int) (System.currentTimeMillis() - overdueTime.getTime()) / (1000 * 60 * 60 * 24);
-        amount += amount * loanInterest * duringDay;
-        return amount;
-    }
-
-    // check the loan whether is overdue or not, if yes, confiscate the mortgage
-    //TODO: add log
-    public boolean checkOverDue(){
-        return Constant.CURRENT_TIME.before(overdueTime);
-    }
-
     @Override
     public boolean equals(Object obj) {
         return this.loanNum == ((Loan) obj).getLoanNum();
@@ -74,5 +49,17 @@ public class Loan {
 
     public int getLoanNum() {
         return loanNum;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public Date getOverdueTime() {
+        return overdueTime;
+    }
+
+    public static Double getLoanInterest() {
+        return loanInterest;
     }
 }
