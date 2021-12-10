@@ -14,16 +14,6 @@ public class Stock {
         this.price = price;
     }
 
-    public int increase(int amount){
-        this.price += amount;
-        return this.price;
-    }
-
-    public int decrease(int amount){
-        this.price -= amount;
-        return this.price;
-    }
-
     public String getName() {
         return name;
     }
@@ -39,5 +29,9 @@ public class Stock {
 
     public int getPrice() {
         return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
