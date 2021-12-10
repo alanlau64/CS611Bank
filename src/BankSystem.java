@@ -8,6 +8,7 @@ public class BankSystem {
     private static ArrayList<Manager> managers = new ArrayList<>();
     private static ArrayList<Loan> loansWaitToVerify = new ArrayList<>();
     private static LogFactory logFactory = new LogFactory();
+    private static ArrayList<Stock> stocks = new ArrayList<>();
 
     public BankSystem(){}
 
