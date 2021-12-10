@@ -34,37 +34,6 @@ public class Customer extends User{
         return securitiesAccount;
     }
 
-    public ArrayList<Integer> getCheckingAccountNums() {
-        ArrayList<Integer> checkingAccountNums = new ArrayList<>();
-
-        for(Account account : checkings) {
-            checkingAccountNums.add(account.getAccountNum());
-        }
-
-        return checkingAccountNums;
-    }
-
-    public ArrayList<Integer> getSavingAccountNums() {
-        ArrayList<Integer> savingAccountNums = new ArrayList<>();
-
-        for (Account account : savings) {
-            savingAccountNums.add(account.getAccountNum());
-        }
-
-        return savingAccountNums;
-
-    }
-
-    public ArrayList<Integer> getLoansNums() {
-        ArrayList<Integer> loanNums = new ArrayList<>();
-
-        for(Loan loan: loans) {
-            loanNums.add(loan.getLoanNum());
-        }
-
-        return loanNums;
-     }
-
     public void setSecuritiesAccount(SecuritiesAccount securitiesAccount) {
         this.securitiesAccount = securitiesAccount;
     }

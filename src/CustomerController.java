@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CustomerController {
@@ -78,6 +79,37 @@ public class CustomerController {
     public void checkLoanOverdue(Loan loan){
         if(new LoanController(loan).checkOverDue())
             customer.getLoans().remove(loan);
+    }
+
+    public ArrayList<Integer> getCheckingAccountNums() {
+        ArrayList<Integer> checkingAccountNums = new ArrayList<>();
+
+        for(Account account : customer.getCheckings()) {
+            checkingAccountNums.add(account.getAccountNum());
+        }
+
+        return checkingAccountNums;
+    }
+
+    public ArrayList<Integer> getSavingAccountNums() {
+        ArrayList<Integer> savingAccountNums = new ArrayList<>();
+
+        for (Account account : customer.getSavings()) {
+            savingAccountNums.add(account.getAccountNum());
+        }
+
+        return savingAccountNums;
+
+    }
+
+    public ArrayList<Integer> getLoansNums() {
+        ArrayList<Integer> loanNums = new ArrayList<>();
+
+        for(Loan loan: customer.getLoans()) {
+            loanNums.add(loan.getLoanNum());
+        }
+
+        return loanNums;
     }
 
     public void setCustomer(Customer customer) {
