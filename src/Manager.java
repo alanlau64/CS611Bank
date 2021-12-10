@@ -8,6 +8,7 @@ public class Manager extends User{
 
     public Manager(String name, String password){
         super(name,password);
+        BankSystem.addManager(this);
     }
 
     //TODO: add log

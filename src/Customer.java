@@ -16,6 +16,7 @@ public class Customer extends User{
         this.checkings = new ArrayList<>();
         this.savings = new ArrayList<>();
         this.loans = new ArrayList<>();
+        BankSystem.addCustomer(this);
     }
 
     public ArrayList<CheckingAccount> getCheckings() {
