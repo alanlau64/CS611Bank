@@ -12,6 +12,7 @@ public class Stock {
     public Stock(String name, int price){
         this.name = name;
         this.price = price;
+        BankSystem.addStock(this);
     }
 
     public String getName() {

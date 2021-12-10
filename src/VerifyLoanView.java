@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VerifyLoanView extends JFrame implements ActionListener {
 
@@ -94,5 +95,15 @@ public class VerifyLoanView extends JFrame implements ActionListener {
             dispose();
             frame.showPage();
         }
+    }
+
+    public ArrayList<Integer> getLoansWaitToVerifyNums() {
+        ArrayList<Integer> loanNums = new ArrayList<>();
+
+        for(Loan loan: BankSystem.getLoansWaitToVerify()) {
+            loanNums.add(loan.getLoanNum());
+        }
+
+        return loanNums;
     }
 }
