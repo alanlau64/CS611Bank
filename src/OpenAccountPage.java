@@ -61,9 +61,9 @@ public class OpenAccountPage extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Successfully opened a savings account.");
             } else if(security.isSelected()) {
                 if(customer.openSecuritiesAccount()) {
-                    JOptionPane.showMessageDialog(this, "Successfully opened a savings account.");
+                    JOptionPane.showMessageDialog(this, "Successfully opened a securities account.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Opening a savings account failed. Account balance is too low.");
+                    JOptionPane.showMessageDialog(this, "Opening a securities account failed. Account balance is too low.");
                 }
             }
         } else if(e.getSource() == back) {

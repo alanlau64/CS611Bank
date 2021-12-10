@@ -74,4 +74,16 @@ public class Loan {
     public int getLoanNum() {
         return loanNum;
     }
+
+    public Date getOverdueTime() {
+        return overdueTime;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getMortgage() {
+        return mortgage;
+    }
 }
