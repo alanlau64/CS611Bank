@@ -52,6 +52,7 @@ public class Manager extends User{
         if(isApprove) {
             BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, loan, "approve"));
             new AccountController(loan.getInAccount()).deposit(loan.getCurrency(), loan.getAmount());
+            new LoanController(loan).ChargeInterest();
         }
         else {
             BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, loan, "deny"));
