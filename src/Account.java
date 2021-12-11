@@ -15,6 +15,7 @@ public class Account {
     public Account(String userName){
         accountNum = ++Constant.MAX_ACCOUNT_NUMBER;
         balance = new HashMap<>();
+        balance.put(Currency.USD, -Constant.TRANSACTION_FEE);
         this.userName = userName;
     }
 
