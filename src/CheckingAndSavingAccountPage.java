@@ -38,11 +38,8 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
         depositAndWithdraw = new JButton("Deposit/Withdraw Money");
         back = new JButton("Back");
         transfer = new JButton("Transfer Money");
-<<<<<<< HEAD
-        this.addWindowListener(BankSystem.close());
-=======
         close = new JButton("Close account");
->>>>>>> 491b7f3118328c595e0d6d5b294dc6f956929099
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {
