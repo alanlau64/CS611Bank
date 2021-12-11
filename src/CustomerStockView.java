@@ -14,6 +14,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
 
     private Map<Stock, Integer> customerStocks;
     private SecuritiesAccount securitiesAccount;
+    private SecuritiesAccountController securitiesAccountController;
     private ArrayList<Stock> stocks;
 
     private Container container;
@@ -37,6 +38,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         this.container = getContentPane();
         this.customer = customer;
         this.securitiesAccount = customer.getSecuritiesAccount();
+        this.securitiesAccountController = new SecuritiesAccountController(securitiesAccount);
 
         if(securitiesAccount == null) {
             customerStocks = new HashMap<>();
@@ -103,6 +105,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         availableStocks.addActionListener(this);
         sellStock.addActionListener(this);
         buyStock.addActionListener(this);
+        back.addActionListener(this);
     }
 
     @Override
@@ -138,7 +141,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
                 this.setVisible(true);
             }
 
-            boolean flag = customer.getSecuritiesAccount().sellStock((Stock) ownedStocks.getSelectedItem(), Integer.parseInt(sellAmount.getText()));
+            boolean flag = securitiesAccountController.sellStock((Stock) ownedStocks.getSelectedItem(), Integer.parseInt(sellAmount.getText()));
 
             if(flag) {
                 JOptionPane.showMessageDialog(this, "Shares sold successfully.");
@@ -157,7 +160,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Please select the number of shares you wish to buy");
             }
 
-            boolean flag = customer.getSecuritiesAccount().buyStock((Stock) availableStocks.getSelectedItem(), Integer.parseInt(buyAmount.getText()));
+            boolean flag = securitiesAccountController.buyStock((Stock) availableStocks.getSelectedItem(), Integer.parseInt(buyAmount.getText()));
 
             if(flag) {
                 JOptionPane.showMessageDialog(this, "Shares bought successfully.");

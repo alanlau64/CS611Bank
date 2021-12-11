@@ -17,15 +17,16 @@ public class CustomerHomePage extends JFrame implements ActionListener {
     private JButton openAccount;
     private JButton stocks;
     private JButton logout;
-    private JButton nextDay;
 
     private JComboBox<Integer> checkingAccounts;
     private JComboBox<Integer> savingsAccounts;
 
     private Customer customer;
+    private CustomerController customerController;
 
     public CustomerHomePage(Customer customer) {
         this.customer = customer;
+        this.customerController = new CustomerController(customer);
         container = getContentPane();
         checking = new JLabel("Checking Accounts: ");
         saving = new JLabel("Saving Accounts: ");
@@ -43,15 +44,13 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         loans = new JButton("View loans");
         stocks = new JButton("View stocks");
         logout = new JButton("Logout");
-        nextDay = new JButton("Next day");
-        checkingAccounts = new JComboBox<Integer>(customer.getCheckingAccountNums().toArray(Integer[]::new));
-        savingsAccounts = new JComboBox<Integer>(customer.getSavingAccountNums().toArray(Integer[]::new));
+        checkingAccounts = new JComboBox<Integer>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
+        savingsAccounts = new JComboBox<Integer>(customerController.getSavingAccountNums().toArray(Integer[]::new));
     }
 
     public void showPage() {
         container.setLayout(null);
 
-        nextDay.setBounds(210, 0, 150, 30);
         checking.setBounds(50, 50, 150, 30);
         checkingAccounts.setBounds(50, 100, 140, 20);
         selectChecking.setBounds(50, 150, 150, 30);
@@ -78,7 +77,6 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         container.add(securities);
         container.add(stocks);
         container.add(logout);
-        container.add(nextDay);
 
         selectChecking.addActionListener(this);
         selectSaving.addActionListener(this);
@@ -86,7 +84,6 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         loans.addActionListener(this);
         stocks.addActionListener(this);
         logout.addActionListener(this);
-        nextDay.addActionListener(this);
     }
 
     @Override
@@ -113,7 +110,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
             frame.showPage();
         } else if (e.getSource() == stocks) {
             CustomerStockView frame = new CustomerStockView(customer);
-            frame.setTitle("Loans");
+            frame.setTitle("Stocks");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,9 +118,6 @@ public class CustomerHomePage extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
-        } else if (e.getSource() == nextDay) {
-            BankSystem.nextDay();
-
         } else {
             Account account;
 

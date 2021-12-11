@@ -7,6 +7,7 @@ public class OpenAccountPage extends JFrame implements ActionListener {
     private Container container;
 
     private Customer customer;
+    private CustomerController customerController;
 
     private JRadioButton checking;
     private JRadioButton saving;
@@ -18,6 +19,7 @@ public class OpenAccountPage extends JFrame implements ActionListener {
 
     public OpenAccountPage(Customer customer) {
         this.customer = customer;
+        this.customerController = new CustomerController(customer);
 
         container = getContentPane();
         checking = new JRadioButton("Checking Account");
@@ -54,13 +56,13 @@ public class OpenAccountPage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == select) {
             if(checking.isSelected()) {
-                customer.openCheckingAccount();
+                customerController.openCheckingAccount();
                 JOptionPane.showMessageDialog(this, "Successfully opened a checking account.");
             } else if (saving.isSelected()) {
-                customer.openSavingAccount();
+                customerController.openSavingAccount();
                 JOptionPane.showMessageDialog(this, "Successfully opened a savings account.");
             } else if(security.isSelected()) {
-                if(customer.openSecuritiesAccount()) {
+                if(customerController.openSecuritiesAccount()) {
                     JOptionPane.showMessageDialog(this, "Successfully opened a securities account.");
                 } else {
                     JOptionPane.showMessageDialog(this, "Opening a securities account failed. Account balance is too low.");
