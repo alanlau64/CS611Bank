@@ -187,7 +187,7 @@ public class TrasnferView extends JFrame implements ActionListener {
                 } else if(inr.isSelected()){
                     currency = Currency.INR;
                 }
-                
+
                 Double val = accountController.transfer(transferAccount, currency, Double.parseDouble(enterAmount.getText()));
 
                 if(val == null) {
