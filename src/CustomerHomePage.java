@@ -119,17 +119,9 @@ public class CustomerHomePage extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
-        } else {
-            Account account;
-
-            if(e.getSource() == selectSaving) {
-                account = customer.getSavings().get(savingsAccounts.getSelectedIndex());
-            } else {
-                account = customer.getCheckings().get(checkingAccounts.getSelectedIndex());
-            }
-
-            CheckingAndSavingAccountPage frame = new CheckingAndSavingAccountPage(account, customer);
-            frame.setTitle("Account details");
+        } else if (e.getSource() == logout) {
+            LoginPage frame = new LoginPage();
+            frame.setTitle("Login Page");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,6 +129,31 @@ public class CustomerHomePage extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
+        } else {
+
+            if(e.getSource() == selectSaving) {
+                SavingAccount account = customer.getSavings().get(savingsAccounts.getSelectedIndex());
+                CheckingAndSavingAccountPage frame = new CheckingAndSavingAccountPage(account, customer);
+                frame.setTitle("Account details");
+                frame.setVisible(true);
+                frame.setBounds(10, 10, 370, 700);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setResizable(false);
+
+                dispose();
+                frame.showPage();
+            } else {
+                CheckingAccount account = customer.getCheckings().get(checkingAccounts.getSelectedIndex());
+                CheckingAndSavingAccountPage frame = new CheckingAndSavingAccountPage(account, customer);
+                frame.setTitle("Account details");
+                frame.setVisible(true);
+                frame.setBounds(10, 10, 370, 700);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setResizable(false);
+
+                dispose();
+                frame.showPage();
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
 
     private Account account;
     private Customer customer;
+    private CustomerController customerController;
 
     private Container container;
 
@@ -19,12 +20,14 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
     private JButton depositAndWithdraw;
     private JButton back;
     private JButton transfer;
+    private JButton close;
 
     public CheckingAndSavingAccountPage(Account account, Customer customer) {
         container = getContentPane();
 
         this.account = account;
         this.customer = customer;
+        this.customerController = new CustomerController(customer);
 
         accountNum = new JLabel(String.valueOf(account.getAccountNum()));
 
@@ -35,7 +38,11 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
         depositAndWithdraw = new JButton("Deposit/Withdraw Money");
         back = new JButton("Back");
         transfer = new JButton("Transfer Money");
+<<<<<<< HEAD
         this.addWindowListener(BankSystem.close());
+=======
+        close = new JButton("Close account");
+>>>>>>> 491b7f3118328c595e0d6d5b294dc6f956929099
     }
 
     public void showPage() {
@@ -47,7 +54,8 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
         inrAmount.setBounds(50, 200, 150, 30);
         depositAndWithdraw.setBounds(50, 250, 150, 30);
         transfer.setBounds(50, 300, 150, 30);
-        back.setBounds(50, 350, 150, 30);
+        close.setBounds(50, 350, 150, 30);
+        back.setBounds(50, 400, 150, 30);
 
         container.add(accountNum);
         container.add(usdAmount);
@@ -56,10 +64,12 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
         container.add(depositAndWithdraw);
         container.add(back);
         container.add(transfer);
+        container.add(close);
 
         depositAndWithdraw.addActionListener(this);
         back.addActionListener(this);
         transfer.addActionListener(this);
+        close.addActionListener(this);
     }
 
     @Override
@@ -94,6 +104,38 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
 
             dispose();
             frame.showPage();
+        } else if (e.getSource() == close) {
+            if(account.getClass().equals(CheckingAccount.class)) {
+                if(customerController.closeCheckingAccount(account)) {
+                    JOptionPane.showMessageDialog(this, "Account successfully closed");
+                    CustomerHomePage frame = new CustomerHomePage(customer);
+                    frame.setTitle("Customer home page");
+                    frame.setVisible(true);
+                    frame.setBounds(10, 10, 370, 700);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setResizable(false);
+
+                    dispose();
+                    frame.showPage();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Account cannot be closed. Please ensure there is no balance remaining.");
+                }
+            } else {
+                if(customerController.closeSavingAccount(account)) {
+                    JOptionPane.showMessageDialog(this, "Account successfully closed");
+                    CustomerHomePage frame = new CustomerHomePage(customer);
+                    frame.setTitle("Customer home page");
+                    frame.setVisible(true);
+                    frame.setBounds(10, 10, 370, 700);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setResizable(false);
+
+                    dispose();
+                    frame.showPage();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Account cannot be closed. Please ensure there is no balance remaining.");
+                }
+            }
         }
     }
 }

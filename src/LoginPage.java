@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
 
 public class LoginPage extends JFrame implements ActionListener {
 
@@ -62,6 +63,51 @@ public class LoginPage extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
+        } else if (e.getSource() == login) {
+            String username = usernameField.getText();
+            String password = Arrays.toString(passwordField.getPassword());
+
+            for(Customer customer : BankSystem.getCustomers()) {
+
+                if(username.equals(customer.getUsername())) {
+                    if(password.equals(customer.getPassword())) {
+                        JOptionPane.showMessageDialog(this, "Login successful!");
+                        CustomerHomePage frame = new CustomerHomePage(customer);
+                        frame.setTitle(username + "'s home page");
+                        frame.setVisible(true);
+                        frame.setBounds(10, 10, 370, 700);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setResizable(false);
+
+                        dispose();
+                        frame.showPage();
+                        break;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Username/Password is wrong.");
+                    }
+                }
+            }
+
+            for(Manager manager : BankSystem.getManagers()) {
+
+                if(username.equals(manager.getUsername())) {
+                    if(password.equals(manager.getPassword())) {
+                        JOptionPane.showMessageDialog(this, "Login successful!");
+                        ManagerHomePage frame = new ManagerHomePage(manager);
+                        frame.setTitle(username + "'s home page");
+                        frame.setVisible(true);
+                        frame.setBounds(10, 10, 370, 700);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setResizable(false);
+
+                        dispose();
+                        frame.showPage();
+                        break;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Username/Password is wrong.");
+                    }
+                }
+            }
         }
 
     }
