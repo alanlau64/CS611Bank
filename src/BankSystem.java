@@ -30,8 +30,7 @@ public class BankSystem {
     public void run(){
         init();
         //TODO: the logic of bank system
-        CustomerHomePage frame = new CustomerHomePage(customers.get(0));
-        //LoginPage frame = new LoginPage();
+        LoginPage frame = new LoginPage();
         frame.setTitle("Login Form");
         frame.setVisible(true);
         frame.setBounds(10, 10, 370, 600);
