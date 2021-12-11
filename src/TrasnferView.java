@@ -24,11 +24,16 @@ public class TrasnferView extends JFrame implements ActionListener {
     private JRadioButton inr;
     private ButtonGroup group2;
 
+    private JRadioButton checking;
+    private JRadioButton saving;
+    private JRadioButton security;
+    private ButtonGroup group;
+
     private JFormattedTextField enterAmount;
 
     private JComboBox<Integer> checkingAccounts;
-    private JComboBox<Integer> savingsAccounts;
-    private JComboBox<Integer> securitiesAccount;
+    //private JComboBox<Integer> savingsAccounts;
+    //private JComboBox<Integer> securitiesAccount;
 
 
     private JButton select;
@@ -52,6 +57,14 @@ public class TrasnferView extends JFrame implements ActionListener {
         group2.add(cny);
         group2.add(inr);
 
+        checking = new JRadioButton("Checking");
+        saving = new JRadioButton("Saving");
+        security = new JRadioButton("Securities");
+        group = new ButtonGroup();
+        group.add(checking);
+        group.add(saving);
+        group.add(security);
+
         NumberFormat format = NumberFormat.getIntegerInstance();
         format.setGroupingUsed(false);
 
@@ -60,18 +73,18 @@ public class TrasnferView extends JFrame implements ActionListener {
         numberFormatter.setAllowsInvalid(false);
 
         enterAmount = new JFormattedTextField(numberFormatter);
-        ArrayList<Integer> checkingAccountNums = customerController.getCheckingAccountNums();
-        checkingAccountNums.removeIf(n -> (n == account.getAccountNum()));
-        ArrayList<Integer> savingAccountNums = customerController.getSavingAccountNums();
-        savingAccountNums.removeIf(n -> (n == account.getAccountNum()));
-        checkingAccounts = new JComboBox<Integer>(checkingAccountNums.toArray(Integer[]::new));
-        savingsAccounts = new JComboBox<Integer>(savingAccountNums.toArray(Integer[]::new));
+        //ArrayList<Integer> checkingAccountNums = customerController.getCheckingAccountNums();
+        //checkingAccountNums.removeIf(n -> (n == account.getAccountNum()));
+        //ArrayList<Integer> savingAccountNums = customerController.getSavingAccountNums();
+        //savingAccountNums.removeIf(n -> (n == account.getAccountNum()));
+        checkingAccounts = new JComboBox<Integer>(new Integer[20]);
+        //savingsAccounts = new JComboBox<Integer>(savingAccountNums.toArray(Integer[]::new));
 
-        if(customer.getSecuritiesAccount() == null) {
-            securitiesAccount = new JComboBox<>(new Integer[5]);
-        } else {
-            securitiesAccount = new JComboBox<>(List.of(customer.getSecuritiesAccount().getAccountNum()).toArray(Integer[]::new));
-        }
+        //if(customer.getSecuritiesAccount() == null) {
+            //securitiesAccount = new JComboBox<>(new Integer[5]);
+        //} else {
+            //securitiesAccount = new JComboBox<>(List.of(customer.getSecuritiesAccount().getAccountNum()).toArray(Integer[]::new));
+        //}
 
 
         select = new JButton("Confirm");
@@ -81,10 +94,13 @@ public class TrasnferView extends JFrame implements ActionListener {
     public void showPage() {
         container.setLayout(null);
 
-        transferDestination.setBounds(50, 100, 150, 30);
-        checkingAccounts.setBounds(50, 150, 150, 30);
-        savingsAccounts.setBounds(50, 200, 150, 30);
-        securitiesAccount.setBounds(50, 250, 150, 30);
+        transferDestination.setBounds(50, 50, 150, 30);
+        checking.setBounds(50, 100, 150, 30);
+        saving.setBounds(50, 150, 150, 30);
+        security.setBounds(50, 200, 150, 30);
+        checkingAccounts.setBounds(50, 250, 150, 30);
+        //savingsAccounts.setBounds(50, 200, 150, 30);
+        //securitiesAccount.setBounds(50, 250, 150, 30);
         enterAmount.setBounds(50, 300, 150, 30);
         usd.setBounds(50, 350, 100, 30);
         cny.setBounds(90, 350, 100, 30);
@@ -94,23 +110,51 @@ public class TrasnferView extends JFrame implements ActionListener {
 
         container.add(transferDestination);
         container.add(checkingAccounts);
-        container.add(savingsAccounts);
+        //container.add(savingsAccounts);
         container.add(select);
         container.add(back);
         container.add(cny);
         container.add(inr);
         container.add(usd);
         container.add(enterAmount);
-        container.add(securitiesAccount);
+        //ontainer.add(securitiesAccount);
+        container.add(checking);
+        container.add(saving);
+        container.add(security);
 
+        checking.addActionListener(this);
+        saving.addActionListener(this);
+        security.addActionListener(this);
         select.addActionListener(this);
         back.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == checking) {
+            checkingAccounts.removeAllItems();
+            for(Integer i : customerController.getCheckingAccountNums()) {
+                checkingAccounts.addItem(i);
+            }
+
+            //checkingAccounts = new JComboBox<>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
+        } else if (e.getSource() == saving) {
+            checkingAccounts.removeAllItems();
+            for(Integer i : customerController.getSavingAccountNums()) {
+                checkingAccounts.addItem(i);
+            }
+        } else if (e.getSource() == security) {
+            checkingAccounts.removeAllItems();
+
+            if(customer.getSecuritiesAccount() == null) {
+                JOptionPane.showMessageDialog(this, "No securities account present");
+            } else {
+                checkingAccounts.addItem(customer.getSecuritiesAccount().getAccountNum());
+            }
+        }
+
         if (e.getSource() == select) {
-            if (checkingAccounts.getSelectedIndex() == -1 && savingsAccounts.getSelectedIndex() == -1 && securitiesAccount.getSelectedIndex() == -1) {
+            if (checkingAccounts.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(this, "Please select an account to transfer to.");
             } else if (enterAmount.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Please enter a valid amount.");
@@ -119,11 +163,21 @@ public class TrasnferView extends JFrame implements ActionListener {
             } else {
                 Account transferAccount;
 
+                if(checking.isSelected()) {
+                    transferAccount = customer.getCheckings().get(checkingAccounts.getSelectedIndex());
+                } else if (saving.isSelected()) {
+                    transferAccount = customer.getSavings().get(checkingAccounts.getSelectedIndex());
+                } else {
+                    transferAccount = customer.getSecuritiesAccount();
+                }
+
+                /***
                 if(checkingAccounts.getSelectedIndex() !=  -1) {
                     transferAccount = customer.getCheckings().get(checkingAccounts.getSelectedIndex());
                 } else {
                     transferAccount = customer.getSavings().get(savingsAccounts.getSelectedIndex());
                 }
+                 ***/
 
                 Currency currency = null;
                 if(usd.isSelected()) {
@@ -133,7 +187,7 @@ public class TrasnferView extends JFrame implements ActionListener {
                 } else if(inr.isSelected()){
                     currency = Currency.INR;
                 }
-
+                
                 Double val = accountController.transfer(transferAccount, currency, Double.parseDouble(enterAmount.getText()));
 
                 if(val == null) {
