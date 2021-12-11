@@ -105,4 +105,18 @@ public class BankSystem {
     public static ArrayList<Loan> getLoansWaitToVerify() {
         return loansWaitToVerify;
     }
+
+    public static ArrayList<Customer> getCustomers() { return customers; }
+
+    public static ArrayList<Manager> getManagers() { return managers; }
+
+    public static ArrayList<String> getAvailableStockNames() {
+        ArrayList<String> stockNames = new ArrayList<>();
+
+        for(Stock stock : stocks) {
+            stockNames.add(stock.getName());
+        }
+
+        return stockNames;
+    }
 }

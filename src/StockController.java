@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class StockController {
     private Stock stock;
 
@@ -20,4 +22,5 @@ public class StockController {
     public void setStock(Stock stock) {
         this.stock = stock;
     }
+
 }

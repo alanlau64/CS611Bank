@@ -24,7 +24,7 @@ public class VerifyLoanView extends JFrame implements ActionListener {
         this.manager = manager;
         container = getContentPane();
         loansLabel = new JLabel("Loans to verify: ");
-        loans = new JComboBox<Integer>(new BankSystem().getLoansWaitToVerifyNums().toArray(Integer[]::new));
+        loans = new JComboBox<Integer>(getLoansWaitToVerifyNums().toArray(Integer[]::new));
         loanAmount = new JLabel();
         loanCurrency = new JLabel();
         loanMortgage = new JLabel();

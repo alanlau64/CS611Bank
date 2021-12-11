@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class LoginPage extends JFrame implements ActionListener {
 
@@ -59,6 +61,52 @@ public class LoginPage extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
+        } else if (e.getSource() == login) {
+            String username = usernameField.getText();
+            String password = Arrays.toString(passwordField.getPassword());
+
+            for(Customer customer : BankSystem.getCustomers()) {
+
+                if(Objects.equals(username, customer.getUsername())) {
+
+                    if(password.equals(customer.getPassword())) {
+                        CustomerHomePage frame = new CustomerHomePage(customer);
+                        frame.setTitle("Home");
+                        frame.setVisible(true);
+                        frame.setBounds(10, 10, 370, 700);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setResizable(false);
+
+                        dispose();
+                        frame.showPage();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Incorrect username or password. Please try again.");
+                    }
+                }
+            }
+
+            for(Manager manager : BankSystem.getManagers()) {
+
+                if(Objects.equals(username, manager.getUsername())) {
+
+                    if(password.equals(manager.getPassword())) {
+                        ManagerHomePage frame = new ManagerHomePage(manager);
+                        frame.setTitle("Home");
+                        frame.setVisible(true);
+                        frame.setBounds(10, 10, 370, 700);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setResizable(false);
+
+                        dispose();
+                        frame.showPage();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Incorrect username or password. Please try again.");
+                    }
+                }
+            }
+
+            //JOptionPane.showMessageDialog(this, "Incorrect username or password. Please try again.");
+
         }
 
     }
