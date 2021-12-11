@@ -60,14 +60,8 @@ public class CreateAccountPage extends JFrame implements ActionListener {
 
             if(Arrays.toString(secretPasswordField.getPassword()).equals("cpk")) {
                 Manager manager = new Manager(usernameField.getText(), Arrays.toString(passwordField.getPassword()));
-                BankSystem.addManager(manager);
             } else {
                 Customer customer = new Customer(usernameField.getText(), Arrays.toString(passwordField.getPassword()));
-                BankSystem.addCustomer(customer);
-
-                for(Customer customer1 : BankSystem.getCustomers()) {
-                    System.out.println(customer1.getUsername());
-                }
             }
 
             LoginPage frame = new LoginPage();
