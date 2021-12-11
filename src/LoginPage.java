@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class LoginPage extends JFrame implements ActionListener {
 
@@ -24,6 +26,7 @@ public class LoginPage extends JFrame implements ActionListener {
         password = new JLabel("Password");
         login = new JButton("Login");
         create = new JButton("Create Account");
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

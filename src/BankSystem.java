@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -19,10 +21,10 @@ public class BankSystem {
         Log managerLog = logFactory.getLog("manager");
         Log transactionLog = logFactory.getLog("transaction");
         Log stockLog = logFactory.getLog("stock");
-        customerLog.readLog();
-        managerLog.readLog();
-        transactionLog.readLog();
-        stockLog.readLog();
+        customers = customerLog.readLog();
+        managers = managerLog.readLog();
+        transactions = transactionLog.readLog();
+        stocks = stockLog.readLog();
     }
 
     public void run(){
@@ -37,21 +39,23 @@ public class BankSystem {
         frame.setResizable(false);
 
         frame.showPage();
+        }
 
-        close();
-    }
-
-    public void close(){
-        System.out.println("dad");
-        Constant.writeConfig();
-        Log customerLog = logFactory.getLog("customer");
-        Log managerLog = logFactory.getLog("manager");
-        Log transactionLog = logFactory.getLog("transaction");
-        Log stockLog = logFactory.getLog("stock");
-        customerLog.createLog(customers);
-        managerLog.createLog(managers);
-        transactionLog.createLog(transactions);
-        stockLog.createLog(stocks);
+    public static WindowAdapter close(){
+        return new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                Constant.writeConfig();
+                Log customerLog = logFactory.getLog("customer");
+                Log managerLog = logFactory.getLog("manager");
+                Log transactionLog = logFactory.getLog("transaction");
+                Log stockLog = logFactory.getLog("stock");
+                customerLog.createLog(customers);
+                managerLog.createLog(managers);
+                transactionLog.createLog(transactions);
+                stockLog.createLog(stocks);
+            }};
     }
 
     // Click the button nextDay
