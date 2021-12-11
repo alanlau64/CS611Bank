@@ -30,7 +30,8 @@ public class BankSystem {
     public void run(){
         init();
         //TODO: the logic of bank system
-        LoginPage frame = new LoginPage();
+        ManagerHomePage frame = new ManagerHomePage(new Manager());
+//        LoginPage frame = new LoginPage();
         frame.setTitle("Login Form");
         frame.setVisible(true);
         frame.setBounds(10, 10, 370, 600);
@@ -38,7 +39,7 @@ public class BankSystem {
         //frame.setResizable(false);
 
         frame.showPage();
-        }
+    }
 
     public static WindowAdapter close(){
         return new WindowAdapter() {
