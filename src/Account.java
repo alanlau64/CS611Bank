@@ -19,7 +19,7 @@ public class Account {
     }
 
     public Double getBalanceWithCurrency(Currency currency){
-        return balance.getOrDefault(currency, null);
+        return balance.getOrDefault(currency, 0.0);
     }
 
     public Map<Currency, Double> getBalance() {
