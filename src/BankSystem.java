@@ -54,7 +54,29 @@ public class BankSystem {
         }
     }
 
+
     public static ArrayList<Customer> getCustomers() {
         return customers;
+    }
+
+    public static ArrayList<Stock> getAvailableStocks() {
+        Stock stock = new Stock("MSF", 300);
+        ArrayList<Stock> stockArrayList = new ArrayList<>();
+        stockArrayList.add(stock);
+        return stockArrayList;
+    }
+
+    public ArrayList<Integer> getLoansWaitToVerifyNums() {
+        ArrayList<Integer> loanNums = new ArrayList<>();
+
+        for(Loan loan: loansWaitToVerify) {
+            loanNums.add(loan.getLoanNum());
+        }
+
+        return loanNums;
+    }
+
+    public ArrayList<Loan> getLoansWaitToVerify() {
+        return loansWaitToVerify;
     }
 }

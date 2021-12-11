@@ -62,4 +62,12 @@ public class Loan {
     public static Double getLoanInterest() {
         return loanInterest;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getMortgage() {
+        return mortgage;
+    }
 }

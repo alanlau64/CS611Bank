@@ -15,16 +15,18 @@ public class LoanPage extends JFrame implements ActionListener {
     private JComboBox<Integer> loans;
 
     private Customer customer;
+    private CustomerController customerController;
 
     public LoanPage(Customer customer) {
         this.customer = customer;
+        this.customerController = new CustomerController(customer);
         container = getContentPane();
         loansLabel = new JLabel("Active loans: ");
         openLoan = new JButton("Take a loan");
         selectLoan = new JButton("View loan");
         back = new JButton("Back");
 
-        loans = new JComboBox<Integer>(customer.getLoansNums().toArray(Integer[]::new));
+        loans = new JComboBox<Integer>(customerController.getLoansNums().toArray(Integer[]::new));
     }
 
     public void showPage() {
