@@ -75,10 +75,6 @@ public class BankSystem {
         }
     }
 
-    public static ArrayList<Customer> getCustomers() {
-        return customers;
-    }
-
     public static void addCustomer (Customer e) {
         customers.add(e);
     }

@@ -118,6 +118,16 @@ public class CustomerHomePage extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
+        } else if (e.getSource() == logout) {
+            LoginPage frame = new LoginPage();
+            frame.setTitle("Login Page");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
         } else {
 
             if(e.getSource() == selectSaving) {
