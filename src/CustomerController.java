@@ -21,13 +21,21 @@ public class CustomerController {
     }
 
     //TODO: add log
-    public void closeCheckingAccount(Account account){
+    public boolean closeCheckingAccount(Account account){
+        for(Double amount : account.getBalance().values())
+            if(amount != 0)
+                return false;
         customer.getCheckings().remove((CheckingAccount) account);
+        return true;
     }
 
     //TODO: add log
-    public void closeSavingAccount(Account account){
+    public boolean closeSavingAccount(Account account){
+        for(Double amount : account.getBalance().values())
+            if(amount != 0)
+                return false;
         customer.getSavings().remove((SavingAccount) account);
+        return true;
     }
 
     //TODO: add log
@@ -43,8 +51,15 @@ public class CustomerController {
     }
 
     //TODO: add log
-    public void closeSecuritiesAccount(){
+    public boolean closeSecuritiesAccount(){
+        for(Double amount : customer.getSecuritiesAccount().getBalance().values())
+            if(amount != 0)
+                return false;
+        for(Integer amount : customer.getSecuritiesAccount().getStocks().values())
+            if(amount != 0)
+                return false;
         customer.setSecuritiesAccount(null);
+        return true;
     }
 
     //TODO: add log

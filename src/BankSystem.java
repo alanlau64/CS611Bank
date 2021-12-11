@@ -53,4 +53,8 @@ public class BankSystem {
                 new SavingAccountController(savingAccount).getInterest();
         }
     }
+
+    public static ArrayList<Customer> getCustomers() {
+        return customers;
+    }
 }
