@@ -10,19 +10,16 @@ public class Manager extends User{
         stockController = new StockController();
     }
 
-    //TODO: add log
     public int increaseStockPrice(Stock stock, int amount){
         stockController.setStock(stock);
         return stockController.increase(amount);
     }
 
-    //TODO: add log
     public int decreaseStockPrice(Stock stock, int amount){
         stockController.setStock(stock);
         return stockController.decrease(amount);
     }
 
-    //TODO: add log
     public boolean createStock(ArrayList<Stock> stocks, String name, int initPrice){
         Stock newStock = new Stock(name, initPrice);
         if(stocks.contains(newStock)){
@@ -34,7 +31,6 @@ public class Manager extends User{
         }
     }
 
-    //TODO: add log
     public boolean deleteStock(ArrayList<Stock> stocks, String name){
         Stock newStock = new Stock(name);
         for(Customer customer : BankSystem.getCustomers()){
@@ -51,8 +47,8 @@ public class Manager extends User{
         else return false;
     }
 
-    //TODO: add log
     public void verifyLoan(Loan loan, boolean isVerify){
         loan.setVerify(true);
+        BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, loan, "approve"));
     }
 }

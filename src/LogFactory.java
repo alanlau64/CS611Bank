@@ -15,6 +15,15 @@ public class LogFactory {
             case "stock" -> {
                 return new StockLog();
             }
+            case "stocktrade" -> {
+                return new StockTradeLog();
+            }
+            case "accountactivity" -> {
+                return new AccountActivityLog();
+            }
+            case "loanactivity" -> {
+                return new LoanActivityLog();
+            }
             default -> {
                 return null;
             }

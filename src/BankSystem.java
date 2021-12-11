@@ -11,6 +11,9 @@ public class BankSystem {
     private static ArrayList<Loan> loansWaitToVerify = new ArrayList<>();
     private static ArrayList<Transaction> transactions = new ArrayList<>();
     private static ArrayList<Stock> stocks = new ArrayList<>();
+    private static ArrayList<StockTrade> stockTrades = new ArrayList<>();
+    private static ArrayList<AccountActivity> accountActivities = new ArrayList<>();
+    private static ArrayList<LoanActivity> loanActivities = new ArrayList<>();
 
     private static LogFactory logFactory = new LogFactory();
     public BankSystem(){}
@@ -21,10 +24,16 @@ public class BankSystem {
         Log managerLog = logFactory.getLog("manager");
         Log transactionLog = logFactory.getLog("transaction");
         Log stockLog = logFactory.getLog("stock");
+        Log stockTradeLog = logFactory.getLog("stockTrade");
+        Log accountActivityLog = logFactory.getLog("accountActivity");
+        Log loanActivityLog = logFactory.getLog("loanActivity");
         customers = customerLog.readLog();
         managers = managerLog.readLog();
         transactions = transactionLog.readLog();
         stocks = stockLog.readLog();
+        stockTrades = stockTradeLog.readLog();
+        accountActivities = accountActivityLog.readLog();
+        loanActivities = loanActivityLog.readLog();
     }
 
     public void run(){
@@ -51,10 +60,16 @@ public class BankSystem {
                 Log managerLog = logFactory.getLog("manager");
                 Log transactionLog = logFactory.getLog("transaction");
                 Log stockLog = logFactory.getLog("stock");
+                Log stockTradeLog = logFactory.getLog("stockTrade");
+                Log accountActivityLog = logFactory.getLog("accountActivity");
+                Log loanActivityLog = logFactory.getLog("loanActivity");
                 customerLog.createLog(customers);
                 managerLog.createLog(managers);
                 transactionLog.createLog(transactions);
                 stockLog.createLog(stocks);
+                stockTradeLog.createLog(stockTrades);
+                accountActivityLog.createLog(accountActivities);
+                loanActivityLog.createLog(loanActivities);
             }};
     }
 
@@ -93,6 +108,18 @@ public class BankSystem {
 
     public static void addTransaction (Transaction e) {
         transactions.add(e);
+    }
+
+    public static void addStockTrade (StockTrade e) {
+        stockTrades.add(e);
+    }
+
+    public static void addAccountActivity (AccountActivity e) {
+        accountActivities.add(e);
+    }
+
+    public static void addLoanActivity (LoanActivity e) {
+        loanActivities.add(e);
     }
 
     public static void removeCustomer (Customer e) {

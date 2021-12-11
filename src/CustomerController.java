@@ -12,10 +12,12 @@ public class CustomerController {
 
     public void openCheckingAccount(){
         customer.getCheckings().add(new CheckingAccount(customer.getUsername()));
+        BankSystem.addAccountActivity(new AccountActivity(this.customer, Constant.CURRENT_TIME, "checking", "open"));
     }
 
     public void openSavingAccount(){
         customer.getSavings().add(new SavingAccount(customer.getUsername()));
+        BankSystem.addAccountActivity(new AccountActivity(this.customer, Constant.CURRENT_TIME, "saving", "open"));
     }
 
     public boolean closeCheckingAccount(Account account){
@@ -23,6 +25,7 @@ public class CustomerController {
             if(amount != 0)
                 return false;
         customer.getCheckings().remove((CheckingAccount) account);
+        BankSystem.addAccountActivity(new AccountActivity(this.customer, Constant.CURRENT_TIME, "checking", "close"));
         return true;
     }
 
@@ -31,6 +34,7 @@ public class CustomerController {
             if(amount != 0)
                 return false;
         customer.getSavings().remove((SavingAccount) account);
+        BankSystem.addAccountActivity(new AccountActivity(this.customer, Constant.CURRENT_TIME, "saving", "close"));
         return true;
     }
 
@@ -57,20 +61,18 @@ public class CustomerController {
         return true;
     }
 
-    //TODO: add log
     public Loan requestLoan(Currency currency, Double amount, String mortgage, Date overdueTime){
         Loan newLoan = new Loan(currency, amount, mortgage, overdueTime, customer.getUsername());
         customer.getLoans().add(newLoan);
+        BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, newLoan, "request"));
         return newLoan;
     }
 
     //when the loan is verified by manager, the customer could get the money
-    //TODO: add log
     public void createLoan(Account account, Loan loan){
         new AccountController(account).deposit(loan.getCurrency(),loan.getAmount());
     }
 
-    //TODO: add log
     public Double payBackLoan(Account account, Double amount, Loan loan){
         if(loan.getIsVerify()) {
             Double leftAmount = new LoanController(loan).payBack(account, amount);
@@ -85,10 +87,12 @@ public class CustomerController {
         else return null;
     }
 
-    //TODO: log confiscate the mortgage
     public void checkLoanOverdue(Loan loan){
-        if(new LoanController(loan).checkOverDue())
+        if(new LoanController(loan).checkOverDue()) {
+            BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, loan, "expire"));
             customer.getLoans().remove(loan);
+        }
+
     }
 
     public ArrayList<Integer> getCheckingAccountNums() {

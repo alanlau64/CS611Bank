@@ -7,7 +7,6 @@ public class SecuritiesAccountController extends AccountController{
         setAccount(securitiesAccount);
     }
 
-    //TODO: add log
     public boolean buyStock(Stock stock, int amount){
 
         if(account == null) {
@@ -20,13 +19,14 @@ public class SecuritiesAccountController extends AccountController{
             if(stocks.containsKey(stock))
                 stocks.put(stock, stocks.get(stock) + amount);
             else stocks.put(stock, amount);
+            BankSystem.addStockTrade(
+                    new StockTrade(Constant.CURRENT_TIME, this.account.getAccountNum(), stock, amount, "buy"));
             return true;
         }
         // don't have enough money
         else return false;
     }
 
-    //TODO: add log
     public boolean sellStock(Stock stock, int amount){
         if(account == null) {
             return false;
@@ -38,6 +38,8 @@ public class SecuritiesAccountController extends AccountController{
                     + amount * stock.getPrice());
             if(stocks.get(stock) == 0)
                 stocks.remove(stock);
+            BankSystem.addStockTrade(
+                    new StockTrade(Constant.CURRENT_TIME, this.account.getAccountNum(), stock, amount, "sell"));
             return true;
         }
         // don't have enough amount of stock to sell
