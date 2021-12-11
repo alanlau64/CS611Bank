@@ -119,7 +119,7 @@ public class SingleLoanView extends JFrame implements ActionListener {
             Double val = customerController.payBackLoan(account, Double.parseDouble(payAmount.getText()), loan);
 
             if(val == null) {
-                JOptionPane.showMessageDialog(this, "Loan may not be verified or not enough balace. Please check your balance or contact the manager to verify the loan.");
+                JOptionPane.showMessageDialog(this, "Loan may not be verified or not enough balance. Please check your balance or contact the manager to verify the loan.");
             } else {
                 JOptionPane.showMessageDialog(this, "Payment successful. Amount left in loan: " + val);
                 this.setVisible(false);

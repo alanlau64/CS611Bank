@@ -37,15 +37,17 @@ public class CustomerLog implements Log {
     public ArrayList<Customer> readLog() {
         ArrayList<Customer> customers = new ArrayList<>();
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(DepositWithTransactionFee.class, new CheckingDepositDeserializer());
-        builder.registerTypeAdapter(DepositWithoutTransactionFee.class, new SavingDepositDeserializer());
-        builder.registerTypeAdapter(WithdrawWithTransactionFee.class, new WithdrawDeserializer());
-        builder.registerTypeAdapter(TransferWithTransactionFee.class, new CheckingTransferDeserializer());
-        builder.registerTypeAdapter(TransferWithoutTransactionFee.class, new SavingTransferDeserializer());
+        builder.registerTypeAdapter(Deposit.class, new DepositDeserializer());
+        builder.registerTypeAdapter(Withdraw.class, new WithdrawDeserializer());
+        builder.registerTypeAdapter(Transfer.class, new TransferDeserializer());
         Gson gson = builder.create();
 
         try {
-            this.logFile.createNewFile();
+            if (this.logFile.createNewFile()) {
+                FileWriter writer = new FileWriter(logFile);
+                writer.write("[]");
+                writer.close();
+            }
             BufferedReader reader = new BufferedReader(new FileReader(this.logFile));
             StringBuilder str = new StringBuilder();
             String line = null;
@@ -67,54 +69,50 @@ public class CustomerLog implements Log {
     private class DepositSerializer implements JsonSerializer<Deposit> {
         public JsonElement serialize (Deposit src, Type typeOfSrc, JsonSerializationContext context)
             throws JsonParseException {
-            return null;
+            return new JsonPrimitive(src.getClass().toString());
         }
     }
 
     private class WithdrawSerializer implements JsonSerializer<Withdraw> {
         public JsonElement serialize (Withdraw src, Type typeOfSrc, JsonSerializationContext context)
                 throws JsonParseException {
-            return null;
+            return new JsonPrimitive(src.getClass().toString());
         }
     }
 
     private class TransferSerializer implements JsonSerializer<Transfer> {
         public JsonElement serialize (Transfer src, Type typeOfSrc, JsonSerializationContext context)
                 throws JsonParseException {
-            return null;
+            return new JsonPrimitive(src.getClass().toString());
         }
     }
 
-    private class CheckingDepositDeserializer implements JsonDeserializer<DepositWithTransactionFee> {
-        public DepositWithTransactionFee deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    private class DepositDeserializer implements JsonDeserializer<Deposit> {
+        public Deposit deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
-            return new DepositWithTransactionFee();
+            if (json.getAsString().contains("DepositWithTransactionFee"))
+                return new DepositWithTransactionFee();
+            else if (json.getAsString().contains("DepositWithoutTransactionFee"))
+                return new DepositWithoutTransactionFee();
+            else
+                return null;
         }
     }
 
-    private class SavingDepositDeserializer implements JsonDeserializer<DepositWithoutTransactionFee> {
-        public DepositWithoutTransactionFee deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
-            throws JsonParseException {
-            return new DepositWithoutTransactionFee();
-        }
-    }
-
-    private class CheckingTransferDeserializer implements JsonDeserializer<TransferWithTransactionFee> {
-        public TransferWithTransactionFee deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    private class TransferDeserializer implements JsonDeserializer<Transfer> {
+        public Transfer deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
-            return new TransferWithTransactionFee();
+            if (json.getAsString().contains("TransferWithTransactionFee"))
+                return new TransferWithTransactionFee();
+            else if (json.getAsString().contains("TransferWithoutTransactionFee"))
+                return new TransferWithoutTransactionFee();
+            else
+                return null;
         }
     }
 
-    private class SavingTransferDeserializer implements JsonDeserializer<TransferWithoutTransactionFee> {
-        public TransferWithoutTransactionFee deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
-                throws JsonParseException {
-            return new TransferWithoutTransactionFee();
-        }
-    }
-
-    private class WithdrawDeserializer implements JsonDeserializer<WithdrawWithTransactionFee> {
-        public WithdrawWithTransactionFee deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    private class WithdrawDeserializer implements JsonDeserializer<Withdraw> {
+        public Withdraw deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             return new WithdrawWithTransactionFee();
         }

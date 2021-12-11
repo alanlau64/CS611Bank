@@ -31,6 +31,7 @@ public class OpenAccountPage extends JFrame implements ActionListener {
         group.add(security);
         select = new JButton("Select");
         back = new JButton("Return");
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

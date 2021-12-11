@@ -10,17 +10,14 @@ public class CustomerController {
         this.customer = customer;
     }
 
-    //TODO: add log
     public void openCheckingAccount(){
         customer.getCheckings().add(new CheckingAccount(customer.getUsername()));
     }
 
-    //TODO: add log
     public void openSavingAccount(){
         customer.getSavings().add(new SavingAccount(customer.getUsername()));
     }
 
-    //TODO: add log
     public boolean closeCheckingAccount(Account account){
         for(Double amount : account.getBalance().values())
             if(amount != 0)
@@ -29,7 +26,6 @@ public class CustomerController {
         return true;
     }
 
-    //TODO: add log
     public boolean closeSavingAccount(Account account){
         for(Double amount : account.getBalance().values())
             if(amount != 0)
@@ -38,10 +34,10 @@ public class CustomerController {
         return true;
     }
 
-    //TODO: add log
     public boolean openSecuritiesAccount(){
         for(SavingAccount savingAccount: customer.getSavings()){
-            if(savingAccount.getBalanceWithCurrency(Currency.USD) > Constant.OPEN_SECURITIES_THRESHOLD){
+            if(savingAccount.getBalance().containsKey(Currency.USD) &&
+                    savingAccount.getBalanceWithCurrency(Currency.USD) > Constant.OPEN_SECURITIES_THRESHOLD){
                 customer.setSecuritiesAccount(new SecuritiesAccount(customer.getUsername()));
                 return true;
             }
@@ -50,7 +46,6 @@ public class CustomerController {
         return false;
     }
 
-    //TODO: add log
     public boolean closeSecuritiesAccount(){
         for(Double amount : customer.getSecuritiesAccount().getBalance().values())
             if(amount != 0)

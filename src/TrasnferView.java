@@ -18,7 +18,6 @@ public class TrasnferView extends JFrame implements ActionListener {
     private AccountController accountController;
 
     private JLabel transferDestination;
-    private JLabel transferAmountLabel;
 
     private JRadioButton usd;
     private JRadioButton cny;
@@ -31,7 +30,7 @@ public class TrasnferView extends JFrame implements ActionListener {
     private JComboBox<Integer> savingsAccounts;
     private JComboBox<Integer> securitiesAccount;
 
-    private JButton securityTransfer;
+
     private JButton select;
     private JButton back;
 
@@ -44,7 +43,6 @@ public class TrasnferView extends JFrame implements ActionListener {
         container = getContentPane();
 
         transferDestination = new JLabel("Select transfer destination: ");
-        transferAmountLabel = new JLabel("Enter amount to transfer: ");
 
         usd = new JRadioButton("USD");
         cny = new JRadioButton("CNY");
@@ -75,7 +73,7 @@ public class TrasnferView extends JFrame implements ActionListener {
             securitiesAccount = new JComboBox<>(List.of(customer.getSecuritiesAccount().getAccountNum()).toArray(Integer[]::new));
         }
 
-        securityTransfer = new JButton("Transfer to security account");
+
         select = new JButton("Confirm");
         back = new JButton("Back");
     }
@@ -86,15 +84,13 @@ public class TrasnferView extends JFrame implements ActionListener {
         transferDestination.setBounds(50, 100, 150, 30);
         checkingAccounts.setBounds(50, 150, 150, 30);
         savingsAccounts.setBounds(50, 200, 150, 30);
-        //securitiesAccount.setBounds(50, 250, 150, 30);
-        transferAmountLabel.setBounds(50, 250, 150, 30);
+        securitiesAccount.setBounds(50, 250, 150, 30);
         enterAmount.setBounds(50, 300, 150, 30);
-        usd.setBounds(50, 350, 120, 30);
-        cny.setBounds(90, 350, 120, 30);
-        inr.setBounds(130, 350, 120, 30);
+        usd.setBounds(50, 350, 100, 30);
+        cny.setBounds(90, 350, 100, 30);
+        inr.setBounds(130, 350, 100, 30);
         select.setBounds(50, 400, 150, 30);
-        back.setBounds(50, 550, 150, 30);
-        securityTransfer.setBounds(50, 450, 200, 30);
+        back.setBounds(50, 450, 150, 30);
 
         container.add(transferDestination);
         container.add(checkingAccounts);
@@ -105,11 +101,8 @@ public class TrasnferView extends JFrame implements ActionListener {
         container.add(inr);
         container.add(usd);
         container.add(enterAmount);
-        //container.add(securitiesAccount);
-        container.add(securityTransfer);
-        container.add(transferAmountLabel);
+        container.add(securitiesAccount);
 
-        securityTransfer.addActionListener(this);
         select.addActionListener(this);
         back.addActionListener(this);
     }
@@ -126,42 +119,11 @@ public class TrasnferView extends JFrame implements ActionListener {
             } else {
                 Account transferAccount;
 
-                if(checkingAccounts.getSelectedIndex() == -1) {
-                    transferAccount = customer.getSavings().get(savingsAccounts.getSelectedIndex());
-                } else {
+                if(checkingAccounts.getSelectedIndex() !=  -1) {
                     transferAccount = customer.getCheckings().get(checkingAccounts.getSelectedIndex());
-                }
-
-                Currency currency = null;
-                if(usd.isSelected()) {
-                    currency = Currency.USD;
-                } else if(cny.isSelected()) {
-                    currency = Currency.CNY;
-                } else if(inr.isSelected()){
-                    currency = Currency.INR;
-                }
-
-                Double val = accountController.transfer(transferAccount, currency, Double.parseDouble(enterAmount.getText()));
-
-                if(val == null) {
-                    JOptionPane.showMessageDialog(this,"Transfer failed. Please check account balance.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Transfer successful! Remaining balance: " + val);
+                    transferAccount = customer.getSavings().get(savingsAccounts.getSelectedIndex());
                 }
-            }
-        } else if (e.getSource() == securityTransfer) {
-            if (checkingAccounts.getSelectedIndex() == -1 && savingsAccounts.getSelectedIndex() == -1 && securitiesAccount.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(this, "Please select an account to transfer to.");
-            } else if (enterAmount.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Please enter a valid amount.");
-            } else if (group2.getSelection() == null) {
-                JOptionPane.showMessageDialog(this, "Please select your transfer currency.");
-            } else if (customer.getSecuritiesAccount() == null){
-                JOptionPane.showMessageDialog(this, "No securities account. Please open a securities account.");
-            } else if (account.getAccountNum() == customer.getSecuritiesAccount().getAccountNum()){
-                JOptionPane.showMessageDialog(this, "Cannot transfer to the same account.");
-            } else {
-                Account transferAccount = customer.getSecuritiesAccount();
 
                 Currency currency = null;
                 if(usd.isSelected()) {

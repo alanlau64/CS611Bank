@@ -63,7 +63,6 @@ public class CreateAccountPage extends JFrame implements ActionListener {
             } else {
                 Customer customer = new Customer(usernameField.getText(), Arrays.toString(passwordField.getPassword()));
             }
-
             LoginPage frame = new LoginPage();
             frame.setTitle("Login Form");
             frame.setVisible(true);

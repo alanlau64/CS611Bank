@@ -8,7 +8,7 @@ public class TransferWithoutTransactionFee extends TransactionsMayChargeFee impl
         if(myAccount.getBalance().containsKey(currency) && myAccount.getBalance().get(currency) >= money) {
             myAccount.getBalance().put(currency, myAccount.getBalance().get(currency) - money);
             if(in.getBalance().containsKey(currency))
-                in.getBalance().put(currency, myAccount.getBalance().get(currency) + money);
+                in.getBalance().put(currency, in.getBalance().get(currency) + money);
             else
                 in.getBalance().put(currency, money);
             return myAccount.getBalance().get(currency);

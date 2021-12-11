@@ -28,6 +28,7 @@ public class LoanPage extends JFrame implements ActionListener {
         back = new JButton("Back");
 
         loans = new JComboBox<Integer>(customerController.getLoansNums().toArray(Integer[]::new));
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {
