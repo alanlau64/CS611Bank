@@ -27,7 +27,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
     private JButton sellStock;
 
     private JLabel stockMarket;
-    private JComboBox<Stock> availableStocks;
+    private JComboBox<String> availableStocks;
     private JLabel stockPrice;
     private JFormattedTextField buyAmount;
     private JButton buyStock;
@@ -62,7 +62,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         sellStock =  new JButton("Sell");
 
         stockMarket = new JLabel("Stock Market: ");
-        availableStocks = new JComboBox<>(stocks.toArray(Stock[]::new));
+        availableStocks = new JComboBox<>(BankSystem.getAvailableStockNames().toArray(String[]::new));
         stockPrice = new JLabel();
         buyAmount = new JFormattedTextField(buyAmount);
         buyStock = new JButton("Buy");
