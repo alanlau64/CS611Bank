@@ -122,7 +122,6 @@ public class OpenLoanView extends JFrame implements ActionListener {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(new Date());
                 calendar.add(Calendar.DATE, 10);
-
                 Loan loan = customerController.requestLoan(currency, Double.parseDouble(amount.getText()), collateral.getText(), calendar.getTime());
 
                 if(loan != null) {

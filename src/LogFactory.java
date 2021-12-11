@@ -9,6 +9,12 @@ public class LogFactory {
             case "manager" -> {
                 return new ManagerLog();
             }
+            case "transaction" -> {
+                return new TransactionLog();
+            }
+            case "stock" -> {
+                return new StockLog();
+            }
             default -> {
                 return null;
             }
