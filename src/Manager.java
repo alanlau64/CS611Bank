@@ -37,6 +37,13 @@ public class Manager extends User{
     //TODO: add log
     public boolean deleteStock(ArrayList<Stock> stocks, String name){
         Stock newStock = new Stock(name);
+        for(Customer customer : BankSystem.getCustomers()){
+            if(customer.getSecuritiesAccount()!=null){
+                if(customer.getSecuritiesAccount().getStocks().containsKey(newStock))
+                    new SecuritiesAccountController(customer.getSecuritiesAccount()).sellStock(newStock,
+                            customer.getSecuritiesAccount().getStocks().get(newStock));
+            }
+        }
         if(stocks.contains(newStock)){
             stocks.remove(newStock);
             return true;

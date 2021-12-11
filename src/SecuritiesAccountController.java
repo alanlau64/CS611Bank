@@ -29,6 +29,8 @@ public class SecuritiesAccountController extends AccountController{
             stocks.put(stock, stocks.get(stock) - amount);
             account.getBalance().put(stock.getCurrency(), account.getBalance().get(stock.getCurrency())
                     + amount * stock.getPrice());
+            if(stocks.get(stock) == 0)
+                stocks.remove(stock);
             return true;
         }
         // don't have enough amount of stock to sell

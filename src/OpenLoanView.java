@@ -14,6 +14,7 @@ public class OpenLoanView extends JFrame implements ActionListener {
     private Container container;
 
     private Customer customer;
+    private CustomerController customerController;
 
     private JRadioButton usd;
     private JRadioButton cny;
@@ -30,6 +31,7 @@ public class OpenLoanView extends JFrame implements ActionListener {
 
     public OpenLoanView(Customer customer) {
         this.customer = customer;
+        this.customerController = new CustomerController(customer);
 
         container = getContentPane();
 
@@ -120,8 +122,7 @@ public class OpenLoanView extends JFrame implements ActionListener {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(new Date());
                 calendar.add(Calendar.DATE, 10);
-
-                Loan loan = new CustomerController(customer).requestLoan(currency, Double.parseDouble(amount.getText()), collateral.getText(), calendar.getTime());
+                Loan loan = customerController.requestLoan(currency, Double.parseDouble(amount.getText()), collateral.getText(), calendar.getTime());
 
                 if(loan != null) {
                     JOptionPane.showMessageDialog(this, "Successfully opened a loan!");

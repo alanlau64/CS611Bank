@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -19,10 +21,10 @@ public class BankSystem {
         Log managerLog = logFactory.getLog("manager");
         Log transactionLog = logFactory.getLog("transaction");
         Log stockLog = logFactory.getLog("stock");
-        customerLog.readLog();
-        managerLog.readLog();
-        transactionLog.readLog();
-        stockLog.readLog();
+        customers = customerLog.readLog();
+        managers = managerLog.readLog();
+        transactions = transactionLog.readLog();
+        stocks = stockLog.readLog();
     }
 
     public void run(){
@@ -37,20 +39,23 @@ public class BankSystem {
         frame.setResizable(false);
 
         frame.showPage();
+        }
 
-        close();
-    }
-
-    public void close(){
-        Constant.writeConfig();
-        Log customerLog = logFactory.getLog("customer");
-        Log managerLog = logFactory.getLog("manager");
-        Log transactionLog = logFactory.getLog("transaction");
-        Log stockLog = logFactory.getLog("stock");
-        customerLog.createLog(customers);
-        managerLog.createLog(managers);
-        transactionLog.createLog(transactions);
-        stockLog.createLog(stocks);
+    public static WindowAdapter close(){
+        return new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                Constant.writeConfig();
+                Log customerLog = logFactory.getLog("customer");
+                Log managerLog = logFactory.getLog("manager");
+                Log transactionLog = logFactory.getLog("transaction");
+                Log stockLog = logFactory.getLog("stock");
+                customerLog.createLog(customers);
+                managerLog.createLog(managers);
+                transactionLog.createLog(transactions);
+                stockLog.createLog(stocks);
+            }};
     }
 
     // Click the button nextDay
@@ -70,38 +75,52 @@ public class BankSystem {
         }
     }
 
+    public static ArrayList<Customer> getCustomers() {
+        return customers;
+    }
+
     public static void addCustomer (Customer e) {
         customers.add(e);
     }
+
     public static void addManager (Manager e) {
         managers.add(e);
     }
+
     public static void addLoan (Loan e) {
         loansWaitToVerify.add(e);
     }
+
     public static void addStock (Stock e) {
         stocks.add(e);
     }
+
     public static void addTransaction (Transaction e) {
         transactions.add(e);
     }
+
     public static void removeCustomer (Customer e) {
         customers.remove(e);
     }
+
     public static void removeManager (Manager e) {
         managers.remove(e);
     }
+
     public static void removeLoan (Loan e) {
         loansWaitToVerify.remove(e);
     }
+
     public static void removeStock (Stock e) {
         stocks.remove(e);
     }
+
     public static ArrayList<Stock> getAvailableStocks() {
         Stock stock = new Stock("MSF", 300);
         stocks.add(stock);
         return stocks;
     }
+
     public static ArrayList<Loan> getLoansWaitToVerify() {
         return loansWaitToVerify;
     }
