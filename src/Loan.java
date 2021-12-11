@@ -9,10 +9,11 @@ public class Loan {
     private int loanNum;
     private Date overdueTime;
     private String userName;
+    private Account inAccount;
 
     public Loan(){}
 
-    public Loan(Currency currency, Double amount, String mortgage, Date overdueTime, String userName){
+    public Loan(Currency currency, Double amount, String mortgage, Date overdueTime, String userName, Account inAccount){
         this.currency = currency;
         this.amount = amount;
         this.mortgage = mortgage;
@@ -20,6 +21,7 @@ public class Loan {
         this.loanNum = ++Constant.MAX_LOAN_NUMBER;
         this.overdueTime = overdueTime;
         this.userName = userName;
+        this.inAccount = inAccount;
     }
 
     @Override
@@ -69,5 +71,9 @@ public class Loan {
 
     public String getMortgage() {
         return mortgage;
+    }
+
+    public Account getInAccount() {
+        return inAccount;
     }
 }

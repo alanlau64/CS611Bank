@@ -61,8 +61,8 @@ public class CustomerController {
         return true;
     }
 
-    public Loan requestLoan(Currency currency, Double amount, String mortgage, Date overdueTime){
-        Loan newLoan = new Loan(currency, amount, mortgage, overdueTime, customer.getUsername());
+    public Loan requestLoan(Currency currency, Double amount, String mortgage, Date overdueTime, Account inAccount){
+        Loan newLoan = new Loan(currency, amount, mortgage, overdueTime, customer.getUsername(), inAccount);
         customer.getLoans().add(newLoan);
         BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, newLoan, "request"));
         return newLoan;

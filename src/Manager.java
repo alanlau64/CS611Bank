@@ -47,8 +47,19 @@ public class Manager extends User{
         else return false;
     }
 
-    public void verifyLoan(Loan loan, boolean isVerify){
+    public void verifyLoan(Loan loan, boolean isApprove){
         loan.setVerify(true);
-        BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, loan, "approve"));
+        if(isApprove) {
+            BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, loan, "approve"));
+            new AccountController(loan.getInAccount()).deposit(loan.getCurrency(), loan.getAmount());
+        }
+        else {
+            BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, loan, "deny"));
+            for(Customer customer : BankSystem.getCustomers()){
+                if(customer.getUsername().equalsIgnoreCase(loan.getUserName()))
+                    customer.getLoans().remove(loan);
+            }
+        }
+        BankSystem.getLoansWaitToVerify().remove(loan);
     }
 }
