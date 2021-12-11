@@ -50,7 +50,6 @@ public class CreateAccountPage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == create) {
             Customer customer = new Customer(usernameField.getText(), Arrays.toString(passwordField.getPassword()));
-            BankSystem.addCustomer(customer);
             LoginPage frame = new LoginPage();
             frame.setTitle("Login Form");
             frame.setVisible(true);

@@ -59,6 +59,7 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
 
         select = new JButton("Select");
         back = new JButton("Return");
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

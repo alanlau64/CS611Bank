@@ -120,9 +120,9 @@ public class TrasnferView extends JFrame implements ActionListener {
                 Account transferAccount;
 
                 if(checkingAccounts.getSelectedIndex() !=  -1) {
-                    transferAccount = customer.getSavings().get(savingsAccounts.getSelectedIndex());
-                } else {
                     transferAccount = customer.getCheckings().get(checkingAccounts.getSelectedIndex());
+                } else {
+                    transferAccount = customer.getSavings().get(savingsAccounts.getSelectedIndex());
                 }
 
                 Currency currency = null;

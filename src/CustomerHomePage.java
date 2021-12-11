@@ -46,6 +46,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         logout = new JButton("Logout");
         checkingAccounts = new JComboBox<Integer>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
         savingsAccounts = new JComboBox<Integer>(customerController.getSavingAccountNums().toArray(Integer[]::new));
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

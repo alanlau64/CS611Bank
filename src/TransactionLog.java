@@ -38,7 +38,11 @@ public class TransactionLog implements Log {
         builder.registerTypeAdapter(Date.class, new DateDeserializer());
         Gson gson = builder.create();
         try {
-            this.logFile.createNewFile();
+            if (this.logFile.createNewFile()) {
+                FileWriter writer = new FileWriter(logFile);
+                writer.write("[]");
+                writer.close();
+            }
             BufferedReader reader = new BufferedReader(new FileReader(this.logFile));
             StringBuilder str = new StringBuilder();
             String line = null;

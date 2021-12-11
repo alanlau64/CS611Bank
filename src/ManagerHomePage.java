@@ -35,6 +35,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         viewStockPage = new JButton("View stocks");
         logout = new JButton("Logout");
         viewLoans = new JButton("View loans");
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {
