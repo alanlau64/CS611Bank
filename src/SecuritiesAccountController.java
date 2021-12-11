@@ -9,6 +9,10 @@ public class SecuritiesAccountController extends AccountController{
 
     //TODO: add log
     public boolean buyStock(Stock stock, int amount){
+
+        if(account == null) {
+            return false;
+        }
         Map<Stock, Integer> stocks = ((SecuritiesAccount)account).getStocks();
         if(account.getBalance().get(stock.getCurrency()) >= amount * stock.getPrice()){
             account.getBalance().put(stock.getCurrency(), account.getBalance().get(stock.getCurrency())
@@ -24,6 +28,9 @@ public class SecuritiesAccountController extends AccountController{
 
     //TODO: add log
     public boolean sellStock(Stock stock, int amount){
+        if(account == null) {
+            return false;
+        }
         Map<Stock, Integer> stocks = ((SecuritiesAccount)account).getStocks();
         if(stocks.containsKey(stock) && stocks.get(stock) >= amount){
             stocks.put(stock, stocks.get(stock) - amount);

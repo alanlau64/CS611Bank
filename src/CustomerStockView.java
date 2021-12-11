@@ -31,8 +31,10 @@ public class CustomerStockView extends JFrame implements ActionListener {
     private JLabel stockPrice;
     private JFormattedTextField buyAmount;
     private JButton buyStock;
+    private JButton closeSecuritiesAccount;
 
     private JButton back;
+    private JButton transfer;
 
     public CustomerStockView(Customer customer) {
         this.container = getContentPane();
@@ -67,27 +69,32 @@ public class CustomerStockView extends JFrame implements ActionListener {
         buyAmount = new JFormattedTextField(buyAmount);
         buyStock = new JButton("Buy");
 
+        transfer = new JButton("Transfer to checking/savings");
+        closeSecuritiesAccount = new JButton("Close securities account");
         back = new JButton("Back");
     }
 
     public void showPage() {
         container.setLayout(null);
 
-        ownedStocksLabel.setBounds(50, 100, 150, 30);
-        ownedStocks.setBounds(50, 150, 150, 30);
-        ownedAmount.setBounds(50, 200, 150, 30);
-        price.setBounds(300, 300, 150, 30);
-        sellAmount.setBounds(50, 250, 150, 30);
-        sellStock.setBounds(50, 300, 150, 30);
+        ownedStocksLabel.setBounds(50, 50, 150, 30);
+        ownedStocks.setBounds(50, 100, 150, 30);
+        ownedAmount.setBounds(50, 150, 150, 30);
+        price.setBounds(250, 150, 150, 30);
+        sellAmount.setBounds(50, 200, 150, 30);
+        sellStock.setBounds(50, 250, 150, 30);
 
-        stockMarket.setBounds(50, 350, 150, 30);
-        availableStocks.setBounds(50, 400, 150, 30);
-        buyAmount.setBounds(50, 450, 150, 30);
-        stockPrice.setBounds(250, 450, 150, 30);
-        buyStock.setBounds(50, 500, 150, 30);
+        stockMarket.setBounds(50, 300, 150, 30);
+        availableStocks.setBounds(50, 350, 150, 30);
+        buyAmount.setBounds(50, 400, 150, 30);
+        stockPrice.setBounds(250, 400, 150, 30);
+        buyStock.setBounds(50, 450, 150, 30);
 
+        closeSecuritiesAccount.setBounds(50, 500, 150, 30);
+        transfer.setBounds(50, 550, 150, 30);
         back.setBounds(50, 600, 150, 30);
 
+        container.add(transfer);
         container.add(ownedStocksLabel);
         container.add(ownedStocks);
         container.add(ownedAmount);
@@ -101,6 +108,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         container.add(stockPrice);
         container.add(price);
 
+        transfer.addActionListener(this);
         ownedStocks.addActionListener(this);
         availableStocks.addActionListener(this);
         sellStock.addActionListener(this);
@@ -112,7 +120,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == ownedStocks) {
             Stock stock = (Stock) ownedStocks.getSelectedItem();
-            ownedAmount.setText(String.valueOf(customerStocks.get(stock)));
+            ownedAmount.setText("Owned shares: " + String.valueOf(customerStocks.get(stock)));
             price.setText("Price: " + String.valueOf(stock.getPrice()));
 
             this.setVisible(false);
@@ -120,11 +128,14 @@ public class CustomerStockView extends JFrame implements ActionListener {
         }
 
         if(e.getSource() == availableStocks) {
-            Stock stock = (Stock) availableStocks.getSelectedItem();
-            stockPrice.setText("Price: " + String.valueOf(stock.getPrice()));
+            for(Stock stock: stocks) {
+                if(availableStocks.getSelectedItem().equals(stock.getName())) {
+                    stockPrice.setText("Price: " + String.valueOf(stock.getPrice()));
 
-            this.setVisible(false);
-            this.setVisible(true);
+                    this.setVisible(false);
+                    this.setVisible(true);
+                }
+            }
         }
 
         if (e.getSource() == sellStock) {
@@ -160,18 +171,42 @@ public class CustomerStockView extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Please select the number of shares you wish to buy");
             }
 
-            boolean flag = securitiesAccountController.buyStock((Stock) availableStocks.getSelectedItem(), Integer.parseInt(buyAmount.getText()));
+            for(Stock stock : stocks) {
+                if(availableStocks.getSelectedItem().equals(stock.getName())) {
+                    boolean flag = securitiesAccountController.buyStock(stock, Integer.parseInt(buyAmount.getText()));
 
-            if(flag) {
-                JOptionPane.showMessageDialog(this, "Shares bought successfully.");
+                    if(flag) {
+                        JOptionPane.showMessageDialog(this, "Shares bought successfully.");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Not enough money in account to buy. Please select a lower amount or deposit money to your securities account.");
+                    }
+                }
+            }
+        }
+
+        if (e.getSource() == closeSecuritiesAccount) {
+            if (new CustomerController(customer).closeSecuritiesAccount()) {
+                JOptionPane.showMessageDialog(this, "Successfully closed securities account");
             } else {
-                JOptionPane.showMessageDialog(this, "Not enough money in account to buy. Please select a lower amount or deposit money to your securities account.");
+                JOptionPane.showMessageDialog(this, "Please ensure all stocks are sold and all money is transferred out");
             }
         }
 
         if (e.getSource() == back) {
             CustomerHomePage frame = new CustomerHomePage(customer);
             frame.setTitle("Customer home page");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        }
+
+        if(e.getSource() == transfer) {
+            TrasnferView frame = new TrasnferView(customer.getSecuritiesAccount(), customer);
+            frame.setTitle("Transfer");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
