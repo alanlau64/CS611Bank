@@ -42,6 +42,7 @@ public class BankSystem {
     }
 
     public void close(){
+        System.out.println("dad");
         Constant.writeConfig();
         Log customerLog = logFactory.getLog("customer");
         Log managerLog = logFactory.getLog("manager");

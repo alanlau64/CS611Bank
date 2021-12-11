@@ -27,14 +27,16 @@ public class Constant {
             File file = new File("config");
             file.createNewFile();
             Scanner in = new Scanner(file);
-            String line = in.nextLine();
-            String[] args = line.split(" ");
-            if (args.length < 3) {
-                return;
+            if(in.hasNext()) {
+                String line = in.nextLine();
+                String[] args = line.split(" ");
+                if (args.length < 3) {
+                    return;
+                }
+                MAX_ACCOUNT_NUMBER = Integer.parseInt(args[0]);
+                MAX_LOAN_NUMBER = Integer.parseInt(args[1]);
+                CURRENT_TIME = new Date(Long.parseLong(args[2]));
             }
-            MAX_ACCOUNT_NUMBER = Integer.parseInt(args[0]);
-            MAX_LOAN_NUMBER = Integer.parseInt(args[1]);
-            CURRENT_TIME = new Date(Long.parseLong(args[2]));
         } catch (IOException e) {
             e.printStackTrace();
         }
