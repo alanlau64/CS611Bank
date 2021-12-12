@@ -19,7 +19,7 @@ public class TransactionLog implements Log {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Date.class, new DateSerializer());
         Gson gson = builder.create();
-        Type type = new TypeToken<ArrayList<Manager>>(){}.getType();
+        Type type = new TypeToken<ArrayList<Transaction>>(){}.getType();
         this.content = gson.toJson(transactions, type);
         try {
             this.logFile.createNewFile();
@@ -52,7 +52,7 @@ public class TransactionLog implements Log {
                 str.append(ls);
             }
             String json = str.toString();
-            Type type = new TypeToken<ArrayList<Manager>>(){}.getType();
+            Type type = new TypeToken<ArrayList<Transaction>>(){}.getType();
             transactions = gson.fromJson(json, type);
             reader.close();
         } catch (IOException e) {

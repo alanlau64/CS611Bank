@@ -149,6 +149,8 @@ public class BankSystem {
 
     public static ArrayList<Manager> getManagers() { return managers; }
 
+    public static ArrayList<Transaction> getTransactions() { return transactions; }
+
     public static ArrayList<String> getAvailableStockNames() {
         ArrayList<String> stockNames = new ArrayList<>();
 
