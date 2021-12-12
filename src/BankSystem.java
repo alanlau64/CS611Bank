@@ -138,8 +138,6 @@ public class BankSystem {
     }
 
     public static ArrayList<Stock> getAvailableStocks() {
-        Stock stock = new Stock("MSF", 300);
-        stocks.add(stock);
         return stocks;
     }
 

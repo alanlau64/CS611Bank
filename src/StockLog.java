@@ -51,12 +51,13 @@ public class StockLog implements Log {
                 str.append(ls);
             }
             String json = str.toString();
-            Type type = new TypeToken<ArrayList<Manager>>(){}.getType();
+            Type type = new TypeToken<ArrayList<Stock>>(){}.getType();
             stocks = gson.fromJson(json, type);
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return stocks;
     }
 }

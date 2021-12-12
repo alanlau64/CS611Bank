@@ -26,9 +26,9 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         container = getContentPane();
 
         bankStatistics = new JLabel("Bank Statistics");
-        numCustomers = new JLabel("Total number of customers: ");
+        numCustomers = new JLabel("Total number of customers: " + BankSystem.getCustomers().size());
         numAccounts = new JLabel("Total number of accounts: ");
-        totalLoansToVerify = new JLabel("Loans to verify: ");
+        totalLoansToVerify = new JLabel("Loans to verify: " + BankSystem.getLoansWaitToVerify().size());
 
         nextDay = new JButton("Next day");
         dailyReport = new JButton("Create daily report");
