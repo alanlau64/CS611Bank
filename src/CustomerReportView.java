@@ -34,7 +34,6 @@ public class CustomerReportView extends JFrame implements ActionListener {
         stockLabel = new JLabel("Stock Report");
 
         ArrayList<Transaction> transactions = BankSystem.getTransactions();
-        Date date = Constant.CURRENT_TIME;
 
         Util util = new Util();
         ArrayList<Integer> allAccountNum = new ArrayList<>();
@@ -45,8 +44,9 @@ public class CustomerReportView extends JFrame implements ActionListener {
         ArrayList<Transaction> filteredTransactions = util.filterLogByID(transactions, allAccountNum);
         ArrayList<LoanActivity> filteredLoans = util.filterLogByName(new LoanActivityLog().readLog(), customer.getUsername());
         ArrayList<AccountActivity> accountActivities = util.filterLogByName(new AccountActivityLog().readLog(), customer.getUsername());
-        ArrayList<StockTrade> stockTrades = util.filterLogByID(new StockTradeLog().readLog(),
-                new ArrayList<Integer>(customer.getSecuritiesAccount().getAccountNum()));
+        ArrayList<Integer> stockAccountID = new ArrayList<>();
+        stockAccountID.add(customer.getSecuritiesAccount().getAccountNum());
+        ArrayList<StockTrade> stockTrades = util.filterLogByID(new StockTradeLog().readLog(), stockAccountID);
 
         String[][] data = new String[filteredTransactions.size()][6];
 
