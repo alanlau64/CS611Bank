@@ -16,6 +16,7 @@ public class LoginPage extends JFrame implements ActionListener {
 
     private JButton login;
     private JButton create;
+    private JButton refresh;
 
     public LoginPage() {
         container = getContentPane();
@@ -25,6 +26,7 @@ public class LoginPage extends JFrame implements ActionListener {
         password = new JLabel("Password");
         login = new JButton("Login");
         create = new JButton("Create Account");
+        refresh = new JButton("Refresh");
         this.addWindowListener(BankSystem.close());
     }
 
@@ -37,6 +39,7 @@ public class LoginPage extends JFrame implements ActionListener {
         password.setBounds(50, 220, 100, 30);
         login.setBounds(50, 300, 100, 30);
         create.setBounds(200, 300, 100, 30);
+        refresh.setBounds(210, 35, 100, 30);
 
         container.add(username);
         container.add(password);
@@ -44,9 +47,11 @@ public class LoginPage extends JFrame implements ActionListener {
         container.add(passwordField);
         container.add(login);
         container.add(create);
+        container.add(refresh);
 
         create.addActionListener(this);
         login.addActionListener(this);
+        refresh.addActionListener(this);
     }
 
     @Override
@@ -106,6 +111,16 @@ public class LoginPage extends JFrame implements ActionListener {
                     }
                 }
             }
+        }
+        else if (e.getSource() == refresh) {
+            LoginPage frame = new LoginPage();
+            frame.setTitle("Login Form");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 600);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+            dispose();
+            frame.showPage();
         }
 
     }
