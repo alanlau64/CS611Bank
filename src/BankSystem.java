@@ -7,10 +7,10 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 
 public class BankSystem {
-    private static ArrayList<Customer> customers = new ArrayList<>();
+    private static ArrayList<Stock> stocks = new ArrayList<>();
     private static ArrayList<Manager> managers = new ArrayList<>();
     private static ArrayList<Loan> loansWaitToVerify = new ArrayList<>();
-    private static ArrayList<Stock> stocks = new ArrayList<>();
+    private static ArrayList<Customer> customers = new ArrayList<>();
     private static ArrayList<StockTrade> stockTrades = new ArrayList<>();
     private static ArrayList<AccountActivity> accountActivities = new ArrayList<>();
 
@@ -41,10 +41,10 @@ public class BankSystem {
         Log stockTradeLog = logFactory.getLog("stockTrade");
         Log accountActivityLog = logFactory.getLog("accountActivity");
         Log loanActivityLog = logFactory.getLog("loanActivity");
+        stocks = stockLog.readLog();
         customers = customerLog.readLog();
         managers = managerLog.readLog();
         transactions = transactionLog.readLog();
-        stocks = stockLog.readLog();
         stockTrades = stockTradeLog.readLog();
         accountActivities = accountActivityLog.readLog();
         loanActivities = loanActivityLog.readLog();

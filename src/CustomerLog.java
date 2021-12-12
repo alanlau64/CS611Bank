@@ -40,6 +40,7 @@ public class CustomerLog implements Log {
         builder.registerTypeAdapter(Deposit.class, new DepositDeserializer());
         builder.registerTypeAdapter(Withdraw.class, new WithdrawDeserializer());
         builder.registerTypeAdapter(Transfer.class, new TransferDeserializer());
+        builder.registerTypeAdapter(Stock.class, new StockDeserializer());
         Gson gson = builder.create();
 
         try {
@@ -115,6 +116,17 @@ public class CustomerLog implements Log {
         public Withdraw deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             return new WithdrawWithTransactionFee();
+        }
+    }
+
+    private class StockDeserializer implements JsonDeserializer<Stock> {
+        public Stock deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+            for (Stock s : BankSystem.getAvailableStocks()) {
+                if (s.getName().equals(json.getAsString()))
+                    return s;
+            }
+            return null;
         }
     }
 }
