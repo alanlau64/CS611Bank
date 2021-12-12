@@ -146,48 +146,66 @@ public class CustomerStockView extends JFrame implements ActionListener {
 
         if (e.getSource() == sellStock) {
 
+            boolean flag1 = true;
             if(ownedStocks.getSelectedIndex() == -1) {
+                flag1 = false;
                 JOptionPane.showMessageDialog(this, "Please select the stock you wish to sell");
                 this.setVisible(false);
                 this.setVisible(true);
             }
 
-            if(sellAmount.getText().equals("")) {
+            else if(sellAmount.getText().equals("")) {
+                flag1 = false;
                 JOptionPane.showMessageDialog(this, "Please select the number of shares you wish to sell");
                 this.setVisible(false);
                 this.setVisible(true);
             }
 
-            boolean flag = securitiesAccountController.sellStock((Stock) ownedStocks.getSelectedItem(), Integer.parseInt(sellAmount.getText()));
-
-            if(flag) {
-                JOptionPane.showMessageDialog(this, "Shares sold successfully.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Not enough shares to sell. Please select a lower amount.");
+            else if(!new CustomerController(customer).checkAbilitySellAndBuyStock()){
+                flag1 = false;
+                JOptionPane.showMessageDialog(this, "Your saving accounts don't have enough balance");
+                this.setVisible(false);
+                this.setVisible(true);
+            }
+            if(flag1) {
+                boolean flag2 = securitiesAccountController.sellStock((Stock) ownedStocks.getSelectedItem(), Integer.parseInt(sellAmount.getText()));
+                if (flag2) {
+                    JOptionPane.showMessageDialog(this, "Shares sold successfully.");
+                } else{
+                    JOptionPane.showMessageDialog(this, "Not enough shares to sell. Please select a lower amount.");
+                }
             }
         }
 
         if (e.getSource() == buyStock) {
-
+            boolean flag1 = true;
             if(availableStocks.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(this, "Please select the stock you wish to buy");
+                flag1 = false;
             }
 
-            if(buyAmount.getText().equals("")) {
+            else if(buyAmount.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Please select the number of shares you wish to buy");
+                flag1 = false;
             }
 
-            for(Stock stock : stocks) {
-                if(availableStocks.getSelectedItem().equals(stock.getName())) {
-                    boolean flag = securitiesAccountController.buyStock(stock, Integer.parseInt(buyAmount.getText()));
+            else if(!new CustomerController(customer).checkAbilitySellAndBuyStock()){
+                JOptionPane.showMessageDialog(this, "Your saving accounts don't have enough balance");
+                flag1 = false;
+            }
 
-                    if(flag) {
-                        JOptionPane.showMessageDialog(this, "Shares bought successfully.");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Not enough money in account to buy. Please select a lower amount or deposit money to your securities account.");
+            if(flag1)
+                for(Stock stock : stocks) {
+                    if(availableStocks.getSelectedItem().equals(stock.getName())) {
+                        boolean flag2 = securitiesAccountController.buyStock(stock, Integer.parseInt(buyAmount.getText()));
+
+                        if(flag2) {
+                            JOptionPane.showMessageDialog(this, "Shares bought successfully.");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Not enough money in account to buy. Please select a lower amount or deposit money to your securities account.");
+                        }
                     }
                 }
-            }
         }
 
         if (e.getSource() == closeSecuritiesAccount) {

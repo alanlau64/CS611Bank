@@ -56,6 +56,17 @@ public class CustomerController {
         return false;
     }
 
+    public boolean checkAbilitySellAndBuyStock(){
+        for(SavingAccount savingAccount: customer.getSavings()){
+            if(savingAccount.getBalance().containsKey(Currency.USD) &&
+                    savingAccount.getBalanceWithCurrency(Currency.USD) > Constant.STOCK_STUFF_THRESHOLD){
+                return true;
+            }
+        }
+        // if there is no saving account having balance more than threshold, open fail
+        return false;
+    }
+
     public boolean closeSecuritiesAccount(){
         for(Double amount : customer.getSecuritiesAccount().getBalance().values())
             if(amount != 0)

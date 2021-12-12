@@ -14,6 +14,8 @@ public class Constant {
 
     public final static Double OPEN_SECURITIES_THRESHOLD = 5000.0;
 
+    public final static Double STOCK_STUFF_THRESHOLD = 2500.0;
+
     public final static Double TRANSACTION_FEE = 10.0;
 
     public final static Double SAVING_INTEREST_THRESHOLD = 1000.0;
