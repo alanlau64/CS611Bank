@@ -117,7 +117,7 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
                 } else {
                     JOptionPane.showMessageDialog(this, "Account cannot be closed. Please ensure there is no balance remaining.");
                 }
-            } else {
+            } else if (account.getClass().equals(SavingAccount.class)){
                 if(customerController.closeSavingAccount(account)) {
                     JOptionPane.showMessageDialog(this, "Account successfully closed");
                     CustomerHomePage frame = new CustomerHomePage(customer);
@@ -131,6 +131,21 @@ public class CheckingAndSavingAccountPage extends JFrame implements ActionListen
                     frame.showPage();
                 } else {
                     JOptionPane.showMessageDialog(this, "Account cannot be closed. Please ensure there is no balance remaining.");
+                }
+            } else {
+                if(customerController.closeSecuritiesAccount()) {
+                    JOptionPane.showMessageDialog(this, "Account successfully closed");
+                    CustomerHomePage frame = new CustomerHomePage(customer);
+                    frame.setTitle("Customer home page");
+                    frame.setVisible(true);
+                    frame.setBounds(10, 10, 370, 700);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setResizable(false);
+
+                    dispose();
+                    frame.showPage();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Account cannot be closed. Please ensure there is no balance remaining and sell all shares.");
                 }
             }
         }

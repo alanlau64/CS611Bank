@@ -69,7 +69,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         buyAmount = new JFormattedTextField(buyAmount);
         buyStock = new JButton("Buy");
 
-        transfer = new JButton("Transfer to checking/savings");
+        transfer = new JButton("View securities account");
         closeSecuritiesAccount = new JButton("Close securities account");
         back = new JButton("Back");
         this.addWindowListener(BankSystem.close());
@@ -206,7 +206,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         }
 
         if(e.getSource() == transfer) {
-            TrasnferView frame = new TrasnferView(customer.getSecuritiesAccount(), customer);
+            CheckingAndSavingAccountPage frame = new CheckingAndSavingAccountPage(customer.getSecuritiesAccount(), customer);
             frame.setTitle("Transfer");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
