@@ -142,7 +142,7 @@ public class ManagerStockView extends JFrame implements ActionListener {
 
             for(Stock stock : BankSystem.getAvailableStocks()) {
                 if (availableStocks.getSelectedItem().equals(stock.getName())) {
-                    if (manager.deleteStock(BankSystem.getAvailableStocks(), stock.getName())) {
+                    if (manager.deleteStock(BankSystem.getAvailableStocks(), stock)) {
                         JOptionPane.showMessageDialog(this, "Stock removed successfully.");
                     } else {
                         JOptionPane.showMessageDialog(this, "Stock could not be removed.");

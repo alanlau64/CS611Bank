@@ -30,18 +30,17 @@ public class Manager extends User{
         }
     }
 
-    public boolean deleteStock(ArrayList<Stock> stocks, String name){
-        Stock newStock = new Stock(name);
+    public boolean deleteStock(ArrayList<Stock> stocks, Stock stock){
         for(Customer customer : BankSystem.getCustomers()){
             if(customer.getSecuritiesAccount()!=null){
-                if(customer.getSecuritiesAccount().getStocks().containsKey(newStock))
-                    new SecuritiesAccountController(customer.getSecuritiesAccount()).sellStock(newStock,
-                            customer.getSecuritiesAccount().getStocks().get(newStock));
+                if(customer.getSecuritiesAccount().getStocks().containsKey(stock))
+                    new SecuritiesAccountController(customer.getSecuritiesAccount()).sellStock(stock,
+                            customer.getSecuritiesAccount().getStocks().get(stock));
             }
         }
 
-        if(stocks.contains(newStock)){
-            stocks.remove(newStock);
+        if(stocks.contains(stock)){
+            stocks.remove(stock);
             return true;
         }
         else return false;
