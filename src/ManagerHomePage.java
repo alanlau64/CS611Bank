@@ -21,6 +21,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
     private JButton viewStockPage;
     private JButton viewLoans;
     private JButton nextDay;
+    private JButton refresh;
 
     public ManagerHomePage(Manager manager) {
         this.manager = manager;
@@ -37,6 +38,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         viewStockPage = new JButton("View stocks");
         logout = new JButton("Logout");
         viewLoans = new JButton("View loans");
+        refresh = new JButton("Refresh");
         day = new JLabel(Constant.CURRENT_TIME.toString());
         this.addWindowListener(BankSystem.close());
     }
@@ -54,6 +56,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         viewLoans.setBounds(50, 400, 150, 30);
         logout.setBounds(50, 500, 150, 30);
         nextDay.setBounds(210, 0, 150, 30);
+        refresh.setBounds(210, 35, 100, 30);
 
         container.add(day);
         container.add(nextDay);
@@ -65,12 +68,14 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         container.add(viewStockPage);
         container.add(logout);
         container.add(viewLoans);
+        container.add(refresh);
 
         nextDay.addActionListener(this);
         dailyReport.addActionListener(this);
         viewStockPage.addActionListener(this);
         logout.addActionListener(this);
         viewLoans.addActionListener(this);
+        refresh.addActionListener(this);
     }
 
     @Override
@@ -112,6 +117,16 @@ public class ManagerHomePage extends JFrame implements ActionListener {
             frame.setTitle("Daily Report");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 900);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        } else if (e.getSource() == refresh) {
+            ManagerHomePage frame = new ManagerHomePage(manager);
+            frame.setTitle(manager.getUsername() + "'s home page");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setResizable(false);
 

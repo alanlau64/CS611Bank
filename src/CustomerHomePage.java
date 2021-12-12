@@ -20,6 +20,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
     private JButton stocks;
     private JButton message;
     private JButton logout;
+    private JButton refresh;
 
     private JComboBox<Integer> checkingAccounts;
     private JComboBox<Integer> savingsAccounts;
@@ -50,6 +51,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         stocks = new JButton("View stocks");
         message = new JButton("Message");
         logout = new JButton("Logout");
+        refresh = new JButton("Refresh");
         checkingAccounts = new JComboBox<Integer>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
         savingsAccounts = new JComboBox<Integer>(customerController.getSavingAccountNums().toArray(Integer[]::new));
         this.addWindowListener(BankSystem.close());
@@ -74,6 +76,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         stocks.setBounds(50, 550, 150, 30);
         message.setBounds(50, 600, 150, 30);
         logout.setBounds(50, 650, 150, 30);
+        refresh.setBounds(210, 35, 100, 30);
 
         container.add(day);
         container.add(checking);
@@ -88,6 +91,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         container.add(stocks);
         container.add(message);
         container.add(logout);
+        container.add(refresh);
 
         selectChecking.addActionListener(this);
         selectSaving.addActionListener(this);
@@ -96,6 +100,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         stocks.addActionListener(this);
         message.addActionListener(this);
         logout.addActionListener(this);
+        refresh.addActionListener(this);
     }
 
     @Override
@@ -154,7 +159,18 @@ public class CustomerHomePage extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
-        } else {
+        } else if (e.getSource() == refresh) {
+            CustomerHomePage frame = new CustomerHomePage(customer);
+            frame.setTitle(customer.getUsername() + "'s home page");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        }
+        else {
 
             if(e.getSource() == selectSaving) {
                 SavingAccount account = customer.getSavings().get(savingsAccounts.getSelectedIndex());
