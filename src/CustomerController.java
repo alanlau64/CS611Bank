@@ -75,11 +75,6 @@ public class CustomerController {
         return newLoan;
     }
 
-    //when the loan is verified by manager, the customer could get the money
-    public void createLoan(Account account, Loan loan){
-        new AccountController(account).deposit(loan.getCurrency(),loan.getAmount());
-    }
-
     public Double payBackLoan(Account account, Double amount, Loan loan){
         if(loan.getIsVerify()) {
             Double leftAmount = new LoanController(loan).payBack(account, amount);
