@@ -19,7 +19,7 @@ public class Util {
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(((HasDate) log).getDate());
             int day = calendar.get(Calendar.DATE);
-            calendar.setTime(Constant.CURRENT_TIME);
+            calendar.setTime(date);
             int currentDay = calendar.get(Calendar.DATE);
             if(day == currentDay)
                 result.add(log);
