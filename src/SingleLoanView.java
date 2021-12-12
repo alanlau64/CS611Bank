@@ -20,6 +20,11 @@ public class SingleLoanView extends JFrame implements ActionListener {
     private JButton pay1;
     private JButton back;
 
+    private JRadioButton checking;
+    private JRadioButton saving;
+    private JRadioButton security;
+    private ButtonGroup group;
+
     private JComboBox<Integer> checkingAccounts;
     private JComboBox<Integer> savingsAccounts;
 
@@ -53,8 +58,14 @@ public class SingleLoanView extends JFrame implements ActionListener {
         pay = new JButton("Pay Loan");
         pay1 = new JButton("Pay Loan");
 
-        checkingAccounts = new JComboBox<Integer>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
-        savingsAccounts = new JComboBox<Integer>(customerController.getSavingAccountNums().toArray(Integer[]::new));
+        checking = new JRadioButton("Checking");
+        saving = new JRadioButton("Saving");
+        group = new ButtonGroup();
+        group.add(checking);
+        group.add(saving);
+
+        checkingAccounts = new JComboBox<Integer>(new Integer[20]);
+        //savingsAccounts = new JComboBox<Integer>(customerController.getSavingAccountNums().toArray(Integer[]::new));
         this.addWindowListener(BankSystem.close());
     }
 
@@ -67,10 +78,12 @@ public class SingleLoanView extends JFrame implements ActionListener {
         interest.setBounds(50, 250, 150, 50);
 
         payAmount.setBounds(50, 350, 150, 30);
-        checkingAccounts.setBounds(50, 400, 150, 30);
-        pay.setBounds(50, 450, 150, 30);
+        checking.setBounds(50, 400, 150, 30);
+        saving.setBounds(50, 450, 150, 30);
+        checkingAccounts.setBounds(50, 500, 150, 30);
+        //pay.setBounds(50, 450, 150, 30);
 
-        savingsAccounts.setBounds(50, 500, 150, 30);
+        //savingsAccounts.setBounds(50, 500, 150, 30);
         pay1.setBounds(50, 550, 150, 30);
         back.setBounds(50, 600, 100, 30);
 
@@ -79,12 +92,16 @@ public class SingleLoanView extends JFrame implements ActionListener {
         container.add(amount);
         container.add(interest);
         container.add(payAmount);
-        container.add(pay);
+        //container.add(pay);
         container.add(back);
-        container.add(savingsAccounts);
+        //container.add(savingsAccounts);
         container.add(checkingAccounts);
         container.add(pay1);
+        container.add(checking);
+        container.add(saving);
 
+        checking.addActionListener(this);
+        saving.addActionListener(this);
         back.addActionListener(this);
         pay.addActionListener(this);
         pay1.addActionListener(this);
@@ -92,6 +109,20 @@ public class SingleLoanView extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == checking) {
+            checkingAccounts.removeAllItems();
+            for(Integer i : customerController.getCheckingAccountNums()) {
+                checkingAccounts.addItem(i);
+            }
+
+            //checkingAccounts = new JComboBox<>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
+        } else if (e.getSource() == saving) {
+            checkingAccounts.removeAllItems();
+            for(Integer i : customerController.getSavingAccountNums()) {
+                checkingAccounts.addItem(i);
+            }
+        }
 
         if (e.getSource() == back) {
             LoanPage frame = new LoanPage(customer);
@@ -103,13 +134,13 @@ public class SingleLoanView extends JFrame implements ActionListener {
 
             dispose();
             frame.showPage();
-        } else {
-            Account account;
+        } else if (e.getSource() == pay1){
+            Account account = null;
 
-            if (e.getSource() == pay) {
-                account = customer.getCheckings().get(checkingAccounts.getSelectedIndex());
-            } else {
-                account = customer.getSavings().get(savingsAccounts.getSelectedIndex());
+            if(checking.isSelected()) {
+                account = customer.getCheckings().get(this.checkingAccounts.getSelectedIndex());
+            } else if (saving.isSelected()) {
+                account = customer.getSavings().get(this.checkingAccounts.getSelectedIndex());
             }
 
             if(payAmount.getText().equals("")) {
@@ -118,6 +149,7 @@ public class SingleLoanView extends JFrame implements ActionListener {
                 this.setVisible(true);
             }
 
+            System.out.println(loan.getIsVerify());
             Double val = customerController.payBackLoan(account, Double.parseDouble(payAmount.getText()), loan);
 
             if(val == null) {
