@@ -19,11 +19,20 @@ public class DailyReportView extends JFrame implements ActionListener {
     private JScrollPane loanPane;
     private JScrollPane accountPane;
     private JScrollPane stockPane;
+    private JLabel transactionLabel;
+    private JLabel loanLabel;
+    private JLabel accountLabel;
+    private JLabel stockLabel;
     private JButton back;
 
     public DailyReportView(Manager manager) {
         this.manager = manager;
         container = getContentPane();
+
+        transactionLabel = new JLabel("Transaction Report");
+        loanLabel = new JLabel("Loan Report");
+        accountLabel = new JLabel("Account Report");
+        stockLabel = new JLabel("Stock Report");
 
         ArrayList<Transaction> transactions = BankSystem.getTransactions();
         Date date = new Date();
@@ -127,13 +136,21 @@ public class DailyReportView extends JFrame implements ActionListener {
     public void showPage() {
         container.setLayout(null);
 
-        scrollPane.setBounds(0, 0, 370, 150);
-        loanPane.setBounds(0, 200,370, 150);
+        transactionLabel.setBounds(0, 0, 150, 30);
+        scrollPane.setBounds(0, 40, 370, 150);
+        loanLabel.setBounds(0, 190, 150, 30);
+        loanPane.setBounds(0, 230,370, 150);
+        accountLabel.setBounds(0, 370, 150, 30);
         accountPane.setBounds(0, 400, 370, 150);
+        stockLabel.setBounds(0, 570, 150, 30);
         stockPane.setBounds(0, 600, 370, 100);
 
         back.setBounds(50, 800, 150, 30);
 
+        container.add(transactionLabel);
+        container.add(loanLabel);
+        container.add(stockLabel);
+        container.add(accountLabel);
         container.add(scrollPane);
         container.add(loanPane);
         container.add(accountPane);
