@@ -110,15 +110,19 @@ public class CustomerHomePage extends JFrame implements ActionListener {
             dispose();
             frame.showPage();
         } else if (e.getSource() == stocks) {
-            CustomerStockView frame = new CustomerStockView(customer);
-            frame.setTitle("Stocks");
-            frame.setVisible(true);
-            frame.setBounds(10, 10, 370, 700);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setResizable(false);
+            if(customer.getSecuritiesAccount() == null) {
+                JOptionPane.showMessageDialog(this, "Must have a securities account to view this page.");
+            } else {
+                CustomerStockView frame = new CustomerStockView(customer);
+                frame.setTitle("Stocks");
+                frame.setVisible(true);
+                frame.setBounds(10, 10, 370, 700);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setResizable(false);
 
-            dispose();
-            frame.showPage();
+                dispose();
+                frame.showPage();
+            }
         } else if (e.getSource() == logout) {
             LoginPage frame = new LoginPage();
             frame.setTitle("Login Page");
