@@ -4,21 +4,23 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Util {
-    public static ArrayList<Object> filterLogByName(ArrayList<Object> logList, String Name){
-        ArrayList<Object> result = new ArrayList<>();
-        for(Object log : logList){
-            if(((HasName) log).getName().equals(Name))
+    public Util(){}
+
+    public <T extends HasName> ArrayList<T> filterLogByName(ArrayList<T> logList, String Name){
+        ArrayList<T> result = new ArrayList<>();
+        for(T log : logList){
+            if(log.getName().equals(Name))
                 result.add(log);
         }
         return result;
     }
 
-    public static ArrayList<Object> filterLogByDate(ArrayList<Object> logList, Date date){
-        ArrayList<Object> result = new ArrayList<>();
+    public <T extends HasName> ArrayList<T> filterLogByDate(ArrayList<T> logList, Date date){
+        ArrayList<T> result = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         int requiredDate = calendar.get(Calendar.DATE);
-        for(Object log : logList){
+        for(T log : logList){
             calendar.setTime(((HasDate) log).getDate());
             int day = calendar.get(Calendar.DATE);
             if(day == requiredDate)
@@ -84,10 +86,10 @@ public class Util {
         return result;
     }
 
-    public static ArrayList<Object> filterLogByID(ArrayList<Object> logList, int ID){
-        ArrayList<Object> result = new ArrayList<>();
-        for(Object log : logList){
-            if(((HasID) log).getIDs().contains(ID))
+    public <T extends HasID> ArrayList<T> filterLogByID(ArrayList<T> logList, int ID){
+        ArrayList<T> result = new ArrayList<>();
+        for(T log : logList){
+            if(log.getIDs().contains(ID))
                 result.add(log);
         }
         return result;
