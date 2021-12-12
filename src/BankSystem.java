@@ -9,11 +9,11 @@ public class BankSystem {
     private static ArrayList<Customer> customers = new ArrayList<>();
     private static ArrayList<Manager> managers = new ArrayList<>();
     private static ArrayList<Loan> loansWaitToVerify = new ArrayList<>();
-    private static ArrayList<Transaction> transactions = new ArrayList<>();
     private static ArrayList<Stock> stocks = new ArrayList<>();
     private static ArrayList<StockTrade> stockTrades = new ArrayList<>();
     private static ArrayList<AccountActivity> accountActivities = new ArrayList<>();
     private static ArrayList<LoanActivity> loanActivities = new ArrayList<>();
+    private static ArrayList<Transaction> transactions = new ArrayList<>();
 
     private static LogFactory logFactory = new LogFactory();
     public BankSystem(){}

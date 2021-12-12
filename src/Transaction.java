@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Transaction {
+public class Transaction implements HasDate, HasID{
     private Integer fromAccount;
     private Integer toAccount;
     private Date time;
@@ -46,5 +47,18 @@ public class Transaction {
 
     public String getType() {
         return type;
+    }
+
+    @Override
+    public Date getDate() {
+        return getTime();
+    }
+
+    @Override
+    public ArrayList<Integer> getIDs() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids.add(getFromAccount());
+        ids.add(getToAccount());
+        return ids;
     }
 }

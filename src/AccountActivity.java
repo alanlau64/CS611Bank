@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.Date;
 
-public class AccountActivity {
+public class AccountActivity implements HasDate, HasName, HasID{
     private String username;
     private int accountNo;
     private Date time;
@@ -40,5 +41,22 @@ public class AccountActivity {
 
     public String getType() {
         return type;
+    }
+
+    @Override
+    public Date getDate() {
+        return getTime();
+    }
+
+    @Override
+    public ArrayList<Integer> getIDs() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids.add(accountNo);
+        return ids;
+    }
+
+    @Override
+    public String getName() {
+        return getUsername();
     }
 }

@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.Date;
 
-public class StockTrade {
+public class StockTrade implements HasDate, HasName, HasID{
     private Date time;
     private int accountNo;
     private String stockName;
@@ -58,5 +59,22 @@ public class StockTrade {
 
     public String getActivity() {
         return activity;
+    }
+
+    @Override
+    public Date getDate() {
+        return getTime();
+    }
+
+    @Override
+    public ArrayList<Integer> getIDs() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids.add(getAccountNo());
+        return ids;
+    }
+
+    @Override
+    public String getName() {
+        return getStockName();
     }
 }
