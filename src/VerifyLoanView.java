@@ -18,6 +18,7 @@ public class VerifyLoanView extends JFrame implements ActionListener {
     private JLabel loanMortgage;
     private JLabel loanDue;
     private JButton verify;
+    private JButton deny;
     private JButton back;
 
     public VerifyLoanView(Manager manager) {
@@ -31,6 +32,7 @@ public class VerifyLoanView extends JFrame implements ActionListener {
         loanUser = new JLabel();
         loanDue = new JLabel();
         verify = new JButton("Verify Loan");
+        deny = new JButton("Deny Loan");
         back = new JButton("Back");
     }
 
@@ -45,7 +47,8 @@ public class VerifyLoanView extends JFrame implements ActionListener {
         loanMortgage.setBounds(50, 350, 150, 30);
         loanDue.setBounds(50, 400, 150, 30);
         verify.setBounds(50, 500, 150, 30);
-        back.setBounds(50, 550, 150, 30);
+        deny.setBounds(50, 550, 150, 30);
+        back.setBounds(50, 600, 150, 30);
 
         container.add(loansLabel);
         container.add(loans);
@@ -55,9 +58,11 @@ public class VerifyLoanView extends JFrame implements ActionListener {
         container.add(loanMortgage);
         container.add(loanDue);
         container.add(verify);
+        container.add(deny);
         container.add(back);
 
         verify.addActionListener(this);
+        deny.addActionListener(this);
         back.addActionListener(this);
         loans.addActionListener(this);
         this.addWindowListener(BankSystem.close());
@@ -83,6 +88,15 @@ public class VerifyLoanView extends JFrame implements ActionListener {
 
             manager.verifyLoan(new BankSystem().getLoansWaitToVerify().get(loans.getSelectedIndex()), true);
             JOptionPane.showMessageDialog(this, "Loan has been verified");
+        }
+
+        if(e.getSource() == deny) {
+            if(loans.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(this, "Please select a loan to deny");
+            }
+
+            manager.verifyLoan(new BankSystem().getLoansWaitToVerify().get(loans.getSelectedIndex()), false);
+            JOptionPane.showMessageDialog(this, "Loan has been denied");
         }
 
         if (e.getSource() == back) {
