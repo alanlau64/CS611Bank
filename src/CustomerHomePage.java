@@ -33,7 +33,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         checking = new JLabel("Checking Accounts: ");
         saving = new JLabel("Saving Accounts: ");
 
-        day = new JLabel(new Date().toString());
+        day = new JLabel(Constant.CURRENT_TIME.toString());
 
         String text;
         if(customer.getSecuritiesAccount() == null) {

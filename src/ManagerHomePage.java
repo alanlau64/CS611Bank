@@ -37,7 +37,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         viewStockPage = new JButton("View stocks");
         logout = new JButton("Logout");
         viewLoans = new JButton("View loans");
-        day = new JLabel(new Date().toString());
+        day = new JLabel(Constant.CURRENT_TIME.toString());
         this.addWindowListener(BankSystem.close());
     }
 

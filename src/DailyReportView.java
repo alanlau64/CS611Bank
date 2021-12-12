@@ -35,23 +35,23 @@ public class DailyReportView extends JFrame implements ActionListener {
         stockLabel = new JLabel("Stock Report");
 
         ArrayList<Transaction> transactions = BankSystem.getTransactions();
-        Date date = new Date();
-        /***
-        ArrayList<Transaction> filteredTransactions = Util.filterTransactionLogByDate(transactions, date);
-        ArrayList<LoanActivity> filteredLoans = Util.filterLoanLogByDate(new LoanActivityLog().readLog(), date);
-        ArrayList<AccountActivity> accountActivities = Util.filterAccountLogByDate(new AccountActivityLog().readLog(), date);
-        ArrayList<StockTrade> stockTrades = Util.filterStockLogByDate(new StockTradeLog().readLog(), date);
-         ***/
+        Date date = Constant.CURRENT_TIME;
 
-        ArrayList<Transaction> filteredTransactions = BankSystem.getTransactions();
-        ArrayList<LoanActivity> filteredLoans = BankSystem.getLoanActivities();
-        ArrayList<AccountActivity> accountActivities = BankSystem.getAccountActivities();
-        ArrayList<StockTrade> stockTrades = BankSystem.getStockTrades();
+        Util util = new Util();
+        ArrayList<Transaction> filteredTransactions = util.filterLogByDate(transactions, date);
+        ArrayList<LoanActivity> filteredLoans = util.filterLogByDate(new LoanActivityLog().readLog(), date);
+        ArrayList<AccountActivity> accountActivities = util.filterLogByDate(new AccountActivityLog().readLog(), date);
+        ArrayList<StockTrade> stockTrades = util.filterLogByDate(new StockTradeLog().readLog(), date);
+
+//        ArrayList<Transaction> filteredTransactions = BankSystem.getTransactions();
+//        ArrayList<LoanActivity> filteredLoans = BankSystem.getLoanActivities();
+//        ArrayList<AccountActivity> accountActivities = BankSystem.getAccountActivities();
+//        ArrayList<StockTrade> stockTrades = BankSystem.getStockTrades();
 
         String[][] data = new String[filteredTransactions.size()][6];
 
         for(int i = 0; i < filteredTransactions.size(); i++) {
-            Transaction transaction = transactions.get(i);
+            Transaction transaction = filteredTransactions.get(i);
             data[i][0] = String.valueOf(transaction.getTime());
             data[i][1] = String.valueOf(transaction.getFromAccount());
             data[i][2] = transaction.getType();

@@ -15,70 +15,13 @@ public class Util {
         return result;
     }
 
-    public <T extends HasName> ArrayList<T> filterLogByDate(ArrayList<T> logList, Date date){
+    public <T extends HasDate> ArrayList<T> filterLogByDate(ArrayList<T> logList, Date date){
         ArrayList<T> result = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         int requiredDate = calendar.get(Calendar.DATE);
         for(T log : logList){
-            calendar.setTime(((HasDate) log).getDate());
-            int day = calendar.get(Calendar.DATE);
-            if(day == requiredDate)
-                result.add(log);
-        }
-        return result;
-    }
-
-    public static ArrayList<Transaction> filterTransactionLogByDate(ArrayList<Transaction> logList, Date date){
-        ArrayList<Transaction> result = new ArrayList<>();
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        int requiredDate = calendar.get(Calendar.DATE);
-
-        for(Transaction log : logList){
-            calendar.setTime(((HasDate) log).getDate());
-            int day = calendar.get(Calendar.DATE);
-            if(day == requiredDate)
-                result.add(log);
-        }
-        return result;
-    }
-
-    public static ArrayList<AccountActivity> filterAccountLogByDate(ArrayList<AccountActivity> logList, Date date){
-        ArrayList<AccountActivity> result = new ArrayList<>();
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        int requiredDate = calendar.get(Calendar.DATE);
-        for(AccountActivity log : logList){
-            calendar.setTime(((HasDate) log).getDate());
-            int day = calendar.get(Calendar.DATE);
-            if(day == requiredDate)
-                result.add(log);
-        }
-        return result;
-    }
-
-    public static ArrayList<LoanActivity> filterLoanLogByDate(ArrayList<LoanActivity> logList, Date date){
-        ArrayList<LoanActivity> result = new ArrayList<>();
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        int requiredDate = calendar.get(Calendar.DATE);
-        for(LoanActivity log : logList){
-            calendar.setTime(((HasDate) log).getDate());
-            int day = calendar.get(Calendar.DATE);
-            if(day == requiredDate)
-                result.add(log);
-        }
-        return result;
-    }
-
-    public static ArrayList<StockTrade> filterStockLogByDate(ArrayList<StockTrade> logList, Date date){
-        ArrayList<StockTrade> result = new ArrayList<>();
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        int requiredDate = calendar.get(Calendar.DATE);
-        for(StockTrade log : logList){
-            calendar.setTime(((HasDate) log).getDate());
+            calendar.setTime(log.getDate());
             int day = calendar.get(Calendar.DATE);
             if(day == requiredDate)
                 result.add(log);
