@@ -100,6 +100,7 @@ public class SingleLoanView extends JFrame implements ActionListener {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setResizable(false);
 
+            dispose();
             frame.showPage();
         } else {
             Account account;
