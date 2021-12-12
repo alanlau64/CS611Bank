@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class Util {
     public Util(){}
@@ -29,10 +26,10 @@ public class Util {
         return result;
     }
 
-    public <T extends HasID> ArrayList<T> filterLogByID(ArrayList<T> logList, int ID){
+    public <T extends HasID> ArrayList<T> filterLogByID(ArrayList<T> logList, ArrayList<Integer> ids){
         ArrayList<T> result = new ArrayList<>();
         for(T log : logList){
-            if(log.getIDs().contains(ID))
+            if(!Collections.disjoint(log.getIDs(),ids))
                 result.add(log);
         }
         return result;

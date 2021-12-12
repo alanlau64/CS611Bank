@@ -18,6 +18,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
     private JButton loans;
     private JButton openAccount;
     private JButton stocks;
+    private JButton message;
     private JButton logout;
 
     private JComboBox<Integer> checkingAccounts;
@@ -47,6 +48,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         selectChecking = new JButton("Select account");
         loans = new JButton("View loans");
         stocks = new JButton("View stocks");
+        message = new JButton("Message");
         logout = new JButton("Logout");
         checkingAccounts = new JComboBox<Integer>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
         savingsAccounts = new JComboBox<Integer>(customerController.getSavingAccountNums().toArray(Integer[]::new));
@@ -70,7 +72,8 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         loans.setBounds(50, 450, 150, 30);
         openAccount.setBounds(50, 500, 150, 30);
         stocks.setBounds(50, 550, 150, 30);
-        logout.setBounds(50, 600, 150, 30);
+        message.setBounds(50, 600, 150, 30);
+        logout.setBounds(50, 650, 150, 30);
 
         container.add(day);
         container.add(checking);
@@ -83,6 +86,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         container.add(loans);
         container.add(securities);
         container.add(stocks);
+        container.add(message);
         container.add(logout);
 
         selectChecking.addActionListener(this);
@@ -90,6 +94,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         openAccount.addActionListener(this);
         loans.addActionListener(this);
         stocks.addActionListener(this);
+        message.addActionListener(this);
         logout.addActionListener(this);
     }
 
@@ -129,6 +134,16 @@ public class CustomerHomePage extends JFrame implements ActionListener {
                 dispose();
                 frame.showPage();
             }
+        }else if (e.getSource() == message) {
+            CustomerReportView frame = new CustomerReportView(customer);
+            frame.setTitle("Message");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
         } else if (e.getSource() == logout) {
             LoginPage frame = new LoginPage();
             frame.setTitle("Login Page");
