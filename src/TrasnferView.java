@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class TrasnferView extends JFrame implements ActionListener {
 
@@ -31,7 +28,7 @@ public class TrasnferView extends JFrame implements ActionListener {
 
     private JFormattedTextField enterAmount;
 
-    private JComboBox<Integer> checkingAccounts;
+    private JComboBox<Integer> transferAccount;
     //private JComboBox<Integer> savingsAccounts;
     //private JComboBox<Integer> securitiesAccount;
 
@@ -77,7 +74,7 @@ public class TrasnferView extends JFrame implements ActionListener {
         //checkingAccountNums.removeIf(n -> (n == account.getAccountNum()));
         //ArrayList<Integer> savingAccountNums = customerController.getSavingAccountNums();
         //savingAccountNums.removeIf(n -> (n == account.getAccountNum()));
-        checkingAccounts = new JComboBox<Integer>(new Integer[20]);
+        transferAccount = new JComboBox<Integer>(new Integer[20]);
         //savingsAccounts = new JComboBox<Integer>(savingAccountNums.toArray(Integer[]::new));
 
         //if(customer.getSecuritiesAccount() == null) {
@@ -98,7 +95,7 @@ public class TrasnferView extends JFrame implements ActionListener {
         checking.setBounds(50, 100, 150, 30);
         saving.setBounds(50, 150, 150, 30);
         security.setBounds(50, 200, 150, 30);
-        checkingAccounts.setBounds(50, 250, 150, 30);
+        transferAccount.setBounds(50, 250, 150, 30);
         //savingsAccounts.setBounds(50, 200, 150, 30);
         //securitiesAccount.setBounds(50, 250, 150, 30);
         enterAmount.setBounds(50, 300, 150, 30);
@@ -109,7 +106,7 @@ public class TrasnferView extends JFrame implements ActionListener {
         back.setBounds(50, 450, 150, 30);
 
         container.add(transferDestination);
-        container.add(checkingAccounts);
+        container.add(transferAccount);
         //container.add(savingsAccounts);
         container.add(select);
         container.add(back);
@@ -132,29 +129,29 @@ public class TrasnferView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == checking) {
-            checkingAccounts.removeAllItems();
+            transferAccount.removeAllItems();
             for(Integer i : customerController.getCheckingAccountNums()) {
-                checkingAccounts.addItem(i);
+                transferAccount.addItem(i);
             }
 
             //checkingAccounts = new JComboBox<>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
         } else if (e.getSource() == saving) {
-            checkingAccounts.removeAllItems();
+            transferAccount.removeAllItems();
             for(Integer i : customerController.getSavingAccountNums()) {
-                checkingAccounts.addItem(i);
+                transferAccount.addItem(i);
             }
         } else if (e.getSource() == security) {
-            checkingAccounts.removeAllItems();
+            transferAccount.removeAllItems();
 
             if(customer.getSecuritiesAccount() == null) {
                 JOptionPane.showMessageDialog(this, "No securities account present");
             } else {
-                checkingAccounts.addItem(customer.getSecuritiesAccount().getAccountNum());
+                transferAccount.addItem(customer.getSecuritiesAccount().getAccountNum());
             }
         }
 
         if (e.getSource() == select) {
-            if (checkingAccounts.getSelectedIndex() == -1) {
+            if (transferAccount.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(this, "Please select an account to transfer to.");
             } else if (enterAmount.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Please enter a valid amount.");
@@ -164,9 +161,9 @@ public class TrasnferView extends JFrame implements ActionListener {
                 Account transferAccount;
 
                 if(checking.isSelected()) {
-                    transferAccount = customer.getCheckings().get(checkingAccounts.getSelectedIndex());
+                    transferAccount = customer.getCheckings().get(this.transferAccount.getSelectedIndex());
                 } else if (saving.isSelected()) {
-                    transferAccount = customer.getSavings().get(checkingAccounts.getSelectedIndex());
+                    transferAccount = customer.getSavings().get(this.transferAccount.getSelectedIndex());
                 } else {
                     transferAccount = customer.getSecuritiesAccount();
                 }
