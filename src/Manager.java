@@ -24,8 +24,7 @@ public class Manager extends User{
         Stock newStock = new Stock(name, initPrice);
         if(stocks.contains(newStock)){
             return false;
-        }
-        else {
+        } else {
             stocks.add(newStock);
             return true;
         }
@@ -40,6 +39,7 @@ public class Manager extends User{
                             customer.getSecuritiesAccount().getStocks().get(newStock));
             }
         }
+
         if(stocks.contains(newStock)){
             stocks.remove(newStock);
             return true;

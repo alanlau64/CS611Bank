@@ -69,8 +69,8 @@ public class WithdrawAndDepositPage extends JFrame implements ActionListener {
         deposit.setBounds(50, 200, 150, 30);
         enterAmount.setBounds(50, 250, 150, 30);
         usd.setBounds(50, 300, 60, 30);
-        cny.setBounds(90, 300, 60, 30);
-        inr.setBounds(130, 300, 60, 30);
+        cny.setBounds(150, 300, 60, 30);
+        inr.setBounds(250, 300, 60, 30);
         select.setBounds(50, 350, 150, 30);
         back.setBounds(50, 400, 150, 30);
 

@@ -168,7 +168,7 @@ public class ManagerStockView extends JFrame implements ActionListener {
             if(manager.createStock(BankSystem.getAvailableStocks(), stockName.getText(), Integer.parseInt(price.getText()))) {
                 JOptionPane.showMessageDialog(this, "Stock created successfully");
             } else {
-                JOptionPane.showMessageDialog(this, "Stock could not be created");
+                JOptionPane.showMessageDialog(this, "Stock created successfully");
             }
         }
 

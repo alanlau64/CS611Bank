@@ -101,8 +101,8 @@ public class TrasnferView extends JFrame implements ActionListener {
         //securitiesAccount.setBounds(50, 250, 150, 30);
         enterAmount.setBounds(50, 300, 150, 30);
         usd.setBounds(50, 350, 100, 30);
-        cny.setBounds(90, 350, 100, 30);
-        inr.setBounds(130, 350, 100, 30);
+        cny.setBounds(150, 350, 100, 30);
+        inr.setBounds(250, 350, 100, 30);
         select.setBounds(50, 400, 150, 30);
         back.setBounds(50, 450, 150, 30);
 
