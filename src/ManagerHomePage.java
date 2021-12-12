@@ -106,7 +106,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
             DailyReportView frame = new DailyReportView(manager);
             frame.setTitle("Daily Report");
             frame.setVisible(true);
-            frame.setBounds(10, 10, 370, 700);
+            frame.setBounds(10, 10, 370, 900);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setResizable(false);
 

@@ -12,6 +12,19 @@ public class BankSystem {
     private static ArrayList<Stock> stocks = new ArrayList<>();
     private static ArrayList<StockTrade> stockTrades = new ArrayList<>();
     private static ArrayList<AccountActivity> accountActivities = new ArrayList<>();
+
+    public static ArrayList<StockTrade> getStockTrades() {
+        return stockTrades;
+    }
+
+    public static ArrayList<AccountActivity> getAccountActivities() {
+        return accountActivities;
+    }
+
+    public static ArrayList<LoanActivity> getLoanActivities() {
+        return loanActivities;
+    }
+
     private static ArrayList<LoanActivity> loanActivities = new ArrayList<>();
     private static ArrayList<Transaction> transactions = new ArrayList<>();
 
