@@ -28,7 +28,7 @@ public class LoanController {
 
     // check the loan whether is overdue or not, if yes, confiscate the mortgage
     public boolean checkOverDue(){
-        return Constant.CURRENT_TIME.before(loan.getOverdueTime());
+        return Constant.CURRENT_TIME.after(loan.getOverdueTime());
     }
 
     public void setLoan(Loan loan) {

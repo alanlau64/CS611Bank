@@ -4,6 +4,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 
 public class BankSystem {
     private static ArrayList<Customer> customers = new ArrayList<>();
@@ -51,7 +52,6 @@ public class BankSystem {
 
     public void run(){
         init();
-        //TODO: the logic of bank system
         LoginPage frame = new LoginPage();
         frame.setTitle("Login Form");
         frame.setVisible(true);
@@ -93,12 +93,22 @@ public class BankSystem {
         Constant.CURRENT_TIME = calendar.getTime();
 
         for(Customer customer: customers){
-            for(Loan loan : customer.getLoans())
-                // Check whether the loan is overdue or not
-                new CustomerController(customer).checkLoanOverdue(loan);
-            for(SavingAccount savingAccount: customer.getSavings())
-                // Get the interest of saving accounts
-                new SavingAccountController(savingAccount).getInterest();
+            if(customer.getLoans().size() != 0) {
+                Iterator<Loan> iterator = customer.getLoans().iterator();
+                while (iterator.hasNext()) {
+                    // Check whether the loan is overdue or not
+                    Loan loan = iterator.next();
+                    if (new LoanController(loan).checkOverDue()) {
+                        BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, loan, "expire"));
+                        iterator.remove();
+                    }
+                }
+            }
+            if(customer.getSavings().size() != 0) {
+                for (SavingAccount savingAccount : customer.getSavings())
+                    // Get the interest of saving accounts
+                    new SavingAccountController(savingAccount).getInterest();
+            }
         }
     }
 

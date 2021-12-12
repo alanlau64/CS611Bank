@@ -89,14 +89,6 @@ public class CustomerController {
         else return null;
     }
 
-    public void checkLoanOverdue(Loan loan){
-        if(new LoanController(loan).checkOverDue()) {
-            BankSystem.addLoanActivity(new LoanActivity(Constant.CURRENT_TIME, loan, "expire"));
-            customer.getLoans().remove(loan);
-        }
-
-    }
-
     public ArrayList<Integer> getCheckingAccountNums() {
         ArrayList<Integer> checkingAccountNums = new ArrayList<>();
 
