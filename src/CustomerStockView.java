@@ -35,6 +35,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
 
     private JButton back;
     private JButton transfer;
+    private JButton refresh;
 
     public CustomerStockView(Customer customer) {
         this.container = getContentPane();
@@ -72,6 +73,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         transfer = new JButton("View securities account");
         closeSecuritiesAccount = new JButton("Close securities account");
         back = new JButton("Back");
+        refresh = new JButton("Refresh");
         this.addWindowListener(BankSystem.close());
     }
 
@@ -94,6 +96,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         closeSecuritiesAccount.setBounds(50, 500, 150, 30);
         transfer.setBounds(50, 550, 150, 30);
         back.setBounds(50, 600, 150, 30);
+        refresh.setBounds(210, 35, 100, 30);
 
         container.add(transfer);
         container.add(ownedStocksLabel);
@@ -108,6 +111,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         container.add(back);
         container.add(stockPrice);
         container.add(price);
+        container.add(refresh);
 
         transfer.addActionListener(this);
         ownedStocks.addActionListener(this);
@@ -115,6 +119,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         sellStock.addActionListener(this);
         buyStock.addActionListener(this);
         back.addActionListener(this);
+        refresh.addActionListener(this);
     }
 
     @Override
@@ -208,6 +213,18 @@ public class CustomerStockView extends JFrame implements ActionListener {
         if(e.getSource() == transfer) {
             CheckingAndSavingAccountPage frame = new CheckingAndSavingAccountPage(customer.getSecuritiesAccount(), customer);
             frame.setTitle("Transfer");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        }
+
+        if (e.getSource() == refresh) {
+            CustomerStockView frame = new CustomerStockView(customer);
+            frame.setTitle("Stocks");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

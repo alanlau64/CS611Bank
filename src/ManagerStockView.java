@@ -24,6 +24,7 @@ public class ManagerStockView extends JFrame implements ActionListener {
     private JButton addStock;
     private JButton removeStock;
     private JButton back;
+    private JButton refresh;
 
     public ManagerStockView(Manager manager) {
         this.manager = manager;
@@ -48,6 +49,7 @@ public class ManagerStockView extends JFrame implements ActionListener {
         addStock = new JButton("Add stock");
         removeStock = new JButton("Remove stock");
         back = new JButton("Back");
+        refresh = new JButton("Refresh");
         this.addWindowListener(BankSystem.close());
     }
 
@@ -66,6 +68,7 @@ public class ManagerStockView extends JFrame implements ActionListener {
         price.setBounds(50, 500, 150, 30);
         addStock.setBounds(50, 550, 150, 30);
         back.setBounds(50, 600, 150, 30);
+        refresh.setBounds(210, 35, 100, 30);
 
         container.add(stockPrice);
         container.add(stockMarket);
@@ -79,12 +82,14 @@ public class ManagerStockView extends JFrame implements ActionListener {
         container.add(addStock);
         container.add(back);
         container.add(changePriceLabel);
+        container.add(refresh);
 
         removeStock.addActionListener(this);
         addStock.addActionListener(this);
         back.addActionListener(this);
         availableStocks.addActionListener(this);
         changePrice.addActionListener(this);
+        refresh.addActionListener(this);
     }
 
     @Override
@@ -175,6 +180,18 @@ public class ManagerStockView extends JFrame implements ActionListener {
         if (e.getSource() == back) {
             ManagerHomePage frame = new ManagerHomePage(manager);
             frame.setTitle("Manager home page");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        }
+
+        if (e.getSource() == refresh) {
+            ManagerStockView frame = new ManagerStockView(manager);
+            frame.setTitle("Manager Stock View");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
