@@ -27,6 +27,20 @@ public class Util {
         return result;
     }
 
+    public static ArrayList<Transaction> filterTransactionLogByDate(ArrayList<Transaction> logList, Date date){
+        ArrayList<Transaction> result = new ArrayList<>();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        int requiredDate = calendar.get(Calendar.DATE);
+        for(Transaction log : logList){
+            calendar.setTime(((HasDate) log).getDate());
+            int day = calendar.get(Calendar.DATE);
+            if(day == requiredDate)
+                result.add(log);
+        }
+        return result;
+    }
+
     public static ArrayList<Object> filterLogByID(ArrayList<Object> logList, int ID){
         ArrayList<Object> result = new ArrayList<>();
         for(Object log : logList){

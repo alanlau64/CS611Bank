@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DailyReportView extends JFrame implements ActionListener {
 
@@ -19,10 +20,12 @@ public class DailyReportView extends JFrame implements ActionListener {
         container = getContentPane();
 
         ArrayList<Transaction> transactions = BankSystem.getTransactions();
+        Date date = new Date();
+        ArrayList<Transaction> filteredTransactions = Util.filterTransactionLogByDate(transactions, date);
 
-        String data [][] = new String[transactions.size()][6];
+        String data [][] = new String[filteredTransactions.size()][6];
 
-        for(int i = 0; i < transactions.size(); i++) {
+        for(int i = 0; i < filteredTransactions.size(); i++) {
             Transaction transaction = transactions.get(i);
             data[i][0] = String.valueOf(transaction.getTime());
             data[i][1] = String.valueOf(transaction.getFromAccount());
