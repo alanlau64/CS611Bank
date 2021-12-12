@@ -15,13 +15,13 @@ public class Util {
 
     public static ArrayList<Object> filterLogByDate(ArrayList<Object> logList, Date date){
         ArrayList<Object> result = new ArrayList<>();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        int requiredDate = calendar.get(Calendar.DATE);
         for(Object log : logList){
-            Calendar calendar = new GregorianCalendar();
             calendar.setTime(((HasDate) log).getDate());
             int day = calendar.get(Calendar.DATE);
-            calendar.setTime(date);
-            int currentDay = calendar.get(Calendar.DATE);
-            if(day == currentDay)
+            if(day == requiredDate)
                 result.add(log);
         }
         return result;
