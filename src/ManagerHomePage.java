@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 public class ManagerHomePage extends JFrame implements ActionListener {
 
@@ -13,6 +14,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
     private JLabel numCustomers;
     private JLabel numAccounts;
     private JLabel totalLoansToVerify;
+    private JLabel day;
 
     private JButton dailyReport;
     private JButton logout;
@@ -35,12 +37,14 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         viewStockPage = new JButton("View stocks");
         logout = new JButton("Logout");
         viewLoans = new JButton("View loans");
+        day = new JLabel(new Date().toString());
         this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {
         container.setLayout(null);
 
+        day.setBounds(0, 0, 200, 30);
         bankStatistics.setBounds(50, 100, 100, 30);
         numCustomers.setBounds(50, 150, 200, 30);
         numAccounts.setBounds(50, 200, 200, 30);
@@ -51,6 +55,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         logout.setBounds(50, 500, 150, 30);
         nextDay.setBounds(210, 0, 150, 30);
 
+        container.add(day);
         container.add(nextDay);
         container.add(bankStatistics);
         container.add(numCustomers);

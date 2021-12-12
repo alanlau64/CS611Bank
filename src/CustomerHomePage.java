@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
+import java.util.Date;
 
 public class CustomerHomePage extends JFrame implements ActionListener {
     private Container container;
@@ -10,6 +11,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
     private JLabel checking;
     private JLabel saving;
     private JLabel securities;
+    private JLabel day;
 
     private JButton selectChecking;
     private JButton selectSaving;
@@ -30,6 +32,8 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         container = getContentPane();
         checking = new JLabel("Checking Accounts: ");
         saving = new JLabel("Saving Accounts: ");
+
+        day = new JLabel(new Date().toString());
 
         String text;
         if(customer.getSecuritiesAccount() == null) {
@@ -52,6 +56,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
     public void showPage() {
         container.setLayout(null);
 
+        day.setBounds(0, 0, 200, 30);
         checking.setBounds(50, 50, 150, 30);
         checkingAccounts.setBounds(50, 100, 140, 20);
         selectChecking.setBounds(50, 150, 150, 30);
@@ -67,6 +72,7 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         stocks.setBounds(50, 550, 150, 30);
         logout.setBounds(50, 600, 150, 30);
 
+        container.add(day);
         container.add(checking);
         container.add(checkingAccounts);
         container.add(selectChecking);
