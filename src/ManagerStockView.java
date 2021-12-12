@@ -12,7 +12,7 @@ public class ManagerStockView extends JFrame implements ActionListener {
     private Container container;
 
     private JLabel stockMarket;
-    private JComboBox<Stock> availableStocks;
+    private JComboBox<String> availableStocks;
     private JLabel stockPrice;
     private JLabel changePriceLabel;
 
@@ -30,7 +30,7 @@ public class ManagerStockView extends JFrame implements ActionListener {
         this.container = getContentPane();
 
         stockMarket = new JLabel("Stock Market: ");
-        availableStocks = new JComboBox<>(BankSystem.getAvailableStocks().toArray(Stock[]::new));
+        availableStocks = new JComboBox<>(BankSystem.getAvailableStockNames().toArray(String[]::new));
         stockPrice = new JLabel();
         changePriceLabel = new JLabel("Enter new price: ");
 
@@ -89,11 +89,15 @@ public class ManagerStockView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == availableStocks) {
-            Stock stock = (Stock) availableStocks.getSelectedItem();
-            stockPrice.setText("Price: " + stock.getPrice());
 
-            this.setVisible(false);
-            this.setVisible(true);
+            for (Stock stock : BankSystem.getAvailableStocks()) {
+                if (availableStocks.getSelectedItem().equals(stock.getName())) {
+                    stockPrice.setText("Price: " + stock.getPrice());
+                }
+            }
+
+                this.setVisible(false);
+                this.setVisible(true);
         }
 
         if(e.getSource() == changePrice) {
@@ -110,17 +114,20 @@ public class ManagerStockView extends JFrame implements ActionListener {
                 this.setVisible(true);
             }
 
-            Stock stock = (Stock) availableStocks.getSelectedItem();
-            int newStockPrice = Integer.parseInt(newPrice.getText());
+            for(Stock stock : BankSystem.getAvailableStocks()) {
+                if(availableStocks.getSelectedItem().equals(stock.getName())) {
+                    int newStockPrice = Integer.parseInt(newPrice.getText());
 
-            if(newStockPrice > stock.getPrice()) {
-                manager.increaseStockPrice(stock, newStockPrice - stock.getPrice());
-                JOptionPane.showMessageDialog(this, "Price increased");
-            } else if (newStockPrice < stock.getPrice()) {
-                manager.decreaseStockPrice(stock, stock.getPrice() - newStockPrice);
-                JOptionPane.showMessageDialog(this, "Price decreased");
-            } else {
-                JOptionPane.showMessageDialog(this, "Entered value is the same as current value.");
+                    if (newStockPrice > stock.getPrice()) {
+                        manager.increaseStockPrice(stock, newStockPrice - stock.getPrice());
+                        JOptionPane.showMessageDialog(this, "Price increased");
+                    } else if (newStockPrice < stock.getPrice()) {
+                        manager.decreaseStockPrice(stock, stock.getPrice() - newStockPrice);
+                        JOptionPane.showMessageDialog(this, "Price decreased");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Entered value is the same as current value.");
+                    }
+                }
             }
 
         }
@@ -132,11 +139,14 @@ public class ManagerStockView extends JFrame implements ActionListener {
                 this.setVisible(true);
             }
 
-            Stock stock = (Stock) availableStocks.getSelectedItem();
-            if(manager.deleteStock(BankSystem.getAvailableStocks(), stock.getName())) {
-                JOptionPane.showMessageDialog(this, "Stock removed successfully.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Stock could not be removed.");
+            for(Stock stock : BankSystem.getAvailableStocks()) {
+                if (availableStocks.getSelectedItem().equals(stock.getName())) {
+                    if (manager.deleteStock(BankSystem.getAvailableStocks(), stock.getName())) {
+                        JOptionPane.showMessageDialog(this, "Stock removed successfully.");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Stock could not be removed.");
+                    }
+                }
             }
         }
 
