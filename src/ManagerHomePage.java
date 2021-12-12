@@ -102,6 +102,16 @@ public class ManagerHomePage extends JFrame implements ActionListener {
             frame.showPage();
         } else if (e.getSource() == nextDay) {
             BankSystem.nextDay();
+        } else if(e.getSource() == dailyReport) {
+            DailyReportView frame = new DailyReportView(manager);
+            frame.setTitle("Daily Report");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
         }
     }
 }
