@@ -14,6 +14,7 @@ public class SingleLoanView extends JFrame implements ActionListener {
     private JLabel currency;
     private JLabel amount;
     private JLabel interest;
+    private JLabel dueTime;
 
     private JTextField payAmount;
     private JButton pay;
@@ -45,6 +46,7 @@ public class SingleLoanView extends JFrame implements ActionListener {
         currency = new JLabel("Currency: " + loan.getCurrency());
         amount = new JLabel("Amount: " + loan.getAmount());
         interest = new JLabel("Interest: " + Constant.LOAN_INTEREST);
+        dueTime = new JLabel("Due Time: " + loan.getOverdueTime().toString());
         back = new JButton("Back");
 
         NumberFormat format = NumberFormat.getIntegerInstance();
@@ -76,6 +78,7 @@ public class SingleLoanView extends JFrame implements ActionListener {
         currency.setBounds(50, 150, 150, 50);
         amount.setBounds(50, 200, 150, 50);
         interest.setBounds(50, 250, 150, 50);
+        dueTime.setBounds(50, 300, 250, 30);
 
         payAmount.setBounds(50, 350, 150, 30);
         checking.setBounds(50, 400, 150, 30);
@@ -87,6 +90,7 @@ public class SingleLoanView extends JFrame implements ActionListener {
         pay1.setBounds(50, 550, 150, 30);
         back.setBounds(50, 600, 100, 30);
 
+        container.add(dueTime);
         container.add(header);
         container.add(currency);
         container.add(amount);
