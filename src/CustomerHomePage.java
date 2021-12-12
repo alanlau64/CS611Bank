@@ -78,6 +78,8 @@ public class CustomerHomePage extends JFrame implements ActionListener {
         logout.setBounds(50, 650, 150, 30);
         refresh.setBounds(210, 35, 100, 30);
 
+        this.setBounds(10, 10, 370, 800);
+
         container.add(day);
         container.add(checking);
         container.add(checkingAccounts);
