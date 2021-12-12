@@ -9,8 +9,8 @@ public class LoanActivity {
     public LoanActivity (Date time, Loan loan, String activity) {
         this.time = time;
         this.loan = loan;
-        if (this.activity.equalsIgnoreCase("request") || this.activity.equalsIgnoreCase("approve")
-        || this.activity.equalsIgnoreCase("deny") || this.activity.equalsIgnoreCase("expire"))
+        if (activity.equalsIgnoreCase("request") || activity.equalsIgnoreCase("approve")
+        || activity.equalsIgnoreCase("deny") || activity.equalsIgnoreCase("expire"))
             this.activity = activity;
         else
             this.activity = "error";

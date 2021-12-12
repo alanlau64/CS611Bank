@@ -86,6 +86,7 @@ public class TrasnferView extends JFrame implements ActionListener {
 
         select = new JButton("Confirm");
         back = new JButton("Back");
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

@@ -11,13 +11,17 @@ public class CustomerController {
     }
 
     public void openCheckingAccount(){
-        customer.getCheckings().add(new CheckingAccount(customer.getUsername()));
-        BankSystem.addAccountActivity(new AccountActivity(this.customer, Constant.CURRENT_TIME, "checking", "open"));
+        CheckingAccount account = new CheckingAccount(customer.getUsername());
+        customer.getCheckings().add(account);
+        BankSystem.addAccountActivity(new AccountActivity(this.customer, account.getAccountNum(),
+                Constant.CURRENT_TIME, "checking", "open"));
     }
 
     public void openSavingAccount(){
-        customer.getSavings().add(new SavingAccount(customer.getUsername()));
-        BankSystem.addAccountActivity(new AccountActivity(this.customer, Constant.CURRENT_TIME, "saving", "open"));
+        SavingAccount account = new SavingAccount(customer.getUsername());
+        customer.getSavings().add(account);
+        BankSystem.addAccountActivity(new AccountActivity(this.customer, account.getAccountNum(),
+                Constant.CURRENT_TIME, "saving", "open"));
     }
 
     public boolean closeCheckingAccount(Account account){
@@ -25,7 +29,8 @@ public class CustomerController {
             if(amount != 0)
                 return false;
         customer.getCheckings().remove((CheckingAccount) account);
-        BankSystem.addAccountActivity(new AccountActivity(this.customer, Constant.CURRENT_TIME, "checking", "close"));
+        BankSystem.addAccountActivity(new AccountActivity(this.customer, account.getAccountNum(),
+                Constant.CURRENT_TIME, "checking", "close"));
         return true;
     }
 
@@ -34,7 +39,8 @@ public class CustomerController {
             if(amount != 0)
                 return false;
         customer.getSavings().remove((SavingAccount) account);
-        BankSystem.addAccountActivity(new AccountActivity(this.customer, Constant.CURRENT_TIME, "saving", "close"));
+        BankSystem.addAccountActivity(new AccountActivity(this.customer, account.getAccountNum(),
+                Constant.CURRENT_TIME, "saving", "close"));
         return true;
     }
 

@@ -75,6 +75,7 @@ public class OpenLoanView extends JFrame implements ActionListener {
 
         select = new JButton("Confirm");
         back = new JButton("Return");
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

@@ -48,6 +48,7 @@ public class ManagerStockView extends JFrame implements ActionListener {
         addStock = new JButton("Add stock");
         removeStock = new JButton("Remove stock");
         back = new JButton("Back");
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

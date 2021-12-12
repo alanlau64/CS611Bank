@@ -55,6 +55,7 @@ public class SingleLoanView extends JFrame implements ActionListener {
 
         checkingAccounts = new JComboBox<Integer>(customerController.getCheckingAccountNums().toArray(Integer[]::new));
         savingsAccounts = new JComboBox<Integer>(customerController.getSavingAccountNums().toArray(Integer[]::new));
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

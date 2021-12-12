@@ -72,6 +72,7 @@ public class CustomerStockView extends JFrame implements ActionListener {
         transfer = new JButton("Transfer to checking/savings");
         closeSecuritiesAccount = new JButton("Close securities account");
         back = new JButton("Back");
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

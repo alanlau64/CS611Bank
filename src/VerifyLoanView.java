@@ -60,6 +60,7 @@ public class VerifyLoanView extends JFrame implements ActionListener {
         verify.addActionListener(this);
         back.addActionListener(this);
         loans.addActionListener(this);
+        this.addWindowListener(BankSystem.close());
     }
 
     @Override
