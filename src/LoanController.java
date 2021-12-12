@@ -21,7 +21,7 @@ public class LoanController {
 
     // when the loan is verified, add the interest to the amount
     public Double ChargeInterest(){
-        int duringDay = (int) (System.currentTimeMillis() - loan.getOverdueTime().getTime()) / (1000 * 60 * 60 * 24);
+        int duringDay = (int) (loan.getOverdueTime().getTime() - Constant.CURRENT_TIME.getTime()) / (1000 * 60 * 60 * 24);
         loan.setAmount(loan.getAmount() + loan.getAmount() * Loan.getLoanInterest() * duringDay);
         return loan.getAmount();
     }
