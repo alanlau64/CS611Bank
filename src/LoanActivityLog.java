@@ -20,7 +20,6 @@ public class LoanActivityLog implements Log {
         builder.registerTypeAdapter(Withdraw.class, new LoanActivityLog.WithdrawSerializer());
         builder.registerTypeAdapter(Deposit.class, new LoanActivityLog.DepositSerializer());
         builder.registerTypeAdapter(Transfer.class, new LoanActivityLog.TransferSerializer());
-        builder = new GsonBuilder();
         builder.registerTypeAdapter(Date.class, new DateSerializer());
         Gson gson = builder.create();
         Type type = new TypeToken<ArrayList<LoanActivity>>(){}.getType();
