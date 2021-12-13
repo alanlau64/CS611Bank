@@ -27,8 +27,10 @@ public class OpenLoanView extends JFrame implements ActionListener {
     private ButtonGroup group2;
 
     private JLabel amountLabel;
+    private JLabel daysLabel;
     private JLabel collateralLabel;
-    private JTextField amount;
+    private JFormattedTextField amount;
+    private JFormattedTextField days;
     private JTextField collateral;
 
     private JButton select;
@@ -65,6 +67,7 @@ public class OpenLoanView extends JFrame implements ActionListener {
         numberFormatter.setValueClass(Double.class);
         numberFormatter.setAllowsInvalid(false);
         amount = new JFormattedTextField(numberFormatter);
+        days = new JFormattedTextField(numberFormatter);
 
         collateral = new JTextField();
 
@@ -72,6 +75,7 @@ public class OpenLoanView extends JFrame implements ActionListener {
 
         amountLabel = new JLabel("Enter loan amount: ");
         collateralLabel = new JLabel("Enter your collateral: ");
+        daysLabel = new JLabel("Enter the loan period in days: ");
 
         select = new JButton("Confirm");
         back = new JButton("Return");
@@ -87,17 +91,22 @@ public class OpenLoanView extends JFrame implements ActionListener {
 
         amountLabel.setBounds(50, 200, 150, 30);
         amount.setBounds(50, 250, 150, 30);
-        collateralLabel.setBounds(50, 300, 150, 30);
-        collateral.setBounds(50, 350, 150, 30);
+        daysLabel.setBounds(50, 300, 150, 30);
+        days.setBounds(50, 350, 150, 30);
+        collateralLabel.setBounds(50, 400, 150, 30);
+        collateral.setBounds(50, 450, 150, 30);
 
-        checking.setBounds(50, 400, 150, 30);
-        saving.setBounds(50, 450, 150, 30);
-        security.setBounds(50, 500, 150, 30);
-        transferAccount.setBounds(50, 550, 150, 30);
+        checking.setBounds(50, 500, 150, 30);
+        saving.setBounds(50, 550, 150, 30);
+        security.setBounds(50, 600, 150, 30);
+        transferAccount.setBounds(50, 650, 150, 30);
 
-        select.setBounds(50, 600, 150, 30);
-        back.setBounds(50, 630, 150, 30);
+        select.setBounds(50, 700, 150, 30);
+        back.setBounds(50, 750, 150, 30);
+        this.setBounds(10, 10, 370, 850);
 
+        container.add(daysLabel);
+        container.add(days);
         container.add(usd);
         container.add(cny);
         container.add(inr);
@@ -183,7 +192,7 @@ public class OpenLoanView extends JFrame implements ActionListener {
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(Constant.CURRENT_TIME);
-                calendar.add(Calendar.DATE, 10);
+                calendar.add(Calendar.DATE, Integer.parseInt(days.getText()));
                 Loan loan = customerController.requestLoan(currency, Double.parseDouble(amount.getText()), collateral.getText(), calendar.getTime(), transferAccount);
 
                 if(loan != null) {
