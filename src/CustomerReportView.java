@@ -9,6 +9,7 @@ public class CustomerReportView extends JFrame implements ActionListener {
     private Customer customer;
     private CustomerController customerController;
     private Container container;
+    private Manager manager;
 
     private JTable table;
     private JTable loanTable;
@@ -25,6 +26,11 @@ public class CustomerReportView extends JFrame implements ActionListener {
     private JButton back;
 
     public CustomerReportView(Customer customer) {
+        this(customer,null);
+    }
+
+    public CustomerReportView(Customer customer, Manager manager){
+        this.manager = manager;
         this.customer = customer;
         container = getContentPane();
 
@@ -36,17 +42,23 @@ public class CustomerReportView extends JFrame implements ActionListener {
         ArrayList<Transaction> transactions = BankSystem.getTransactions();
 
         Util util = new Util();
+        ArrayList<Integer> stockAccountID = new ArrayList<>();
         ArrayList<Integer> allAccountNum = new ArrayList<>();
+        ArrayList<StockTrade> stockTrades =new ArrayList<>();
         customerController = new CustomerController(customer);
+
         allAccountNum.addAll(customerController.getCheckingAccountNums());
         allAccountNum.addAll(customerController.getSavingAccountNums());
-        allAccountNum.add(customer.getSecuritiesAccount().getAccountNum());
+        if(customer.getSecuritiesAccount()!=null) {
+            allAccountNum.add(customer.getSecuritiesAccount().getAccountNum());
+            stockAccountID.add(customer.getSecuritiesAccount().getAccountNum());
+            stockTrades = util.filterLogByID(new StockTradeLog().readLog(), stockAccountID);
+        }
+
         ArrayList<Transaction> filteredTransactions = util.filterLogByID(transactions, allAccountNum);
         ArrayList<LoanActivity> filteredLoans = util.filterLogByName(new LoanActivityLog().readLog(), customer.getUsername());
         ArrayList<AccountActivity> accountActivities = util.filterLogByName(new AccountActivityLog().readLog(), customer.getUsername());
-        ArrayList<Integer> stockAccountID = new ArrayList<>();
-        stockAccountID.add(customer.getSecuritiesAccount().getAccountNum());
-        ArrayList<StockTrade> stockTrades = util.filterLogByID(new StockTradeLog().readLog(), stockAccountID);
+
 
         String[][] data = new String[filteredTransactions.size()][6];
 
@@ -130,7 +142,7 @@ public class CustomerReportView extends JFrame implements ActionListener {
         stockPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         back = new JButton("Back");
-
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {
@@ -146,7 +158,7 @@ public class CustomerReportView extends JFrame implements ActionListener {
         stockPane.setBounds(0, 600, 370, 100);
 
         back.setBounds(50, 800, 150, 30);
-
+        this.setBounds(10, 10, 370, 1000);
         container.add(transactionLabel);
         container.add(loanLabel);
         container.add(stockLabel);
@@ -163,15 +175,28 @@ public class CustomerReportView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == back) {
-            CustomerHomePage frame = new CustomerHomePage(customer);
-            frame.setTitle(customer.getUsername() + "'s home page");
-            frame.setVisible(true);
-            frame.setBounds(10, 10, 370, 700);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setResizable(false);
+            if(manager!=null) {
+                CustomerHomePage frame = new CustomerHomePage(customer);
+                frame.setTitle(customer.getUsername() + "'s home page");
+                frame.setVisible(true);
+                frame.setBounds(10, 10, 370, 700);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setResizable(false);
 
-            dispose();
-            frame.showPage();
+                dispose();
+                frame.showPage();
+            }
+            else {
+                ManagerHomePage frame = new ManagerHomePage(manager);
+                frame.setTitle(manager.getUsername() + "'s home page");
+                frame.setVisible(true);
+                frame.setBounds(10, 10, 370, 700);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setResizable(false);
+
+                dispose();
+                frame.showPage();
+            }
         }
     }
 }

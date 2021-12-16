@@ -130,7 +130,7 @@ public class DailyReportView extends JFrame implements ActionListener {
         stockPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         back = new JButton("Back");
-
+        this.addWindowListener(BankSystem.close());
     }
 
     public void showPage() {

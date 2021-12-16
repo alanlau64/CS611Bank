@@ -2,7 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ManagerHomePage extends JFrame implements ActionListener {
 
@@ -22,6 +23,9 @@ public class ManagerHomePage extends JFrame implements ActionListener {
     private JButton viewLoans;
     private JButton nextDay;
     private JButton refresh;
+    private JButton selectCustomer;
+
+    private JComboBox<String> customers;
 
     public ManagerHomePage(Manager manager) {
         this.manager = manager;
@@ -39,6 +43,9 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         logout = new JButton("Logout");
         viewLoans = new JButton("View loans");
         refresh = new JButton("Refresh");
+        selectCustomer = new JButton("Select customer to view");
+        List<String> userNames = BankSystem.getCustomers().stream().map(Customer::getUsername).collect(Collectors.toList());
+        customers = new JComboBox<String>(userNames.toArray(new String[userNames.size()]));
         day = new JLabel(Constant.CURRENT_TIME.toString());
         this.addWindowListener(BankSystem.close());
     }
@@ -54,7 +61,9 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         dailyReport.setBounds(50, 300, 150, 30);
         viewStockPage.setBounds(50, 350, 150, 30);
         viewLoans.setBounds(50, 400, 150, 30);
-        logout.setBounds(50, 500, 150, 30);
+        customers.setBounds(50, 450, 140, 20);
+        selectCustomer.setBounds(50, 500, 150, 30);
+        logout.setBounds(50, 600, 150, 30);
         nextDay.setBounds(210, 0, 150, 30);
         refresh.setBounds(210, 35, 100, 30);
 
@@ -69,6 +78,8 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         container.add(logout);
         container.add(viewLoans);
         container.add(refresh);
+        container.add(customers);
+        container.add(selectCustomer);
 
         nextDay.addActionListener(this);
         dailyReport.addActionListener(this);
@@ -76,6 +87,7 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         logout.addActionListener(this);
         viewLoans.addActionListener(this);
         refresh.addActionListener(this);
+        selectCustomer.addActionListener(this);
     }
 
     @Override
@@ -125,6 +137,17 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         } else if (e.getSource() == refresh) {
             ManagerHomePage frame = new ManagerHomePage(manager);
             frame.setTitle(manager.getUsername() + "'s home page");
+            frame.setVisible(true);
+            frame.setBounds(10, 10, 370, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+
+            dispose();
+            frame.showPage();
+        }else if(e.getSource() == selectCustomer){
+            Customer customer = BankSystem.getCustomers().get(customers.getSelectedIndex());
+            CustomerReportView frame = new CustomerReportView(customer, manager);
+            frame.setTitle("Customer " + customer.getUsername() + "'s Transactions");
             frame.setVisible(true);
             frame.setBounds(10, 10, 370, 700);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
