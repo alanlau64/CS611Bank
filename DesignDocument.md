@@ -5,9 +5,9 @@
 Members: \
 Hantian Liu U49252828 \
 In charge of file system design and document writing. \
-Zhicheng Dong U \
+Zhicheng Dong U63145812 \
 In charge of back end design and class diagram. \
-Duruvan Saravanan U \
+Duruvan Saravanan U48495000 \
 In charge of front end design.
 
 **General Design Choice**
@@ -16,9 +16,10 @@ Generally, we applied Swing as our front end frame
 and Gson to save all the necessary information in
 Json files. We also applied model view controller (MVC)
 design pattern to manage our system and factory pattern
-to create log instances. With the help of these design 
-patterns, we can manage the whole system including front
-end and back end as well as the file system more clearly.
+to create log instances, as well as strategy pattern to
+describe behavior of accounts. With the help of these 
+design patterns, we can manage the whole system including
+front end and back end as well as the file system more clearly.
 
 We implemented all features mentioned in the document
 including but not limited to create accounts, deposit, 
@@ -47,19 +48,19 @@ by customers and is able to edit securities in stock market.
 `Customer` is the class representing customers of the bank.
 It contains different kinds of `Account`s.
 
-`Account` `CheckingAccount` `SavingAccount` `SecurityAccount` \
-`Depoist` `DepositWithTransactionFee` `DepositWithoutTransactionFee` \
-`Withdraw` `WithdrawWithTransactionFee` \
-`Transfer` `TransferWithTransactionFee` `TransferWithoutTransactionFee`: \
+`Account` `CheckingAccount` `SavingAccount` `SecurityAccount`: \
 `Account` is also an abstract class and there are three
 different kinds of accounts including `CheckingAccount`,
 `SavingAccount` and `SecurityAccount`. Each `Account` has
 an ID, some amount of balance in three different kinds of
-currencies and instances of `Deposit`, `Withdraw` and `Transfer`.
-They indicate if there is any transaction fee apply to the
-process. Different from other kinds of accounts, `SecurityAccount`
+currencies. Different from other kinds of accounts, `SecurityAccount`
 has a list of stocks and each customer can only have one
 `SecurityAccount`. Restrictions apply according to the document.
+
+`Depoist` `DepositWithTransactionFee` `DepositWithoutTransactionFee`
+`Withdraw` `WithdrawWithTransactionFee`
+`Transfer` `TransferWithTransactionFee` `TransferWithoutTransactionFee`:\
+Strategy pattern interfaces and their implementations.
 
 `Loan`: \
 Customers can take out loans with proper collateral. Once
@@ -75,4 +76,71 @@ the balance in their `SecurityAccount`. Only customers
 with more than $5000 in their saving accounts are allowed
 to open a security account. 
 
+**File System**
+
+All logs and system information are saved as Json file with
+the help of Gson library and factory design pattern. This 
+section introduces basic object model and design detail of
+the system. 
+
+`AccountActivity` `LoanActivity` `StockTrade` `Transaction`: \
+These classes are templates of a line of corresponding log.
+
+`Log` `LogFactory`: \
+`Log` is an interface describes behavior of all log classes
+and `LogFactory` create logs.
+
+`CustomerLog` `ManagerLog` `StockLog`: \
+Classes used to save all information of users and stocks.
+
+`AccountActivityLog` `LoanActivityLog` `StockTradeLog`
+`TransactionLog`: \
+Lists contain all activities happened in the system.
+
+`HasDate` `HasName` `HasID`: \
+Interfaces used to filter activity logs.
+
 **Object and GUI Relationship**
+
+With MVC design pattern, objects and GUI views are connected
+with controller classes. Object model classes only contain
+basic methods like getters and setters. Controller classes
+contain other more complex methods and can also update views
+with these methods. Generally, controllers use objects and
+update views.
+
+`AccountController` `CheckingAccountController` `SavingAccountController`
+`CheckingAndSavingAccountPage` `SecurityAccountController`
+`OpenAccountPage`: \
+These classes are controllers of accounts and corresponding
+views. When users interact with views, they call controller
+methods to get or update values of accounts like balance.
+Controllers then update views shown to users.
+
+`CustomerController` `CustomerHomePage`: \
+Customers are owners of accounts and `CustomerController`
+is in charge of opening or closing accounts and taking loans.
+
+`LoanController` `LoanPage` `OpenLoanView` `SingleLoanView` `VerifyLoanView`: \
+Some deeper operation and views about loans including 
+`VerifyLoanView` for managers to review loan requests.
+
+`StockController` `CustomerStockView` `ManagerStockView`: \
+Some deeper operation and views about stocks. Managers
+use `ManagerStockView` to manage securities and customers
+use `CustomerStockView` to buy and sell securities.
+
+`WithdrawAndDepositPage` `TransferView`: \
+These two pages are used to make transactions by customers.
+
+`LoginPage` `CreateUserPage`: \
+`LoginPage` is the entry point of the program and if 
+a user hasn't registered, `CreateUserPage` can create
+customers and managers.
+
+`DailyReportView` `CustomerReportView`: \
+`DailyReportView` is for managers to view all activities
+happen today and `CustomerReportView` can be used by both
+customers and managers to view activities of a specific
+customer. Customers can only view themselves.
+
