@@ -49,7 +49,7 @@ by customers and is able to edit securities in stock market.
 It contains different kinds of `Account`s.
 
 `Account` `CheckingAccount` `SavingAccount` `SecurityAccount`: \
-`Account` is also an abstract class and there are three
+`Account` is a super class and there are three
 different kinds of accounts including `CheckingAccount`,
 `SavingAccount` and `SecurityAccount`. Each `Account` has
 an ID, some amount of balance in three different kinds of
@@ -60,7 +60,7 @@ has a list of stocks and each customer can only have one
 `Depoist` `DepositWithTransactionFee` `DepositWithoutTransactionFee`
 `Withdraw` `WithdrawWithTransactionFee`
 `Transfer` `TransferWithTransactionFee` `TransferWithoutTransactionFee`:\
-Strategy pattern interfaces and their implementations.
+Checking account will charge fee for all kinds of transactions, on the contrary, saving and securities account only charge fee for withdraw money. So we use Strategy pattern. To implement the Strategy pattern we define three transactions' interface representing the ability to do these transactions. We implement each transactions in two versions, including charge fee and not charge fee. And according to the type of the account, account own different implementation of the transaction interface. For example, class `CheckingAccount` own `DepositWithTransactionFee`, `WithdrawWithTransactionFee` and `TransferWithTransactionFee`.
 
 `Loan`: \
 Customers can take out loans with proper collateral. Once
@@ -74,7 +74,7 @@ The list of stocks is maintained by managers including
 stock name and price. Customers can buy or sell stock with
 the balance in their `SecurityAccount`. Only customers 
 with more than $5000 in their saving accounts are allowed
-to open a security account. 
+to open a security account. And if their saving accounts' balance less than $2500, they can't operate their securities.
 
 **File System**
 
