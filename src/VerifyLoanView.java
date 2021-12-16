@@ -85,18 +85,39 @@ public class VerifyLoanView extends JFrame implements ActionListener {
             if(loans.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(this, "Please select a loan to verify");
             }
+            else {
+                manager.verifyLoan(getLoansWaitToVerify().get(loans.getSelectedIndex()), true);
+                JOptionPane.showMessageDialog(this, "Loan has been verified");
+                VerifyLoanView frame = new VerifyLoanView(manager);
+                frame.setTitle("Loans");
+                frame.setVisible(true);
+                frame.setBounds(10, 10, 370, 700);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setResizable(false);
 
-            manager.verifyLoan(getLoansWaitToVerify().get(loans.getSelectedIndex()), true);
-            JOptionPane.showMessageDialog(this, "Loan has been verified");
+                dispose();
+                frame.showPage();
+            }
+
         }
 
         if(e.getSource() == deny) {
             if(loans.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(this, "Please select a loan to deny");
             }
+            else {
+                manager.verifyLoan(getLoansWaitToVerify().get(loans.getSelectedIndex()), false);
+                JOptionPane.showMessageDialog(this, "Loan has been denied");
+                VerifyLoanView frame = new VerifyLoanView(manager);
+                frame.setTitle("Loans");
+                frame.setVisible(true);
+                frame.setBounds(10, 10, 370, 700);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setResizable(false);
 
-            manager.verifyLoan(getLoansWaitToVerify().get(loans.getSelectedIndex()), false);
-            JOptionPane.showMessageDialog(this, "Loan has been denied");
+                dispose();
+                frame.showPage();
+            }
         }
 
         if (e.getSource() == back) {

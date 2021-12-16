@@ -13,7 +13,6 @@ public class ManagerHomePage extends JFrame implements ActionListener {
 
     private JLabel bankStatistics;
     private JLabel numCustomers;
-    private JLabel numAccounts;
     private JLabel totalLoansToVerify;
     private JLabel day;
 
@@ -34,7 +33,6 @@ public class ManagerHomePage extends JFrame implements ActionListener {
 
         bankStatistics = new JLabel("Bank Statistics");
         numCustomers = new JLabel("Total number of customers: " + BankSystem.getCustomers().size());
-        numAccounts = new JLabel("Total number of accounts: ");
         totalLoansToVerify = new JLabel("Loans to verify: " + VerifyLoanView.getLoansWaitToVerify().size());
 
         nextDay = new JButton("Next day");
@@ -56,7 +54,6 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         day.setBounds(0, 0, 200, 30);
         bankStatistics.setBounds(50, 100, 100, 30);
         numCustomers.setBounds(50, 150, 200, 30);
-        numAccounts.setBounds(50, 200, 200, 30);
         totalLoansToVerify.setBounds(50, 250, 150, 30);
         dailyReport.setBounds(50, 300, 150, 30);
         viewStockPage.setBounds(50, 350, 150, 30);
@@ -71,7 +68,6 @@ public class ManagerHomePage extends JFrame implements ActionListener {
         container.add(nextDay);
         container.add(bankStatistics);
         container.add(numCustomers);
-        container.add(numAccounts);
         container.add(totalLoansToVerify);
         container.add(dailyReport);
         container.add(viewStockPage);

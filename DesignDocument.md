@@ -29,8 +29,9 @@ for customers and view customer activities, verify loans,
 edit securities in market for managers. 
 
 You can view the general UML class diagram in
-`diagram.png` we submitted, and more specific design
+`class diagram.png` we submitted, and more specific design
 details will be covered in following sections.
+![class diagram](class%20diagram.png)
 
 **Object Model**
 
