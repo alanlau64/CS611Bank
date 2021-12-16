@@ -1,9 +1,9 @@
-# CS611Bank
+
 --------------------------------
 ## BACKEND
 
 --------------------------------
-#Account Stuff
+###Account Stuff
 
 --Account\
 The superclass of all kinds of account\
@@ -24,7 +24,7 @@ The class controlls all the transactions of securities account\
 
 
 --------------------------------
-#Strategy Pattern
+###Strategy Pattern
 
 --TransactionsMayChargeFee\
 The super class of any transactions may charge fee, checking account will charge fee for all transactions, other two just charge fee for withdraw money\
@@ -47,7 +47,7 @@ The class contains the method of transfer money with transaction fee, checking a
 
 
 --------------------------------
-#User Stuff
+###User Stuff
 
 --User\
 The super class of all kinds of user, includes customer and manager\
@@ -60,7 +60,7 @@ The class controll all the operation of customer\
 
 
 --------------------------------
-#Other bank stuff
+###Other bank stuff
 
 --Loan\
 The entity of loan\
@@ -75,7 +75,7 @@ The emueration of all kinds of currency in the bank\
 
 
 --------------------------------
-#Log Stuff
+###Log Stuff
 
 --Log\
 The interface represent the ability to read files\
