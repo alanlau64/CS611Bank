@@ -72,7 +72,7 @@ public class VerifyLoanView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == loans) {
-            Loan loan = new BankSystem().getLoansWaitToVerify().get(loans.getSelectedIndex());
+            Loan loan = getLoansWaitToVerify().get(loans.getSelectedIndex());
 
             loanUser.setText(loan.getUserName());
             loanAmount.setText(String.valueOf(loan.getAmount()));
@@ -86,7 +86,7 @@ public class VerifyLoanView extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Please select a loan to verify");
             }
 
-            manager.verifyLoan(new BankSystem().getLoansWaitToVerify().get(loans.getSelectedIndex()), true);
+            manager.verifyLoan(getLoansWaitToVerify().get(loans.getSelectedIndex()), true);
             JOptionPane.showMessageDialog(this, "Loan has been verified");
         }
 
@@ -95,7 +95,7 @@ public class VerifyLoanView extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Please select a loan to deny");
             }
 
-            manager.verifyLoan(new BankSystem().getLoansWaitToVerify().get(loans.getSelectedIndex()), false);
+            manager.verifyLoan(getLoansWaitToVerify().get(loans.getSelectedIndex()), false);
             JOptionPane.showMessageDialog(this, "Loan has been denied");
         }
 
@@ -115,10 +115,28 @@ public class VerifyLoanView extends JFrame implements ActionListener {
     public ArrayList<Integer> getLoansWaitToVerifyNums() {
         ArrayList<Integer> loanNums = new ArrayList<>();
 
-        for(Loan loan: BankSystem.getLoansWaitToVerify()) {
-            loanNums.add(loan.getLoanNum());
+        for (LoanActivity loan : BankSystem.getLoanActivities()) {
+            if (loan.getActivity().equalsIgnoreCase("request"))
+                loanNums.add(loan.getLoan().getLoanNum());
+            else if (loan.getActivity().equalsIgnoreCase("deny")
+            || loan.getActivity().equalsIgnoreCase("approve"))
+                loanNums.remove((Integer)loan.getLoan().getLoanNum());
         }
 
         return loanNums;
+    }
+
+    public static ArrayList<Loan> getLoansWaitToVerify() {
+        ArrayList<Loan> loans = new ArrayList<>();
+
+        for (LoanActivity loan : BankSystem.getLoanActivities()) {
+            if (loan.getActivity().equalsIgnoreCase("request"))
+                loans.add(loan.getLoan());
+            else if (loan.getActivity().equalsIgnoreCase("deny")
+                    || loan.getActivity().equalsIgnoreCase("approve"))
+                loans.remove(loan.getLoan());
+        }
+
+        return loans;
     }
 }

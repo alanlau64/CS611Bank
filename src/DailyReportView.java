@@ -39,9 +39,9 @@ public class DailyReportView extends JFrame implements ActionListener {
 
         Util util = new Util();
         ArrayList<Transaction> filteredTransactions = util.filterLogByDate(transactions, date);
-        ArrayList<LoanActivity> filteredLoans = util.filterLogByDate(new LoanActivityLog().readLog(), date);
-        ArrayList<AccountActivity> accountActivities = util.filterLogByDate(new AccountActivityLog().readLog(), date);
-        ArrayList<StockTrade> stockTrades = util.filterLogByDate(new StockTradeLog().readLog(), date);
+        ArrayList<LoanActivity> filteredLoans = util.filterLogByDate(BankSystem.getLoanActivities(), date);
+        ArrayList<AccountActivity> accountActivities = util.filterLogByDate(BankSystem.getAccountActivities(), date);
+        ArrayList<StockTrade> stockTrades = util.filterLogByDate(BankSystem.getStockTrades(), date);
 
 //        ArrayList<Transaction> filteredTransactions = BankSystem.getTransactions();
 //        ArrayList<LoanActivity> filteredLoans = BankSystem.getLoanActivities();
@@ -64,7 +64,7 @@ public class DailyReportView extends JFrame implements ActionListener {
 
         table = new JTable(data, column);
 
-        String[][] loanData = new String[filteredLoans.size()][4];
+        String[][] loanData = new String[filteredLoans.size()][5];
 
         for(int i = 0; i < filteredLoans.size(); i++) {
             LoanActivity transaction = filteredLoans.get(i);
@@ -72,9 +72,10 @@ public class DailyReportView extends JFrame implements ActionListener {
             loanData[i][1] = String.valueOf(transaction.getLoan().getUserName());
             loanData[i][2] = String.valueOf(transaction.getLoan().getLoanNum());
             loanData[i][3] = String.valueOf(transaction.getLoan().getAmount());
+            loanData[i][4] = String.valueOf(transaction.getActivity());
         }
 
-        String[] loanColumn = {"TIME","USER","LOAN NUMBER", "AMOUNT"};
+        String[] loanColumn = {"TIME", "USER", "LOAN NUMBER", "AMOUNT", "STATUS"};
 
         loanTable = new JTable(loanData, loanColumn);
 
@@ -146,6 +147,7 @@ public class DailyReportView extends JFrame implements ActionListener {
         stockPane.setBounds(0, 600, 370, 100);
 
         back.setBounds(50, 800, 150, 30);
+        this.setBounds(10, 10, 370, 1000);
 
         container.add(transactionLabel);
         container.add(loanLabel);

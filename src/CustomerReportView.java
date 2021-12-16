@@ -52,12 +52,12 @@ public class CustomerReportView extends JFrame implements ActionListener {
         if(customer.getSecuritiesAccount()!=null) {
             allAccountNum.add(customer.getSecuritiesAccount().getAccountNum());
             stockAccountID.add(customer.getSecuritiesAccount().getAccountNum());
-            stockTrades = util.filterLogByID(new StockTradeLog().readLog(), stockAccountID);
+            stockTrades = util.filterLogByID(BankSystem.getStockTrades(), stockAccountID);
         }
 
         ArrayList<Transaction> filteredTransactions = util.filterLogByID(transactions, allAccountNum);
-        ArrayList<LoanActivity> filteredLoans = util.filterLogByName(new LoanActivityLog().readLog(), customer.getUsername());
-        ArrayList<AccountActivity> accountActivities = util.filterLogByName(new AccountActivityLog().readLog(), customer.getUsername());
+        ArrayList<LoanActivity> filteredLoans = util.filterLogByName(BankSystem.getLoanActivities(), customer.getUsername());
+        ArrayList<AccountActivity> accountActivities = util.filterLogByName(BankSystem.getAccountActivities(), customer.getUsername());
 
 
         String[][] data = new String[filteredTransactions.size()][6];
@@ -76,7 +76,7 @@ public class CustomerReportView extends JFrame implements ActionListener {
 
         table = new JTable(data, column);
 
-        String[][] loanData = new String[filteredLoans.size()][4];
+        String[][] loanData = new String[filteredLoans.size()][5];
 
         for(int i = 0; i < filteredLoans.size(); i++) {
             LoanActivity transaction = filteredLoans.get(i);
@@ -84,9 +84,10 @@ public class CustomerReportView extends JFrame implements ActionListener {
             loanData[i][1] = String.valueOf(transaction.getLoan().getUserName());
             loanData[i][2] = String.valueOf(transaction.getLoan().getLoanNum());
             loanData[i][3] = String.valueOf(transaction.getLoan().getAmount());
+            loanData[i][4] = String.valueOf(transaction.getActivity());
         }
 
-        String[] loanColumn = {"TIME","USER","LOAN NUMBER", "AMOUNT"};
+        String[] loanColumn = {"TIME", "USER", "LOAN NUMBER", "AMOUNT", "STATUS"};
 
         loanTable = new JTable(loanData, loanColumn);
 
@@ -175,7 +176,7 @@ public class CustomerReportView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == back) {
-            if(manager!=null) {
+            if(manager==null) {
                 CustomerHomePage frame = new CustomerHomePage(customer);
                 frame.setTitle(customer.getUsername() + "'s home page");
                 frame.setVisible(true);
