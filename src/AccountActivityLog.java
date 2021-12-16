@@ -6,6 +6,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+// Save and load account activity records including opening and closing.
 public class AccountActivityLog implements Log {
     private String content;
     private File logFile;
@@ -14,6 +16,8 @@ public class AccountActivityLog implements Log {
         this.content = "";
         this.logFile = new File("accountActivity.json");
     }
+
+    //Update log file.
     @Override
     public void createLog (ArrayList transactions) {
         GsonBuilder builder = new GsonBuilder();
@@ -31,6 +35,7 @@ public class AccountActivityLog implements Log {
         }
     }
 
+    //Read from log file.
     @Override
     public ArrayList<AccountActivity> readLog() {
         ArrayList<AccountActivity> transactions = new ArrayList<>();
@@ -61,6 +66,7 @@ public class AccountActivityLog implements Log {
         return transactions;
     }
 
+    //Serialize Date class to simpler format.
     private class DateSerializer implements JsonSerializer<Date> {
         @Override
         public JsonElement serialize (Date src, Type typeOfSec, JsonSerializationContext context)
@@ -69,6 +75,7 @@ public class AccountActivityLog implements Log {
         }
     }
 
+    //Deserialize Date elements serialized above.
     private class DateDeserializer implements JsonDeserializer<Date> {
         @Override
         public Date deserialize (JsonElement json, Type typeOfSrc, JsonDeserializationContext context)

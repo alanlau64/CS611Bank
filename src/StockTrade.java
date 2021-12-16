@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 
+// Template of stock transaction record.
 public class StockTrade implements HasDate, HasName, HasID{
     private Date time;
     private int accountNo;
@@ -9,6 +10,7 @@ public class StockTrade implements HasDate, HasName, HasID{
     private int number;
     private String activity;
 
+    // Different constructors for different scenarios.
     public StockTrade () {}
     public StockTrade (Date time, Customer user, Stock stock, int number, String activity) {
         this(time, user, stock.getName(), stock.getPrice(), number, activity);
@@ -37,6 +39,8 @@ public class StockTrade implements HasDate, HasName, HasID{
             this.activity = "error";
     }
 
+
+    // Getter methods.
     public Date getTime() {
         return time;
     }

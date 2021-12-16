@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
+// Save and load transaction records in file.
 public class TransactionLog implements Log {
     private String content;
     private File logFile;

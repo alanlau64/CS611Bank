@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
+// Save and load stock trade records.
 public class StockTradeLog implements Log {
     private String content;
     private File logFile;

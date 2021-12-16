@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.Date;
 
+// Template of loan activity record like request or approve.
 public class LoanActivity implements HasDate, HasName, HasID{
     private Date time;
     private Loan loan;
     private String activity;
 
+    // Construct a line of loan activity.
     public LoanActivity () {}
     public LoanActivity (Date time, Loan loan, String activity) {
         this.time = time;
@@ -17,6 +19,7 @@ public class LoanActivity implements HasDate, HasName, HasID{
             this.activity = "error";
     }
 
+    // Getter methods.
     public String getActivity() {
         return activity;
     }

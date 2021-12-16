@@ -5,6 +5,8 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+
+// Save and load customers info such as accounts and loans.
 public class CustomerLog implements Log {
     private String content;
     private File logFile;
@@ -14,6 +16,7 @@ public class CustomerLog implements Log {
         this.logFile = new File("customer.json");
     }
 
+    // Update log file.
     @Override
     public void createLog (ArrayList customers) {
         GsonBuilder builder = new GsonBuilder();
@@ -33,6 +36,7 @@ public class CustomerLog implements Log {
         }
     }
 
+    // Read from log files.
     @Override
     public ArrayList<Customer> readLog() {
         ArrayList<Customer> customers = new ArrayList<>();
@@ -67,6 +71,7 @@ public class CustomerLog implements Log {
         return customers;
     }
 
+    // Three serializers to make strategy able to transfer to Json.
     private class DepositSerializer implements JsonSerializer<Deposit> {
         public JsonElement serialize (Deposit src, Type typeOfSrc, JsonSerializationContext context)
             throws JsonParseException {
@@ -88,6 +93,7 @@ public class CustomerLog implements Log {
         }
     }
 
+    // Deserializers to transfer customized Json elements back to objects.
     private class DepositDeserializer implements JsonDeserializer<Deposit> {
         public Deposit deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {

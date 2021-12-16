@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 
+// Template of transaction record of money.
 public class Transaction implements HasDate, HasID{
     private Integer fromAccount;
     private Integer toAccount;

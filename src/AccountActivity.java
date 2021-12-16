@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 
+// Template of account activity record.
 public class AccountActivity implements HasDate, HasName, HasID{
     private String username;
     private int accountNo;
@@ -8,6 +9,7 @@ public class AccountActivity implements HasDate, HasName, HasID{
     private String type;
     private String activity;
 
+    //Two different constructor to fit different occasions.
     public AccountActivity () {}
     public AccountActivity (Customer user, int accountNo, Date time, String type, String activity) {
         this(user.getUsername(), accountNo, time, type, activity);
@@ -27,6 +29,7 @@ public class AccountActivity implements HasDate, HasName, HasID{
             this.activity = "error";
     }
 
+    //Getter methods.
     public String getUsername() {
         return username;
     }

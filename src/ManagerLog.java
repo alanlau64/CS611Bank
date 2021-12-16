@@ -6,6 +6,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+// Save and load manager information from file.
 public class ManagerLog implements Log {
     private String content;
     private File logFile;

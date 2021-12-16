@@ -1,5 +1,6 @@
 import java.util.Locale;
 
+// Factory class to create log instances.
 public class LogFactory {
     public Log getLog (String logType) {
         switch (logType.toLowerCase()) {

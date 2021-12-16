@@ -6,6 +6,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+// Save and load stock information including price and name.
 public class StockLog implements Log {
     private String content;
     private File logFile;
